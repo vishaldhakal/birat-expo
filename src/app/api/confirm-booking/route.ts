@@ -1,7 +1,7 @@
 import StallBookingTemplate from "@/components/confirmed-booking-mail";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API);
+
 
 // const schema = yup.object().shape({
 //     company: yup.string().required("Company/Organization is required"),
@@ -57,6 +57,7 @@ interface FormData {
 }
 
 export async function POST(request: Request) {
+  const resend = new Resend(process.env.RESEND_API);
   try {
     const body = await request.json();
 

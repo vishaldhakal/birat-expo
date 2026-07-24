@@ -1,7 +1,6 @@
 import SponsorEmailTemplate from "@/components/sponsor-booking-template";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API);
 
 interface BookingData {
   stallType: string;
@@ -14,6 +13,7 @@ interface BookingData {
 export async function POST(request: Request) {
   try {
     const body: BookingData = await request.json();
+    const resend = new Resend(process.env.RESEND_API);
 
     const { data, error } = await resend.emails.send({
       from: "Birat Expo 2025 Booking <info@baliyoventures.com>",

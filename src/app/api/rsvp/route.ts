@@ -2,11 +2,11 @@ import { RSVPEmailJaneTemplate } from "@/components/rsvp-email-jane-template";
 import { RSVPFormData } from "@/types/invitation";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API);
 
 export async function POST(request: Request) {
   try {
     const data: RSVPFormData = await request.json();
+    const resend = new Resend(process.env.RESEND_API);
 
     // Send email to both the respondent (if email provided) and admin
     const emailRecipients = ["biratexpo2024@gmail.com"]; // Add your admin email

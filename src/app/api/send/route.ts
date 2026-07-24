@@ -1,8 +1,6 @@
 import EmailTemplate from "@/components/email-template";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API);
-
 interface FormData {
   name?: string;
   email?: string;
@@ -13,6 +11,7 @@ interface FormData {
 export async function POST(request: Request) {
   try {
     const body: FormData = await request.json();
+    const resend = new Resend(process.env.RESEND_API);
 
     // Provide default values for potentially missing fields
     const templateProps = {

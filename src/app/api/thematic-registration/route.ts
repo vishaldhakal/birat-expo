@@ -2,11 +2,11 @@ import ThematicEmailRegistrationTemplate from "@/components/thematic/thematic-re
 import { ThematicRegistrationResponse } from "@/types/thematic";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API);
 
 export async function POST(request: Request) {
   try {
     const body: ThematicRegistrationResponse = await request.json();
+    const resend = new Resend(process.env.RESEND_API);
 
     // Send email to both the registrant and admin
     const { data, error } = await resend.emails.send({
