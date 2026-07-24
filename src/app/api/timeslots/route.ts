@@ -14,7 +14,7 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      `https://yachu.baliyoventures.com/api/timeslots/?date=${date}&topic=${topic}`
+      `https://cim.baliyoventures.com/api/timeslots/?date=${date}&topic=${topic}`
     );
     const data = await response.json();
     return NextResponse.json(data);

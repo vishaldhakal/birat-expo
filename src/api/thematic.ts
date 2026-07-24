@@ -37,7 +37,7 @@ export async function registerForThematic(
   try {
     // Main registration request
     const response = await fetchWithTimeout(
-      "https://yachu.baliyoventures.com/api/thematic-registrations/",
+      "https://cim.baliyoventures.com/api/thematic-registrations/",
       {
         method: "POST",
         headers: {
@@ -101,7 +101,7 @@ export async function registerForThematic(
 
 export function useGetThematicSessions() {
   const URL = useMemo(
-    () => "https://yachu.baliyoventures.com/api/thematic-sessions/",
+    () => "https://cim.baliyoventures.com/api/thematic-sessions/",
     []
   );
 
@@ -125,7 +125,7 @@ export function useGetThematicSessions() {
 }
 
 export function useGetThematicRegistrations() {
-  const URL = `https://yachu.baliyoventures.com/api/thematic-registrations/`;
+  const URL = `https://cim.baliyoventures.com/api/thematic-registrations/`;
 
   const { data, error, isLoading, isValidating } = useSWR<
     ThematicRegistrationResponse[]

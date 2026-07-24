@@ -86,7 +86,7 @@ export interface ThematicRegistrationResponse {
 
 export async function fetchThematicSessions(): Promise<ThematicSession[]> {
   const response = await fetch(
-    "https://yachu.baliyoventures.com/api/thematic-sessions/"
+    "https://cim.baliyoventures.com/api/thematic-sessions/"
   );
   if (!response.ok) {
     throw new Error("Failed to fetch thematic sessions");

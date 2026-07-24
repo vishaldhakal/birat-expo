@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://yachu.baliyoventures.com/api/stall/",
+  baseURL: "https://cim.baliyoventures.com/api/stall/",
   headers: {
     "Content-Type": "application/json",
   },

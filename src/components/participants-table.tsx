@@ -134,14 +134,14 @@ const ParticipantsTable: React.FC = () => {
     setLoadingStallId(id);
     try {
       const data = await axios
-        .patch(`https://yachu.baliyoventures.com/api/registrations/${id}/`, {
+        .patch(`https://cim.baliyoventures.com/api/registrations/${id}/`, {
           status: newStatus,
         })
         .then((res) => res.data);
 
       // Optimistically update the local data
       mutate(
-        "https://yachu.baliyoventures.com/api/registrations/",
+        "https://cim.baliyoventures.com/api/registrations/",
         (currentData: Participant[] | undefined) => {
           if (!currentData) return currentData;
 

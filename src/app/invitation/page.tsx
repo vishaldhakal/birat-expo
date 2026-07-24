@@ -34,7 +34,7 @@ export default function InvitationPage() {
       setError(null);
 
       const sessionsResponse = await fetch(
-        "https://yachu.baliyoventures.com/api/rsvp/",
+        "https://cim.baliyoventures.com/api/rsvp/",
         {
           method: "POST",
           headers: {

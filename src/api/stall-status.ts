@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import useSWR from "swr";
 
 export function useGetStallTypeData(stallType: StallType) {
-  const URL = `https://yachu.baliyoventures.com/api/get-booked-stalls/?stall_type=${encodeURIComponent(
+  const URL = `https://cim.baliyoventures.com/api/get-booked-stalls/?stall_type=${encodeURIComponent(
     stallType
   )}`;
 
@@ -52,7 +52,7 @@ export type SponsorStallType = {
 };
 
 export function useGetSponsorStallStatus() {
-  const URL = `https://yachu.baliyoventures.com/api/sponsor`;
+  const URL = `https://cim.baliyoventures.com/api/sponsor`;
 
   const { data, isLoading, error, isValidating } = useSWR<SponsorStallType[]>(
     URL,

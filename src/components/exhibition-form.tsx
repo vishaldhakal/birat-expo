@@ -130,7 +130,7 @@ const ExhibitionForm = () => {
 
     try {
       await axios
-        .post("https://yachu.baliyoventures.com/api/stall/", formData, {
+        .post("https://cim.baliyoventures.com/api/stall/", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

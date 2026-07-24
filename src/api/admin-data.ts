@@ -26,7 +26,7 @@ type StallBooking = {
 };
 
 export function useGetStallData() {
-  const URL = "https://yachu.baliyoventures.com/api/stall/";
+  const URL = "https://cim.baliyoventures.com/api/stall/";
 
   const { data, isLoading, error, isValidating } = useSWR(URL, fetcher);
 

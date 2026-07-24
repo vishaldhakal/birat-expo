@@ -41,7 +41,7 @@ export type Participant = {
 };
 
 export function useGetParticipants() {
-  const URL = `https://yachu.baliyoventures.com/api/registrations/`;
+  const URL = `https://cim.baliyoventures.com/api/registrations/`;
 
   const { data, error, isLoading, isValidating } = useSWR<Participant[]>(
     URL,
@@ -63,7 +63,7 @@ export function useGetParticipants() {
 }
 
 export function useGetEachParticipant(id: number) {
-  const URL = `https://yachu.baliyoventures.com/api/registrations/${id}`;
+  const URL = `https://cim.baliyoventures.com/api/registrations/${id}`;
 
   const { data, error, isLoading, isValidating } = useSWR<Participant>(
     URL,

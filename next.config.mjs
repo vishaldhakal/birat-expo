@@ -2,7 +2,7 @@
 const nextConfig = {
   images: {
     domains: [
-      "api.microlink.io", "yachu.baliyoventures.com" // Microlink Image Preview
+      "api.microlink.io", "cim.baliyoventures.com" // Microlink Image Preview
     ],
   },
 };

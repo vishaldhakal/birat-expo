@@ -55,7 +55,7 @@ const SponsorBookingForm = () => {
           stallId,
           ...data,
         }),
-        axios.post("https://yachu.baliyoventures.com/api/sponsor/", {
+        axios.post("https://cim.baliyoventures.com/api/sponsor/", {
           stall_type: stallType,
           stall_id: stallId,
           company_name: data.companyName,

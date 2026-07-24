@@ -154,7 +154,7 @@ const ThematicParticipationTable: React.FC = () => {
     try {
       await axios
         .patch(
-          `https://yachu.baliyoventures.com/api/thematic-registrations/${id}/`,
+          `https://cim.baliyoventures.com/api/thematic-registrations/${id}/`,
           {
             status: newStatus,
           }
@@ -178,7 +178,7 @@ const ThematicParticipationTable: React.FC = () => {
           }
         });
 
-      mutate("https://yachu.baliyoventures.com/api/thematic-registrations/");
+      mutate("https://cim.baliyoventures.com/api/thematic-registrations/");
     } catch (error) {
       console.error("Error updating status:", error);
     } finally {

@@ -86,7 +86,7 @@ const AdminTable: React.FC = () => {
   const handleViewDetails = async (id: number) => {
     try {
       const response = await axios.get(
-        `https://yachu.baliyoventures.com/api/stall/${id}/`
+        `https://cim.baliyoventures.com/api/stall/${id}/`
       );
       setSelectedStall(response.data);
       setIsModalOpen(true);
@@ -104,7 +104,7 @@ const AdminTable: React.FC = () => {
       const endpoint =
         newStatus === "Approved" ? "approve-stall" : "reject-stall";
       await axios.post(
-        `https://yachu.baliyoventures.com/api/${endpoint}/${id}/`
+        `https://cim.baliyoventures.com/api/${endpoint}/${id}/`
       );
       if (selectedStall && selectedStall.id === id) {
         setSelectedStall({ ...selectedStall, status: newStatus });
@@ -112,7 +112,7 @@ const AdminTable: React.FC = () => {
       if (newStatus === "Approved" && isModalOpen) {
         setIsModalOpen(false);
       }
-      mutate("https://yachu.baliyoventures.com/api/stall/");
+      mutate("https://cim.baliyoventures.com/api/stall/");
     } catch (error) {
       console.error("Error updating status:", error);
     } finally {

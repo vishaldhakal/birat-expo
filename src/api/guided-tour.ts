@@ -30,7 +30,7 @@ export async function registerForGuidedTour(
   try {
     // Main registration request to backend
     const response = await fetchWithTimeout(
-      "https://yachu.baliyoventures.com/api/guided-tours/",
+      "https://cim.baliyoventures.com/api/guided-tours/",
       {
         method: "POST",
         headers: {

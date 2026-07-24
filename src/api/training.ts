@@ -5,7 +5,7 @@ import useSWR from "swr";
 
 export function useGetAvailableSessions() {
   const URL =
-    "https://yachu.baliyoventures.com/api/registrations/available-sessions/";
+    "https://cim.baliyoventures.com/api/registrations/available-sessions/";
 
   const { data, error, isLoading, isValidating } = useSWR<Topic[]>(
     URL,
@@ -29,7 +29,7 @@ export function useGetAvailableSessions() {
 export async function registerForTraining(formData: FormData) {
   try {
     const response = await fetch(
-      "https://yachu.baliyoventures.com/api/registrations/",
+      "https://cim.baliyoventures.com/api/registrations/",
       {
         method: "POST",
         body: formData,

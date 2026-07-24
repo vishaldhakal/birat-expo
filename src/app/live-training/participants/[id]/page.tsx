@@ -17,7 +17,7 @@ export default function ParticipantPage({
     try {
       setIsAttending(true);
       const response = await fetch(
-        `https://yachu.baliyoventures.com/api/registrations/${params.id}/attendance/`,
+        `https://cim.baliyoventures.com/api/registrations/${params.id}/attendance/`,
         {
           method: "PATCH",
           headers: {
