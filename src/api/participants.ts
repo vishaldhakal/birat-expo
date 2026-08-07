@@ -43,21 +43,21 @@ export type Participant = {
 export function useGetParticipants() {
   const URL = `https://cim.baliyoventures.com/api/registrations/`;
 
-  const { data, error, isLoading, isValidating } = useSWR<Participant[]>(
+  const { data, error, isLoading, isValidating } = useSWR<any>(
     URL,
     fetcher
   );
 
-  const memoizedValue = useMemo(
-    () => ({
-      participants: data,
+  const memoizedValue = useMemo(() => {
+    const participantsArray = Array.isArray(data) ? data : (data?.results || []);
+    return {
+      participants: (data ? participantsArray : undefined) as Participant[] | undefined,
       participantsLoading: isLoading,
       participantsError: error,
       participantsValidating: isValidating,
-      participantsEmpty: !isLoading && !data,
-    }),
-    [data, error, isLoading, isValidating]
-  );
+      participantsEmpty: !isLoading && !participantsArray.length,
+    };
+  }, [data, error, isLoading, isValidating]);
 
   return memoizedValue;
 }

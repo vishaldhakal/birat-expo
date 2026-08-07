@@ -30,16 +30,16 @@ export function useGetStallData() {
 
   const { data, isLoading, error, isValidating } = useSWR(URL, fetcher);
 
-  const memoizedValue = useMemo(
-    () => ({
-      stallData: (data as StallBooking[]) || [],
+  const memoizedValue = useMemo(() => {
+    const dataArray = Array.isArray(data) ? data : (data?.results || []);
+    return {
+      stallData: (dataArray as StallBooking[]) || [],
       stallDataLoading: isLoading,
       stallDataError: error,
       stallDataValidating: isValidating,
-      stallDataEmpty: !isLoading && !data?.length,
-    }),
-    [data, error, isLoading, isValidating]
-  );
+      stallDataEmpty: !isLoading && !dataArray.length,
+    };
+  }, [data, error, isLoading, isValidating]);
 
   return memoizedValue;
 }

@@ -54,18 +54,19 @@ export type SponsorStallType = {
 export function useGetSponsorStallStatus() {
   const URL = `https://cim.baliyoventures.com/api/sponsor`;
 
-  const { data, isLoading, error, isValidating } = useSWR<SponsorStallType[]>(
+  const { data, isLoading, error, isValidating } = useSWR<any>(
     URL,
     fetcher
   );
 
   const memoizedValue = useMemo(() => {
+    const dataArray = Array.isArray(data) ? data : (data?.results || []);
     return {
-      sponsorStallStatus: data,
+      sponsorStallStatus: dataArray as SponsorStallType[],
       sponsorStallStatusLoading: isLoading,
       sponsorStallStatusError: error,
       sponsorStallStatusValidating: isValidating,
-      sponsorStallStatusEmpty: !isLoading && !data?.length,
+      sponsorStallStatusEmpty: !isLoading && !dataArray.length,
     };
   }, [data, error, isLoading, isValidating]);
 

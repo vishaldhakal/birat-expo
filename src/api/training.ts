@@ -7,21 +7,21 @@ export function useGetAvailableSessions() {
   const URL =
     "https://cim.baliyoventures.com/api/registrations/available-sessions/";
 
-  const { data, error, isLoading, isValidating } = useSWR<Topic[]>(
+  const { data, error, isLoading, isValidating } = useSWR<any>(
     URL,
     fetcher
   );
 
-  const memoizedValue = useMemo(
-    () => ({
-      sessions: data || [],
+  const memoizedValue = useMemo(() => {
+    const sessionsArray = Array.isArray(data) ? data : (data?.results || []);
+    return {
+      sessions: sessionsArray as Topic[],
       sessionsLoading: isLoading,
       sessionsError: error,
       sessionsValidating: isValidating,
-      sessionsEmpty: !isLoading && !data?.length,
-    }),
-    [data, error, isLoading, isValidating]
-  );
+      sessionsEmpty: !isLoading && !sessionsArray.length,
+    };
+  }, [data, error, isLoading, isValidating]);
 
   return memoizedValue;
 }

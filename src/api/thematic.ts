@@ -105,21 +105,21 @@ export function useGetThematicSessions() {
     []
   );
 
-  const { data, error, isLoading, isValidating } = useSWR<ThematicSession[]>(
+  const { data, error, isLoading, isValidating } = useSWR<any>(
     URL,
     fetcher
   );
 
-  const memoizedValue = useMemo(
-    () => ({
-      thematicSessions: data || [],
+  const memoizedValue = useMemo(() => {
+    const sessionsArray = Array.isArray(data) ? data : (data?.results || []);
+    return {
+      thematicSessions: sessionsArray as ThematicSession[],
       thematicSessionsLoading: isLoading,
       thematicSessionsError: error,
       thematicSessionsValidating: isValidating,
-      thematicSessionsEmpty: !isLoading && !data?.length,
-    }),
-    [data, isLoading, isValidating, error]
-  );
+      thematicSessionsEmpty: !isLoading && !sessionsArray.length,
+    };
+  }, [data, isLoading, isValidating, error]);
 
   return memoizedValue;
 }
@@ -127,20 +127,18 @@ export function useGetThematicSessions() {
 export function useGetThematicRegistrations() {
   const URL = `https://cim.baliyoventures.com/api/thematic-registrations/`;
 
-  const { data, error, isLoading, isValidating } = useSWR<
-    ThematicRegistrationResponse[]
-  >(URL, fetcher);
+  const { data, error, isLoading, isValidating } = useSWR<any>(URL, fetcher);
 
-  const memoizedValue = useMemo(
-    () => ({
-      thematicRegistrations: data || [],
+  const memoizedValue = useMemo(() => {
+    const registrationsArray = Array.isArray(data) ? data : (data?.results || []);
+    return {
+      thematicRegistrations: registrationsArray as ThematicRegistrationResponse[],
       thematicRegistrationsLoading: isLoading,
       thematicRegistrationsError: error,
       thematicRegistrationsValidating: isValidating,
-      thematicRegistrationsEmpty: !isLoading && !data?.length,
-    }),
-    [data, isLoading, isValidating, error]
-  );
+      thematicRegistrationsEmpty: !isLoading && !registrationsArray.length,
+    };
+  }, [data, isLoading, isValidating, error]);
 
   return memoizedValue;
 }
