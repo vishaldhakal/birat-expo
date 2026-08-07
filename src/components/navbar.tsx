@@ -59,7 +59,6 @@ export const navItems = [
     title: "Others",
     items: [
       { title: "Birat Expo'25", href: "/biratexpo-2025" },
-      { title: "Birat Expo'24", href: "/biratexpo-2024" },
       { title: "Birat Expo'22", href: "/biratexpo-2022" },
       {
         title: "Organizer",
@@ -83,14 +82,15 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <nav className="bg-white px-4 sticky shadow-2xl top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center h-20">
+    <nav className="bg-white sticky shadow-2xl top-0 z-50">
+      <div className="container mx-auto px-4 md:px-8 flex justify-between items-center h-20">
         <Link href="/">
           <Image
             src="/logo.png"
             alt="Birat Expo 2025"
             width={200}
             height={60}
+            className="-ml-[20px]"
           />
         </Link>
 

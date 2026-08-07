@@ -118,7 +118,7 @@ export default function Platforms2026() {
 
   return (
     <section className="py-12 border-t border-gray-100">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 md:px-8">
         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase">
           6 Opportunity Zones & Platforms
         </h2>

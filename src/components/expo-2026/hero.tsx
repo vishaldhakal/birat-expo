@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hero2026() {
   return (
-    <div className="container mx-auto px-4 py-12 md:py-16">
+    <div className="container mx-auto px-4 md:px-8 py-12 md:py-16">
       <div className="flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left Side: Info */}
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-8">
@@ -58,15 +58,15 @@ export default function Hero2026() {
           </div>
         </div>
 
-        {/* Right Side: Image Banner */}
+        {/* Right Side: Mascot */}
         <div className="w-full md:w-1/2 flex justify-center md:justify-end">
-          <div className="w-full max-w-lg border border-gray-100 bg-white">
-            <img
-              src="/birat-expo-2026/biratexpo2026.jpeg"
-              alt="Birat Expo 2026 Banner"
-              className="w-full h-auto object-cover"
-            />
-          </div>
+          <Image
+            src="/mascot.svg"
+            alt="Birat Expo 2026 Mascot"
+            width={500}
+            height={600}
+            className="max-w-full h-auto"
+          />
         </div>
       </div>
     </div>
