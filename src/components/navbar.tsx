@@ -58,6 +58,8 @@ export const navItems = [
   {
     title: "Others",
     items: [
+      { title: "Birat Expo'25", href: "/biratexpo-2025" },
+      { title: "Birat Expo'24", href: "/biratexpo-2024" },
       { title: "Birat Expo'22", href: "/biratexpo-2022" },
       {
         title: "Organizer",

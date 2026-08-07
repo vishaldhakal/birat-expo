@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import ContactForm from "./contact-form";
 
-const ContactInformation = () => {
+const ContactInformation = ({ year = 2026 }: { year?: number }) => {
   return (
     <>
       <ContactForm />
@@ -96,7 +96,7 @@ const ContactInformation = () => {
               </div>
               <h3 className="font-bold">Mr. Bholeshwor Dulal</h3>
               <p className="text-sm">
-                Vice President & Coordinator Birat Expo 2025
+                Vice President & Coordinator Birat Expo {year}
               </p>
               <a href="tel:9851131915" className="text-sm hover:underline">
                 Mobile 9851131915
@@ -113,7 +113,7 @@ const ContactInformation = () => {
               </div>
               <h3 className="font-bold">Mr. Paras Luniya</h3>
               <p className="text-sm">
-                Executive member & Co-Coordinator Birat Expo 2025
+                Executive member & Co-Coordinator Birat Expo {year}
               </p>
               <a href="tel:9802771077" className="text-sm hover:underline">
                 Mobile 9802771077
