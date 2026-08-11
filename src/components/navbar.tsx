@@ -100,7 +100,7 @@ const Navbar = () => {
             <div key={index} className="relative group">
               {item.items ? (
                 <>
-                  <button className="px-4 py-2 bg-white text-sm text-gray-900 font-semibold flex items-center hover:text-blue-600 transition-colors duration-200">
+                  <button className=" bg-white text-sm text-gray-900 font-semibold flex items-center hover:text-blue-600 transition-colors duration-200">
                     {item.title}
                     <svg
                       className="ml-2 h-5 w-5"

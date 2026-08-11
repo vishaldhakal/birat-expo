@@ -11,7 +11,7 @@ import ContactInformation from "@/components/contact-information";
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full min-h-screen bg-white ">
       <Hero2026 />
       <Evolution2026 />
       <Ecosystem2026 />
