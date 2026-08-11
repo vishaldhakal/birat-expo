@@ -91,5 +91,6 @@ export async function fetchThematicSessions(): Promise<ThematicSession[]> {
   if (!response.ok) {
     throw new Error("Failed to fetch thematic sessions");
   }
-  return response.json();
+  const data = await response.json();
+  return data.results || data;
 }
