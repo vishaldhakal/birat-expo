@@ -24,7 +24,7 @@ export default function Hero2026() {
             />
           </div>
           
-          <div className="text-center md:text-left">
+          <div className="text-left">
             <span className="bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
               9th Edition
             </span>

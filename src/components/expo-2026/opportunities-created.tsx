@@ -11,7 +11,7 @@ export default function OpportunitiesCreated2026() {
           &quot;Notice the subtle difference. We are not counting activities. We are counting opportunities created.&quot;
         </p>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
           {[
             { stat: "250,000+", label: "People Connected" },
             { stat: "10,000+", label: "Learning Opportunities" },
@@ -23,15 +23,15 @@ export default function OpportunitiesCreated2026() {
           ].map((item, i) => (
             <div
               key={i}
-              className="bg-gray-50 border border-gray-200 p-6 rounded-2xl flex flex-col justify-center items-center"
+              className="bg-gray-50 border border-gray-200 p-6 rounded-2xl flex flex-col justify-center items-start"
             >
               <div className="text-2xl md:text-3xl font-extrabold text-blue-600">{item.stat}</div>
               <div className="text-xs font-bold text-gray-500 uppercase mt-2">{item.label}</div>
             </div>
           ))}
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-6 rounded-2xl text-white flex flex-col justify-center items-center">
+          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-6 rounded-2xl text-white flex flex-col justify-center items-start">
             <div className="text-lg font-bold">Plus</div>
-            <div className="text-xs text-blue-100 font-bold text-center mt-1.5 leading-relaxed">
+            <div className="text-xs text-blue-100 font-bold text-left mt-1.5 leading-relaxed">
               International, Policy & Community Opportunities
             </div>
           </div>

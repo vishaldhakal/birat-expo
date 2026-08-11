@@ -22,7 +22,7 @@ export default function Ecosystem2026() {
           />
         </div>
 
-        <h3 className="text-2xl font-black text-gray-900 mb-6 text-center uppercase tracking-wide">
+        <h3 className="text-2xl font-black text-gray-900 mb-6 text-left uppercase tracking-wide">
           Four Strategic Pillars
         </h3>
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
