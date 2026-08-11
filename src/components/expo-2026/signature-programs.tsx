@@ -7,7 +7,7 @@ export default function SignaturePrograms2026() {
         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase">
           Signature Programs
         </h2>
-        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed">
+        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed text-justify">
           The vision of Birat Expo 2026 – The Ecosystem of Opportunities is translated into action through CIM&apos;s flagship platforms. Rather than creating temporary activities, the Expo integrates proven year-round platforms for greater visibility, wider participation, and stronger impact.
         </p>
 

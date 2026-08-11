@@ -122,7 +122,7 @@ export default function Platforms2026() {
         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase">
           6 Opportunity Zones & Platforms
         </h2>
-        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed">
+        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed text-justify">
           Rather than organizing a conventional exhibition around products and pavilions, Birat Expo 2026 organizes related ecosystems into 6 integrated Opportunity Platforms to provide a seamless, value-driven journey.
         </p>
 
@@ -184,7 +184,7 @@ export default function Platforms2026() {
             </span>
           </div>
 
-          <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-8">
+          <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-8 text-justify">
             {platforms[activeTab].desc}
           </p>
 

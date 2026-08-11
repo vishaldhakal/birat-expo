@@ -7,7 +7,7 @@ export default function Ecosystem2026() {
         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase">
           The Ecosystem of Opportunities
         </h2>
-        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed">
+        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed text-justify">
           Economic growth is not created through isolated initiatives. It is created through ecosystems.
           An ecosystem where businesses collaborate rather than compete in isolation. Where students connect with industries.
           Where entrepreneurs meet investors. Where innovation reaches markets. Where policy meets practice.
