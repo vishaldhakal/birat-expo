@@ -7,14 +7,14 @@ export default function Evolution2026() {
         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase">
           The Evolution of Birat Expo
         </h2>
-        <div className="w-full max-w-5xl mx-auto overflow-hidden mb-10 border border-gray-150 bg-white">
+        <div className="w-full overflow-hidden mb-10 border border-gray-150 bg-white">
           <img
             src="/birat-expo-2026/evolutionofbiratexpo.jpeg"
             alt="The Evolution of Birat Expo"
             className="w-full h-auto object-cover"
           />
         </div>
-        <div className="max-w-5xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed space-y-6">
+        <div className="w-full text-gray-700 text-base md:text-lg leading-relaxed space-y-6">
           <p>
             For nearly three decades, Birat Expo has evolved alongside the economic transformation of Eastern Nepal.
             Organized by the Chamber of Industries Morang (CIM), the Expo has continuously adapted to meet the changing aspirations of industries, entrepreneurs, businesses, and society.

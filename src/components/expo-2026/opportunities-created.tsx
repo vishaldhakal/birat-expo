@@ -11,7 +11,7 @@ export default function OpportunitiesCreated2026() {
           &quot;Notice the subtle difference. We are not counting activities. We are counting opportunities created.&quot;
         </p>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+        <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
           {[
             { stat: "250,000+", label: "People Connected" },
             { stat: "10,000+", label: "Learning Opportunities" },

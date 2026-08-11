@@ -7,14 +7,14 @@ export default function Ecosystem2026() {
         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase">
           The Ecosystem of Opportunities
         </h2>
-        <p className="max-w-5xl mx-auto text-base md:text-lg text-gray-700 mb-10 leading-relaxed">
+        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed">
           Economic growth is not created through isolated initiatives. It is created through ecosystems.
           An ecosystem where businesses collaborate rather than compete in isolation. Where students connect with industries.
           Where entrepreneurs meet investors. Where innovation reaches markets. Where policy meets practice.
           Where partnerships create impact. This philosophy defines Birat Expo 2026.
         </p>
 
-        <div className="w-full max-w-5xl mx-auto overflow-hidden mb-8 border border-gray-200 bg-white">
+        <div className="w-full overflow-hidden mb-8 border border-gray-200 bg-white">
           <img
             src="/birat-expo-2026/ecosystemofoppurtunities.jpeg"
             alt="Ecosystem of Opportunities Circle"
@@ -25,7 +25,7 @@ export default function Ecosystem2026() {
         <h3 className="text-2xl font-black text-gray-900 mb-6 text-left uppercase tracking-wide">
           Four Strategic Pillars
         </h3>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
               title: "LEARN",

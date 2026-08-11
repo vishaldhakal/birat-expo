@@ -31,7 +31,7 @@ export default function Hero2026() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-950 mt-5 leading-none uppercase tracking-tight">
               Birat Expo 2026
             </h1>
-            <div className="w-20 h-1.5 bg-blue-600 my-4 mx-auto md:mx-0"></div>
+            <div className="w-20 h-1.5 bg-blue-600 my-4 mx-0"></div>
             <p className="text-xl md:text-2xl text-blue-600 font-extrabold uppercase tracking-wide">
               Theme: The Ecosystem of Opportunities
             </p>

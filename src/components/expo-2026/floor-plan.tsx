@@ -7,7 +7,7 @@ export default function FloorPlan2026() {
         <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase text-start">
           Proposed Floor Plan
         </h2>
-        <div className="w-full max-w-4xl mx-auto overflow-hidden bg-white p-3 border border-gray-200">
+        <div className="w-full overflow-hidden bg-white p-3 border border-gray-200">
           <img
             src="/birat-expo-2026/floorplan.jpeg"
             alt="Birat Expo 2026 Floor Plan"
