@@ -61,7 +61,7 @@ export default function Hero2026() {
         {/* Right Side: Mascot */}
         <div className="w-full md:w-1/2 flex justify-center md:justify-end">
           <Image
-            src="/mascot-2026.png"
+            src="/biratmascot.png"
             alt="Birat Expo 2026 Mascot"
             width={500}
             height={600}
