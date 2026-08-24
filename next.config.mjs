@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "api.microlink.io", "cim.baliyoventures.com" // Microlink Image Preview
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.microlink.io",
+      },
+      {
+        protocol: "https",
+        hostname: "cim.baliyoventures.com",
+      },
     ],
   },
 };

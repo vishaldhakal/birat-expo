@@ -14,14 +14,14 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
               alt="Baliyo Ventures"
               width={100}
               height={50}
-              className="rounded-full bg-white"
+              className="rounded-full bg-white w-auto h-auto"
             />
             <Image
               src="/2.png"
               alt="Baliyo Ventures"
               width={100}
               height={50}
-              className="rounded-md"
+              className="rounded-md w-auto h-auto"
             />
           </div>
           <h1 className="text-2xl md:text-3xl font-bold mb-4">
@@ -75,8 +75,8 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
                 <Image
                   src="/WhatsApp Image 2024-05-30 at 11.18.03.jpeg"
                   alt="Mr. Bholeshwor Dulal"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <h3 className="font-bold">Mr. Rakesh Surana</h3>
@@ -90,8 +90,8 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
                 <Image
                   src="/WhatsApp Image 2024-05-30 at 11.17.46.jpeg"
                   alt="Mr. Bholeshwor Dulal"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <h3 className="font-bold">Mr. Bholeshwor Dulal</h3>
@@ -107,8 +107,8 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
                 <Image
                   src="/Parash Luniya.jpeg"
                   alt="Mr. Bholeshwor Dulal"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <h3 className="font-bold">Mr. Paras Luniya</h3>

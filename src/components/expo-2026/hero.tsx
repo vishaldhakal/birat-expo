@@ -13,14 +13,14 @@ export default function Hero2026() {
               alt="CIM Logo"
               width={80}
               height={40}
-              className="rounded-full bg-white"
+              className="rounded-full bg-white w-auto h-auto"
             />
             <Image
               src="/2.png"
               alt="Baliyo Logo"
               width={80}
               height={40}
-              className="rounded-md"
+              className="rounded-md w-auto h-auto"
             />
           </div>
           
@@ -65,7 +65,8 @@ export default function Hero2026() {
             alt="Birat Expo 2026 Mascot"
             width={500}
             height={600}
-            className="max-w-full h-auto"
+            className="max-w-full h-auto w-auto"
+            priority
           />
         </div>
       </div>

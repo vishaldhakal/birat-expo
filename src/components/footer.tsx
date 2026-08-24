@@ -90,7 +90,7 @@ const Footer = () => {
                   alt="Baliyo Ventures"
                   width={100}
                   height={50}
-                  className="rounded-md"
+                  className="rounded-md w-auto h-auto"
                 />
               </div>
               <h2 className="text-2xl font-bold mb-4">Technical Partner</h2>
@@ -104,7 +104,7 @@ const Footer = () => {
                     alt="Baliyo Ventures"
                     width={100}
                     height={50}
-                    className="rounded-md"
+                    className="rounded-md w-auto h-auto"
                   />
                 </div>
               </Link>

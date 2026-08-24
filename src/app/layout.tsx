@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={bricolage.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={bricolage.className} suppressHydrationWarning>
         <Navbar></Navbar>
         {children}
         <Footer />
