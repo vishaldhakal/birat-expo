@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import ContactForm from "./contact-form";
 
 const ContactInformation = ({ year = 2026 }: { year?: number }) => {
