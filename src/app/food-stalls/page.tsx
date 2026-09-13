@@ -38,7 +38,7 @@ const FoodPage = () => {
     if (isLoading || isError) return { bookedStalls: [], reservedStalls: [] };
 
     const processData = (
-      data: StallTypeData
+      data: StallTypeData,
     ): { booked: StallInfo[]; reserved: StallInfo[] } => {
       const booked = data.stall_no_booked.map((stall) => ({
         id: stall[0],
@@ -54,7 +54,12 @@ const FoodPage = () => {
     const autoProcessed = processData(
       stallTypeData
         ? stallTypeData
-        : { booked: [], pending: [], stall_no_booked: [], stall_no_pending: [] }
+        : {
+            booked: [],
+            pending: [],
+            stall_no_booked: [],
+            stall_no_pending: [],
+          },
     );
 
     return {
@@ -67,7 +72,7 @@ const FoodPage = () => {
     setSelectedStalls((prevSelected) =>
       prevSelected.includes(stallId)
         ? prevSelected.filter((id) => id !== stallId)
-        : [...prevSelected, stallId]
+        : [...prevSelected, stallId],
     );
   }, []);
 
@@ -75,8 +80,8 @@ const FoodPage = () => {
     if (selectedStalls.length > 0) {
       router.push(
         `/book-stalls?stalls=${selectedStalls.join(
-          ","
-        )}&type=Food Stalls&total=${totalPrice}`
+          ",",
+        )}&type=Food Stalls&total=${totalPrice}`,
       );
     }
   };
@@ -126,7 +131,7 @@ const FoodPage = () => {
   return (
     <div className="relative">
       <StallArea
-        title="5 Food Stalls"
+        title="Hanger 5 : Food Stalls"
         legendItems={legendItemsFood}
         StallComponent={Food}
         stallProps={{

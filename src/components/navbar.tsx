@@ -24,7 +24,7 @@ export const navItems = [
         href: "/auto-bds-pavilion",
       },
       {
-        title: "5 Food Stalls",
+        title: "Hanger 5 : Food Stalls",
         href: "/food-stalls",
       },
     ],
