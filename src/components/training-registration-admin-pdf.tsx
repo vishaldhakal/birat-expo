@@ -140,7 +140,7 @@ export function TrainingRegistrationAdminPDF({ data }: { data: Participant }) {
         </View>
 
         <View style={styles.header}>
-          <Text style={styles.title}>BIRAT EXPO-2025</Text>
+          <Text style={styles.title}>BIRAT EXPO-2026</Text>
           <Text style={styles.subtitle}>
             Digital Koshi: Bridging Innovation and Investment
           </Text>
@@ -280,7 +280,7 @@ export function TrainingRegistrationAdminPDF({ data }: { data: Participant }) {
             Generated on {format(new Date(), "PPP")}
           </Text>
           <Text style={styles.footerText}>
-            BIRAT EXPO-2025 - Training Registration Document
+            BIRAT EXPO-2026 - Training Registration Document
           </Text>
           <Text style={styles.footerText}>
             Digital Koshi: Bridging Innovation and Investment

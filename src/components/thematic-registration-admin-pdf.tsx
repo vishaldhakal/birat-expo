@@ -131,7 +131,7 @@ export function ThematicRegistrationAdminPDF({
         </View>
 
         <View style={styles.header}>
-          <Text style={styles.title}>BIRAT EXPO-2025</Text>
+          <Text style={styles.title}>BIRAT EXPO-2026</Text>
           <Text style={styles.subtitle}>
             Digital Koshi: Bridging Innovation and Investment
           </Text>
@@ -247,7 +247,7 @@ export function ThematicRegistrationAdminPDF({
             Generated on {format(new Date(), "PPP")}
           </Text>
           <Text style={styles.footerText}>
-            BIRAT EXPO-2025 - Thematic Session Registration Document
+            BIRAT EXPO-2026 - Thematic Session Registration Document
           </Text>
           <Text style={styles.footerText}>
             Digital Koshi: Bridging Innovation and Investment

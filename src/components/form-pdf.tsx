@@ -86,142 +86,141 @@ const styles = StyleSheet.create({
   },
 });
 
-const MyDocument = ({ data }: { data: any }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Image src="/logo2.png" style={styles.logo} />
-        <Image src="/baliyo-logo.svg" style={styles.logo} />
-      </View>
+const MyDocument = ({ data }: { data: any }) => {
+  const safeData = data || {};
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.header}>
+          <Image src="/logo2.png" style={styles.logo} />
+          <Image src="/baliyo-logo.svg" style={styles.logo} />
+        </View>
 
-      <Text style={styles.title}>BIRAT EXPO-2025</Text>
-      <Text style={styles.subtitle}>
-        Digital Koshi : Bridging Innovation and Investment
-      </Text>
-      <Text style={styles.subtitle}>
-        24<sup>th</sup> Jan - 2<sup>nd</sup> Feb, 2025 • Biratnagar, Nepal
-      </Text>
+        <Text style={styles.title}>BIRAT EXPO-2026</Text>
+        <Text style={styles.subtitle}>
+          Digital Koshi : Bridging Innovation and Investment
+        </Text>
+        <Text style={styles.subtitle}>
+          17th Dec 2026 - 26th Dec 2026 • Biratnagar, Nepal
+        </Text>
 
-      <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
-        Application/Agreement for Exhibition Participation
-      </Text>
+        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
+          Application/Agreement for Exhibition Participation
+        </Text>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>A. EXHIBITOR&apos;S DETAIL</Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Company/Organization Name:</Text>{" "}
-          {data.company}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Organization Address:</Text> {data.address}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Name of the Chief Executive:</Text>{" "}
-          {data.chief_executive}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Phone/Mobile:</Text> {data.phone}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>City:</Text> {data.city}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Country:</Text> {data.country}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>E-mail:</Text> {data.email}
-        </Text>
-      </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>A. EXHIBITOR&apos;S DETAIL</Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Company/Organization Name:</Text>{" "}
+            {safeData.company || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Organization Address:</Text> {safeData.address || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Name of the Chief Executive:</Text>{" "}
+            {safeData.chief_executive || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Phone/Mobile:</Text> {safeData.phone || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>City:</Text> {safeData.city || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Country:</Text> {safeData.country || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>E-mail:</Text> {safeData.email || ""}
+          </Text>
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>B. EVENT DETAIL</Text>
-        <View style={styles.table}>
-          <View style={[styles.tableRow, { backgroundColor: "#f0f0f0" }]}>
-            <View style={styles.tableCol}>
-              <Text style={[styles.tableCell, styles.bold]}>Venue</Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>B. EVENT DETAIL</Text>
+          <View style={styles.table}>
+            <View style={[styles.tableRow, { backgroundColor: "#f0f0f0" }]}>
+              <View style={styles.tableCol}>
+                <Text style={[styles.tableCell, styles.bold]}>Venue</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={[styles.tableCell, styles.bold]}>Set Up Date</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={[styles.tableCell, styles.bold]}>Event Date</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={[styles.tableCell, styles.bold]}>Time</Text>
+              </View>
             </View>
-            <View style={styles.tableCol}>
-              <Text style={[styles.tableCell, styles.bold]}>Set Up Date</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={[styles.tableCell, styles.bold]}>Event Date</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={[styles.tableCell, styles.bold]}>Time</Text>
-            </View>
-          </View>
-          <View style={styles.tableRow}>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>
-                Degree Campus, Biratnagar, Nepal
-              </Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>
-                22<sup>nd</sup> & 23<sup>rd</sup> Jan 2025
-              </Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>
-                24<sup>th</sup> Jan - 2<sup>nd</sup> Feb 2025
-              </Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>10 A.M to 8 P.M</Text>
+            <View style={styles.tableRow}>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>
+                  Degree Campus, Biratnagar, Nepal
+                </Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>15th & 16th Dec 2026</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>17th Dec - 26th Dec 2026</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>10 A.M to 8 P.M</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>
-          C. DETAILS FOR PARTICIPATION & OTHER CHARGES
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Stall Type:</Text> {data.stall_type}
-        </Text>
-      </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>
+            C. DETAILS FOR PARTICIPATION & OTHER CHARGES
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Stall Type:</Text> {safeData.stall_type || ""}
+          </Text>
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>D. SPACE REQUIREMENT</Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Stall no:</Text> {data.stall_no}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>If two or more stalls:</Text>{" "}
-          {data.merge_or_separate}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Total Amount:</Text> Rs.{" "}
-          {data.total_amount.toLocaleString()}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Advance Amount:</Text> Rs.{" "}
-          {data.advance_amount.toLocaleString()}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Remaining Amount:</Text> Rs.{" "}
-          {data.remaining_amount.toLocaleString()}
-        </Text>
-        <Text style={styles.text}>
-          <Text style={styles.bold}>Total Amount in words:</Text>{" "}
-          {data.amount_in_words}
-        </Text>
-      </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>D. SPACE REQUIREMENT</Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Stall no:</Text> {safeData.stall_no || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>If two or more stalls:</Text>{" "}
+            {safeData.merge_or_separate || ""}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Total Amount:</Text> Rs.{" "}
+            {safeData.total_amount ? safeData.total_amount.toLocaleString() : "0"}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Advance Amount:</Text> Rs.{" "}
+            {safeData.advance_amount ? safeData.advance_amount.toLocaleString() : "0"}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Remaining Amount:</Text> Rs.{" "}
+            {safeData.remaining_amount ? safeData.remaining_amount.toLocaleString() : "0"}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Total Amount in words:</Text>{" "}
+            {safeData.amount_in_words || ""}
+          </Text>
+        </View>
 
-      <View style={styles.footer}>
-        <Text>
-          THIS APPLICATION /CONTRACT WILL NOT BE CONSIDERED UNLESS THE PAYMENT
-          IS ENCLOSED
-        </Text>
-        <Text style={{ marginTop: 5 }}>
-          I HEREBY CONFIRM THAT I HAVE READ THE TERMS AND CONDITIONS PRINTED IN
-          THE EXHIBITION STALL BOOKING FORM AND THAT I AM AUTHORIZED AS
-          PROPRIETOR / PARTNER / MANAGER TO SIGN THIS CONTRACT.
-        </Text>
-      </View>
-    </Page>
-  </Document>
-);
+        <View style={styles.footer}>
+          <Text>
+            THIS APPLICATION /CONTRACT WILL NOT BE CONSIDERED UNLESS THE PAYMENT
+            IS ENCLOSED
+          </Text>
+          <Text style={{ marginTop: 5 }}>
+            I HEREBY CONFIRM THAT I HAVE READ THE TERMS AND CONDITIONS PRINTED IN
+            THE EXHIBITION STALL BOOKING FORM AND THAT I AM AUTHORIZED AS
+            PROPRIETOR / PARTNER / MANAGER TO SIGN THIS CONTRACT.
+          </Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 export default MyDocument;

@@ -49,7 +49,7 @@ const schema = yup.object().shape({
       function (value) {
         const totalAmount = this.parent.total_amount;
         return (value as number) >= totalAmount * 0.3;
-      }
+      },
     )
     .required("Advance amount is required"),
   remaining_amount: yup.number().required("Remaining amount is required"),
@@ -148,7 +148,7 @@ const ExhibitionForm = () => {
     } catch (error) {
       console.error(error);
       setError(
-        "An error occurred while submitting the form. Please try again."
+        "An error occurred while submitting the form. Please try again.",
       );
     } finally {
       setIsSubmitting(false);
@@ -182,12 +182,12 @@ const ExhibitionForm = () => {
     <div className="bg-gray-100 p-6  pb-40 pt-20">
       <div className="mx-auto max-w-4xl overflow-hidden rounded-lg bg-white shadow-md">
         <div className="bg-blue-800 p-6 text-center text-white">
-          <h1 className="text-3xl font-bold ">BIRAT EXPO-2025</h1>
+          <h1 className="text-3xl font-bold ">BIRAT EXPO-2026</h1>
           <p className="mt-2 text-xl">
             Digital Koshi : Bridging Innovation and Investment
           </p>
           <p className="mt-2">
-            24<sup>th</sup> Jan - 2<sup>nd</sup> Feb 2025
+            17<sup>th</sup> Dec 2026 - 17<sup>th</sup> Dec 2026
           </p>
           <p>Biratnagar, Nepal</p>
         </div>
@@ -304,18 +304,22 @@ const ExhibitionForm = () => {
           <div className="mb-6">
             <h3 className="mb-2 text-xl font-semibold">B. EVENT DETAIL</h3>
             <table className="w-full border-collapse border">
-              <tr className="bg-gray-100">
-                <th className="border p-2">Venue</th>
-                <th className="border p-2">Set Up Date</th>
-                <th className="border p-2">Event Date</th>
-                <th className="border p-2">Time</th>
-              </tr>
-              <tr>
-                <td className="border p-2">Degree Campus, Biratnagar, Nepal</td>
-                <td className="border p-2">22nd & 23rd Jan 2025</td>
-                <td className="border p-2">24th Jan - 2nd Feb 2025</td>
-                <td className="border p-2">10 A.M to 8 P.M</td>
-              </tr>
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border p-2">Venue</th>
+                  <th className="border p-2">Set Up Date</th>
+                  <th className="border p-2">Event Date</th>
+                  <th className="border p-2">Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border p-2">Degree Campus, Biratnagar, Nepal</td>
+                  <td className="border p-2">15th & 16th Dec 2026</td>
+                  <td className="border p-2">17th - 26th Dec 2026</td>
+                  <td className="border p-2">10 A.M to 8 P.M</td>
+                </tr>
+              </tbody>
             </table>
           </div>
 
@@ -324,48 +328,52 @@ const ExhibitionForm = () => {
               C. DETAILS FOR PARTICIPATION & OTHER CHARGES:
             </h3>
             <table className="w-full border-collapse border">
-              <tr className="bg-gray-100">
-                <th className="border p-2">Stall/Categories</th>
-                <th className="border p-2">Rates Exclusive Tax</th>
-                <th className="border p-2">Facilities</th>
-                <th className="border p-2">Select</th>
-              </tr>
-              {[
-                { type: "National Prime", rate: "Rs. 60,000" },
-                { type: "National General", rate: "Rs. 50,000" },
-                { type: "International", rate: "US$ 500" },
-                { type: "Agro and MSME", rate: "Rs. 25,000" },
-                { type: "Automobiles", rate: "Rs. 60,000" },
-                { type: "Food Stalls", rate: "Rs. 1,00,000" },
-                { type: "BDS Providers Stall", rate: "Rs. 60,000" },
-              ].map((stall, index) => (
-                <tr key={index}>
-                  <td className="border p-2">{stall.type}</td>
-                  <td className="border p-2">{stall.rate}</td>
-                  {index === 0 && (
-                    <td className="border p-2" rowSpan={7}>
-                      Two Chairs, one table, two lights, one dustbin, company
-                      name on fascia, one 15 AMP plug point
-                    </td>
-                  )}
-                  <td className="border p-2">
-                    <Controller
-                      name="stall_type"
-                      control={control}
-                      render={({ field }) => (
-                        <input
-                          type="checkbox"
-                          {...field}
-                          value={stall.type}
-                          checked={field.value === stall.type}
-                          onChange={() => field.onChange(stall.type)}
-                          className="form-checkbox"
-                        />
-                      )}
-                    />
-                  </td>
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border p-2">Stall/Categories</th>
+                  <th className="border p-2">Rates Exclusive Tax</th>
+                  <th className="border p-2">Facilities</th>
+                  <th className="border p-2">Select</th>
                 </tr>
-              ))}
+              </thead>
+              <tbody>
+                {[
+                  { type: "National Prime", rate: "Rs. 60,000" },
+                  { type: "National General", rate: "Rs. 50,000" },
+                  { type: "International", rate: "US$ 500" },
+                  { type: "Agro and MSME", rate: "Rs. 25,000" },
+                  { type: "Automobiles", rate: "Rs. 60,000" },
+                  { type: "Food Stalls", rate: "Rs. 1,00,000" },
+                  { type: "BDS Providers Stall", rate: "Rs. 60,000" },
+                ].map((stall, index) => (
+                  <tr key={index}>
+                    <td className="border p-2">{stall.type}</td>
+                    <td className="border p-2">{stall.rate}</td>
+                    {index === 0 && (
+                      <td className="border p-2" rowSpan={7}>
+                        Two Chairs, one table, two lights, one dustbin, company
+                        name on fascia, one 15 AMP plug point
+                      </td>
+                    )}
+                    <td className="border p-2">
+                      <Controller
+                        name="stall_type"
+                        control={control}
+                        render={({ field }) => (
+                          <input
+                            type="checkbox"
+                            {...field}
+                            value={stall.type}
+                            checked={field.value === stall.type}
+                            onChange={() => field.onChange(stall.type)}
+                            className="form-checkbox"
+                          />
+                        )}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
             {errors.stall_type && (
               <p className="text-red-500 text-sm">
@@ -418,19 +426,19 @@ const ExhibitionForm = () => {
                 <span className="">
                   Stall Amount : Rs.{" "}
                   {`${formatNumberInternational(
-                    parseInt(searchParams.get("total") || "")
+                    parseInt(searchParams.get("total") || ""),
                   )}`}
                 </span>
                 <span className="">
                   +{" Rs. "}
                   {`${formatNumberInternational(
-                    parseInt(searchParams.get("total") || "") * 0.13
+                    parseInt(searchParams.get("total") || "") * 0.13,
                   )}`}
                   (13 % VAT) ={" "}
                   <span className="font-semibold">
                     Rs.{" "}
                     {`${formatNumberInternational(
-                      parseInt(searchParams.get("total") || "") * 1.13
+                      parseInt(searchParams.get("total") || "") * 1.13,
                     )}`}
                   </span>
                 </span>

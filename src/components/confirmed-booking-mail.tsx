@@ -70,7 +70,7 @@ const StallBookingTemplate = ({ data }: { data: any }) => {
             Your Application has been submitted
           </h2>
           <p style={{ marginTop: "0.5rem", color: "#bfdbfe" }}>
-            BIRAT EXPO-2025
+            BIRAT EXPO-2026
           </p>
         </div>
         <div style={{ padding: "1.5rem" }}>
@@ -89,8 +89,8 @@ const StallBookingTemplate = ({ data }: { data: any }) => {
                 renderInfoItem(
                   item.replace("_", " ").charAt(0).toUpperCase() +
                     item.slice(1),
-                  data[item]
-                )
+                  data[item],
+                ),
               )}
             </div>
           </section>
@@ -103,15 +103,15 @@ const StallBookingTemplate = ({ data }: { data: any }) => {
               {renderInfoItem(
                 "Total Amount",
                 `Rs. ${data.total_amount.toLocaleString()}`,
-                true
+                true,
               )}
               {renderInfoItem(
                 "Advance Amount",
-                `Rs. ${data.advance_amount.toLocaleString()}`
+                `Rs. ${data.advance_amount.toLocaleString()}`,
               )}
               {renderInfoItem(
                 "Remaining Amount",
-                `Rs. ${data.remaining_amount.toLocaleString()}`
+                `Rs. ${data.remaining_amount.toLocaleString()}`,
               )}
               {renderInfoItem("Amount in Words", data.amount_in_words)}
             </div>

@@ -1,6 +1,36 @@
 import React from "react";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
 import MyDocument from "./form-pdf";
+
+// IMPORTANT: @react-pdf/renderer must never be evaluated on the server.
+// next/dynamic with ssr:false guarantees that, and also replaces the
+// manual `isClient` state + fallback markup you had before.
+const PDFDownloadLink = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
+  {
+    ssr: false,
+    loading: () => (
+      <button
+        disabled
+        className="bg-green-400 text-white px-6 py-2 rounded-full cursor-not-allowed opacity-75"
+      >
+        Loading PDF...
+      </button>
+    ),
+  },
+);
+
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[500px] border border-gray-300 rounded bg-gray-100 flex items-center justify-center text-gray-500 font-medium">
+        Loading PDF viewer...
+      </div>
+    ),
+  },
+);
 
 type ReviewAndDownloadProps = {
   data: any;
@@ -15,12 +45,32 @@ const ReviewAndDownload = ({
   onEdit,
   isSubmitting,
 }: ReviewAndDownloadProps) => {
+  // `data.voucher` is a browser FileList/File object (from the file input).
+  // It is NOT serializable and @react-pdf/renderer cannot render it — passing
+  // it straight into MyDocument is what throws
+  // "Cannot read properties of undefined (reading 'hasOwnProperty')".
+  // Build a clean, PDF-safe copy that only carries the file's name.
+  const pdfData = React.useMemo(() => {
+    if (!data) return data;
+
+    const { voucher, ...rest } = data;
+
+    let voucherFileName = "";
+    if (voucher instanceof FileList && voucher.length > 0) {
+      voucherFileName = voucher[0].name;
+    } else if (Array.isArray(voucher) && voucher.length > 0) {
+      voucherFileName = voucher[0]?.name ?? "";
+    }
+
+    return { ...rest, voucherFileName };
+  }, [data]);
+
   return (
     <div className="bg-gray-100 p-6 font-sans min-h-screen flex items-center justify-center">
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="bg-blue-600 text-white p-6">
           <h2 className="text-3xl font-bold">Review Your Application</h2>
-          <p className="mt-2 text-blue-100">BIRAT EXPO-2025</p>
+          <p className="mt-2 text-blue-100">BIRAT EXPO-2026</p>
         </div>
 
         <div className="p-6 space-y-6">
@@ -29,13 +79,19 @@ const ReviewAndDownload = ({
               Exhibitor&apos;s Details
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <InfoItem label="Company/Organization" value={data.company} />
-              <InfoItem label="Address" value={data.address} />
-              <InfoItem label="Chief Executive" value={data.chief_executive} />
-              <InfoItem label="Phone" value={data.phone} />
-              <InfoItem label="City" value={data.city} />
-              <InfoItem label="Country" value={data.country} />
-              <InfoItem label="Email" value={data.email} />
+              <InfoItem
+                label="Company/Organization"
+                value={data?.company || ""}
+              />
+              <InfoItem label="Address" value={data?.address || ""} />
+              <InfoItem
+                label="Chief Executive"
+                value={data?.chief_executive || ""}
+              />
+              <InfoItem label="Phone" value={data?.phone || ""} />
+              <InfoItem label="City" value={data?.city || ""} />
+              <InfoItem label="Country" value={data?.country || ""} />
+              <InfoItem label="Email" value={data?.email || ""} />
             </div>
           </section>
 
@@ -44,50 +100,56 @@ const ReviewAndDownload = ({
               Participation Details
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <InfoItem label="Stall Type" value={data.stall_type} />
-              <InfoItem label="Stall Number" value={data.stall_no} />
+              <InfoItem label="Stall Type" value={data?.stall_type || ""} />
+              <InfoItem label="Stall Number" value={data?.stall_no || ""} />
               <InfoItem
                 label="Merge or Separate"
-                value={data.merge_or_separate}
+                value={data?.merge_or_separate || ""}
               />
               <InfoItem
                 label="Total Amount"
-                value={`Rs. ${data.total_amount.toLocaleString()}`}
+                value={`Rs. ${data?.total_amount ? data.total_amount.toLocaleString() : "0"}`}
                 bold
               />
               <InfoItem
                 label="Advance Amount"
-                value={`Rs. ${data.advance_amount.toLocaleString()}`}
+                value={`Rs. ${data?.advance_amount ? data.advance_amount.toLocaleString() : "0"}`}
               />
               <InfoItem
                 label="Remaining Amount"
-                value={`Rs. ${data.remaining_amount.toLocaleString()}`}
+                value={`Rs. ${data?.remaining_amount ? data.remaining_amount.toLocaleString() : "0"}`}
               />
               <InfoItem
                 label="Amount in Words"
-                value={data.amount_in_words}
+                value={data?.amount_in_words || ""}
                 className="col-span-full"
+              />
+              <InfoItem
+                label="Voucher File"
+                value={pdfData?.voucherFileName || "Not attached"}
               />
             </div>
           </section>
 
-          <div className="flex justify-between pt-4">
+          <div className="flex justify-between items-center pt-4">
             <button
               onClick={onEdit}
               className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition duration-300"
             >
               Edit Information
             </button>
+
             <PDFDownloadLink
-              document={<MyDocument data={data} />}
+              document={<MyDocument data={pdfData} />}
               fileName="birat-expo-application.pdf"
               className="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition duration-300"
             >
-              {/* @ts-ignore - Known issue with PDFDownloadLink types */}
+              {/* @ts-ignore */}
               {({ loading }: { loading: boolean }) => (
                 <span>{loading ? "Loading document..." : "Download PDF"}</span>
               )}
             </PDFDownloadLink>
+
             <div className="text-center">
               <button
                 type="submit"
@@ -119,7 +181,7 @@ const ReviewAndDownload = ({
             height="500"
             className="border border-gray-300 rounded"
           >
-            <MyDocument data={data} />
+            <MyDocument data={pdfData} />
           </PDFViewer>
         </div>
       </div>
