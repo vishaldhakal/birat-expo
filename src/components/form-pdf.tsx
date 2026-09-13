@@ -90,7 +90,7 @@ const MyDocument = ({ data }: { data: any }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
-        <Image src="/logo.png" style={styles.logo} />
+        <Image src="/logo2.png" style={styles.logo} />
         <Image src="/baliyo-logo.svg" style={styles.logo} />
       </View>
 

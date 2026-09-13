@@ -134,7 +134,7 @@ export function TrainingRegistrationAdminPDF({ data }: { data: Participant }) {
       <Page size="A4" style={styles.page}>
         {/* Header with Logos */}
         <View style={styles.headerLogos}>
-          <Image src="/logo.png" style={styles.logo} />
+          <Image src="/logo2.png" style={styles.logo} />
           <Image src="/logo2025.png" style={styles.mainLogo} />
           <Image src="/2.png" style={styles.logo} />
         </View>

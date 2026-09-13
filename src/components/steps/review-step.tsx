@@ -29,7 +29,7 @@ export function ReviewStep({
       <div className="flex flex-col sm:flex-row items-center justify-between mb-8 p-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-sm gap-4">
         <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
           <Image
-            src="/logo.png"
+            src="/logo2.png"
             alt="MNIT Logo"
             width={120}
             height={60}

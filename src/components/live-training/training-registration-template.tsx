@@ -148,11 +148,11 @@ export function TrainingRegistrationTemplate({
         try {
           const date = format(new Date(data.date), "yyyy-MM-dd");
           const response = await fetch(
-            `/api/timeslots/?date=${date}&topic=${selectedTopic.id}`
+            `/api/timeslots/?date=${date}&topic=${selectedTopic.id}`,
           );
           const slots: TimeSlot[] = await response.json();
           const matchingSlot = slots.find(
-            (slot) => slot.id === Number(data.time_slot)
+            (slot) => slot.id === Number(data.time_slot),
           );
           setTimeSlot(matchingSlot || null);
         } catch (error) {
@@ -170,7 +170,7 @@ export function TrainingRegistrationTemplate({
       <Page size="A4" style={styles.page}>
         {/* Header with Logos */}
         <View style={styles.headerLogos}>
-          <Image src="/logo.png" style={styles.logo} />
+          <Image src="/logo2.png" style={styles.logo} />
           <Image src="/logo2025.png" style={styles.mainLogo} />
           <Image src="/2.png" style={styles.logo} />
         </View>

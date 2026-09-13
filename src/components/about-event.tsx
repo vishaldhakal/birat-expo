@@ -49,7 +49,12 @@ const AboutEvent = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex justify-between flex-col md:flex-row gap-8 items-center mb-12">
-        <Image src="/logo.png" alt="Birat Expo Logo" width={400} height={400} />
+        <Image
+          src="/logo2.png"
+          alt="Birat Expo Logo"
+          width={400}
+          height={400}
+        />
         <h2 className="text-4xl font-bold text-center">
           About <span className="text-blue-500">Event</span>
         </h2>

@@ -86,9 +86,9 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center h-20">
         <Link href="/">
           <Image
-            src="/logo.png"
+            src="/logo2.png"
             alt="Birat Expo 2025"
-            width={200}
+            width={230}
             height={60}
             className="-ml-[20px]"
           />
