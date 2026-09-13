@@ -90,8 +90,12 @@ const attractions = [
 
 export const sponsorshipLevels = [
   {
-    title: "Main Sponsor",
-    price: "NRS. 75,00,000",
+    title: "Title Partner",
+    price: "NPR 4,500,000",
+    stalls: "4 stalls . Full benefits package",
+    bgHeader: "bg-[#1E3A8A]",
+    borderColor: "border-[#1E3A8A]",
+    accentColor: "text-[#1E3A8A]",
     benefits: [
       "Event title will include company name/logo",
       "Logo on all promotional materials",
@@ -104,8 +108,12 @@ export const sponsorshipLevels = [
     ],
   },
   {
-    title: "Powered By Sponsor",
-    price: "NRS. 35,00,000",
+    title: "Powered By Partner",
+    price: "NPR 2,500,000",
+    stalls: "4 stalls . Full benefits package",
+    bgHeader: "bg-[#15803D]",
+    borderColor: "border-[#15803D]",
+    accentColor: "text-[#15803D]",
     benefits: [
       "Company name & logo used after event name",
       "Logo on all promotional materials",
@@ -118,8 +126,12 @@ export const sponsorshipLevels = [
     ],
   },
   {
-    title: "Platinum Sponsor",
-    price: "NRS. 20,00,000",
+    title: "Platinum Partner",
+    price: "NPR 2,000,000",
+    stalls: "4 stalls . Full benefits package",
+    bgHeader: "bg-[#64748B]",
+    borderColor: "border-[#64748B]",
+    accentColor: "text-[#64748B]",
     benefits: [
       "Logo on all promotional materials",
       "Branding opportunities at event venues",
@@ -131,8 +143,12 @@ export const sponsorshipLevels = [
     ],
   },
   {
-    title: "Diamond Sponsor",
-    price: "NRS. 15,00,000",
+    title: "Diamond Partner",
+    price: "NPR 1,500,000",
+    stalls: "3 stalls . Full benefits package",
+    bgHeader: "bg-[#0284C7]",
+    borderColor: "border-[#0284C7]",
+    accentColor: "text-[#0284C7]",
     benefits: [
       "Logo on all promotional materials",
       "Branding opportunities at event venues",
@@ -142,8 +158,12 @@ export const sponsorshipLevels = [
     ],
   },
   {
-    title: "Gold Sponsor",
-    price: "NRS. 10,00,000",
+    title: "Gold Partner",
+    price: "NPR 1,000,000",
+    stalls: "2 stalls . Full benefits package",
+    bgHeader: "bg-[#D97706]",
+    borderColor: "border-[#D97706]",
+    accentColor: "text-[#D97706]",
     benefits: [
       "Logo on all promotional materials",
       "Branding opportunities at event venues",
@@ -153,23 +173,17 @@ export const sponsorshipLevels = [
     ],
   },
   {
-    title: "Partner (Bank, Insurance, Digital and Others)",
-    price: "NRS. 10,00,000",
+    title: "Silver Partner",
+    price: "NPR 500,000",
+    stalls: "1 stalls . Full benefits package",
+    bgHeader: "bg-[#94A3B8]",
+    borderColor: "border-[#94A3B8]",
+    accentColor: "text-[#94A3B8]",
     benefits: [
       "Logo on all promotional materials",
       "Company name announced in all stage programs",
       "Promotion through digital board and exhibitor's profile",
-      "2 stalls (3x3 m) or similar open space provided",
-    ],
-  },
-  {
-    title: "Silver Sponsor",
-    price: "NRS. 5,00,000",
-    benefits: [
-      "Logo on all promotional materials",
-      "Company name announced in all stage programs",
-      "Promotion through digital board and exhibitor's profile",
-      "2 stalls (3x3 m) provided",
+      "1 stall (3x3 m) provided",
     ],
   },
 ];

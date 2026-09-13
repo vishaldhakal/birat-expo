@@ -126,7 +126,7 @@ const FoodPage = () => {
   return (
     <div className="relative">
       <StallArea
-        title="Food Stalls"
+        title="5 Food Stalls"
         legendItems={legendItemsFood}
         StallComponent={Food}
         stallProps={{

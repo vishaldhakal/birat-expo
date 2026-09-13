@@ -37,7 +37,7 @@ const StallArea = ({
           {pathname !== "/sponsorship" ? (
             <div className="flex ml-auto justify-center my-6">
               <a
-                href="/Stall Booking Form.pdf"
+                href="/birat-expo-2026/Stall Booking Form.docx"
                 download
                 className="px-4 py-2 text-white bg-blue-600 rounded-md no-underline"
               >
@@ -47,7 +47,7 @@ const StallArea = ({
           ) : (
             <div className="flex ml-auto justify-center my-6">
               <a
-                href="/Contract_Sponsorships_Birat_Expo_2024.docx.pdf"
+                href="/birat-expo-2026/Contract_Sponsorships_Birat_Expo_2026.pdf"
                 download
                 className="px-4 py-2 text-white bg-blue-600 rounded-md no-underline"
               >

@@ -1,5 +1,6 @@
 import React from "react";
 import Hero2026 from "@/components/expo-2026/hero";
+import StallBookingSection2026 from "@/components/expo-2026/stall-booking-section";
 import Evolution2026 from "@/components/expo-2026/evolution";
 import Ecosystem2026 from "@/components/expo-2026/ecosystem";
 import Platforms2026 from "@/components/expo-2026/platforms";
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <div className="w-full min-h-screen bg-white ">
       <Hero2026 />
+      <StallBookingSection2026 />
       <Evolution2026 />
       <Ecosystem2026 />
       <Platforms2026 />

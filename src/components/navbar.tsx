@@ -7,13 +7,8 @@ export const navItems = [
   {
     title: "Book Stalls",
     items: [
-      { title: "Automobiles Stalls", href: "/auto-bds-pavilion" },
       {
-        title: "Business Development Service Providers",
-        href: "/bds-pavilion",
-      },
-      {
-        title: "Hanger 1 : Industrial and Corporate Stalls",
+        title: "Hanger 1 : Industrial & Corporate Stalls",
         href: "/hanger-1",
       },
       {
@@ -21,7 +16,15 @@ export const navItems = [
         href: "/hanger-2",
       },
       {
-        title: "Food Stalls",
+        title: "Hanger 3 : Agro & SMEs stalls",
+        href: "/bds-pavilion",
+      },
+      {
+        title: "Hanger 4 : Automobiles Stalls",
+        href: "/auto-bds-pavilion",
+      },
+      {
+        title: "5 Food Stalls",
         href: "/food-stalls",
       },
     ],

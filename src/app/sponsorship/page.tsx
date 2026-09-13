@@ -71,7 +71,7 @@ export default function Sponsorship() {
       { color: "#ffff00", label: "Reserved" },
       { color: "#2ECC71", label: "Selected" },
     ],
-    []
+    [],
   );
 
   const sponsorStallProps: SponsorStallPropsType[] = useMemo(
@@ -119,7 +119,7 @@ export default function Sponsorship() {
         stallid: ["S9", "S10", "S11", "S12"],
       },
     ],
-    []
+    [],
   );
 
   useEffect(() => {
@@ -140,12 +140,12 @@ export default function Sponsorship() {
           } else {
             // Find sponsor type of currently selected stall
             const currentSponsorType = sponsorStallProps.find((stall) =>
-              stall.stallid.some((id) => stallId === id)
+              stall.stallid.some((id) => stallId === id),
             )?.sponsor_type;
 
             // Find sponsor type of previously selected stall
             const previousSponsorType = sponsorStallProps.find((stall) =>
-              stall.stallid.some((id) => prevSelected.includes(id))
+              stall.stallid.some((id) => prevSelected.includes(id)),
             )?.sponsor_type;
 
             // Only allow selection if it's from the same sponsor type
@@ -159,21 +159,21 @@ export default function Sponsorship() {
         }
       });
     },
-    [sponsorStallProps]
+    [sponsorStallProps],
   );
 
   const handleProceed = useCallback(() => {
     if (selectedStalls.length > 0) {
       // Find the sponsor type by checking if any of the stall's IDs match the selected stall
       const sponsorStall = sponsorStallProps.find((stall) =>
-        stall.stallid.some((id) => selectedStalls.includes(id))
+        stall.stallid.some((id) => selectedStalls.includes(id)),
       );
 
       if (sponsorStall) {
         router.push(
           `/sponsor-booking?stall_id=${selectedStalls.join(",")}&sponsor_type=${
             sponsorStall.sponsor_type
-          }`
+          }`,
         );
       }
     }
@@ -217,42 +217,65 @@ export default function Sponsorship() {
           Sponsorship <span className="text-blue-500">Opportunity</span>
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {sponsorshipLevels.map((level, index) => (
             <div
               id={level.title.toLowerCase().replace(/ /g, "-")}
               key={index}
-              className="scroll-offset rounded-lg bg-white mb-20 lg:mb-40"
+              className="scroll-offset rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between"
             >
-              <span className="text-sm font-bold uppercase p-4 bg-[#0F5E9F] mb-10 text-white">
-                {level.title} : {level.price}
-              </span>
-              <ul className="list-disc list-inside mt-10 mb-4">
-                {level.benefits.map((benefit, i) => (
-                  <li key={i} className="text-lg mb-2">
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
-              {/* <Link
-            href={`/sponsor-booking/${level.title
-              .toLowerCase()
-              .replace(/ /g, "-")}`}
-          >
-            <p className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg">
-              Book Now {`${level.title}`}
-            </p>
-          </Link> */}
+              {/* Header Box */}
+              <div>
+                <div
+                  className={`${level.bgHeader} text-white text-center py-4 px-6 relative`}
+                >
+                  <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-wide">
+                    {level.title}
+                  </h3>
+                </div>
+
+                {/* Investment Content */}
+                <div className="p-6 text-center border-b border-gray-100">
+                  <div className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
+                    {level.price}
+                  </div>
+                  <span className="text-xs uppercase font-bold text-gray-400 tracking-wider">
+                    Investment
+                  </span>
+                  <div className="w-16 h-0.5 bg-gray-200 mx-auto my-4" />
+                  <p className="text-emerald-700 font-bold text-sm md:text-base">
+                    {level.stalls}
+                  </p>
+                </div>
+
+                {/* Detailed Benefits List */}
+                {/* <div className="p-6">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                    Package Benefits
+                  </h4>
+                  <ul className="space-y-2 text-left">
+                    {level.benefits.map((benefit, i) => (
+                      <li
+                        key={i}
+                        className="text-xs md:text-sm text-gray-600 flex items-start gap-2"
+                      >
+                        <span className={`font-bold ${level.accentColor}`}>•</span>
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div> */}
+              </div>
             </div>
           ))}
         </div>
         <div className="flex justify-center flex-col items-center">
           <h2 className="text-4xl sm:text-5xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase mb-10">
-            Birat Expo 2025 Proposal
+            Birat Expo 2026 Proposal
           </h2>
           <div className="flex justify-center my-6">
             <a
-              href="/Contract_Sponsorships_Birat_Expo_2024.docx.pdf"
+              href="/birat-expo-2026/Contract_Sponsorships_Birat_Expo_2026.pdf"
               download
               className="px-4 py-2 text-white bg-blue-600 rounded-md no-underline"
             >
@@ -261,7 +284,7 @@ export default function Sponsorship() {
           </div>
           <object
             className="pdf"
-            data="/Birat Expo 2025 - Proposal.pdf"
+            data="/birat-expo-2026/Contract_Sponsorships_Birat_Expo_2026.pdf"
             width="800"
             height="750"
           ></object>

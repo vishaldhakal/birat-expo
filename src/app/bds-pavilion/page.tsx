@@ -111,7 +111,7 @@ const Hanger1Page = () => {
   return (
     <div className="relative">
       <StallArea
-        title="BDS Pavilion"
+        title="Hanger 3 : Agro & SMEs stalls"
         legendItems={legendItemsHangers}
         StallComponent={BDSPavilion}
         stallProps={{
