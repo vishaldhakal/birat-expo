@@ -23,7 +23,7 @@ export default function Hero2026() {
               className="rounded-md w-auto h-auto"
             />
           </div>
-          
+
           <div className="text-left">
             <span className="bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
               9th Edition
@@ -43,7 +43,7 @@ export default function Hero2026() {
           <div className="w-full bg-gray-50 border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 text-gray-700 font-medium">
             <div className="flex items-start gap-3">
               <span className="text-blue-600 font-bold">Date:</span>
-              <span>22 – 31 December, 2026 (7–16 Poush 2083)</span>
+              <span>17 – 26 December, 2026 (2–11 Poush 2083)</span>
             </div>
             <div className="w-full h-px bg-gray-200"></div>
             <div className="flex items-start gap-3">

@@ -22,7 +22,7 @@ const Footer = () => {
                       <button
                         onClick={() =>
                           setExpandedSection(
-                            expandedSection === index ? null : index
+                            expandedSection === index ? null : index,
                           )
                         }
                         className="flex items-center justify-between w-full text-left font-semibold"
@@ -102,9 +102,9 @@ const Footer = () => {
                   <Image
                     src="/baliyo-logo.svg"
                     alt="Baliyo Ventures"
-                    width={100}
-                    height={50}
-                    className="rounded-md w-auto h-auto"
+                    width={130}
+                    height={140}
+                    className="rounded-md"
                   />
                 </div>
               </Link>

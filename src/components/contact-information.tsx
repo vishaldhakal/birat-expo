@@ -39,7 +39,7 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
               </a>
             </div>
             <div>
-              <p className="font-semibold">Email:</p>
+              <p className="font-semibold">Website:</p>
               <a
                 href="http://www.cim.org.np"
                 target="_blank"
@@ -55,7 +55,7 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
                 href="mailto:cim.biratnagar@gmail.com"
                 className="hover:underline"
               >
-                cim@biratnagar@gmail.com
+                cim.biratnagar@gmail.com
               </a>
             </div>
             <div>
@@ -72,51 +72,51 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
             <div className="text-left">
               <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-3">
                 <Image
-                  src="/WhatsApp Image 2024-05-30 at 11.18.03.jpeg"
-                  alt="Mr. Bholeshwor Dulal"
+                  src="/NandKishorRathi.webp"
+                  alt="Mr. Nand Kishor Rathi"
                   fill
                   className="object-cover"
                 />
               </div>
-              <h3 className="font-bold">Mr. Rakesh Surana</h3>
+              <h3 className="font-bold">Mr. Nand Kishor Rathi</h3>
               <p className="text-sm">President, Chamber of Industries Morang</p>
-              <a href="tel:9852020051" className="text-sm hover:underline">
-                Mobile 9852020051
+              <a href="tel:9852020027" className="text-sm hover:underline">
+                Mobile 9852020027
               </a>
             </div>
             <div className="text-left">
               <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-3">
                 <Image
-                  src="/WhatsApp Image 2024-05-30 at 11.17.46.jpeg"
-                  alt="Mr. Bholeshwor Dulal"
+                  src="/Bipin.webp"
+                  alt="Mr. Bipin Kabra"
                   fill
                   className="object-cover"
                 />
               </div>
-              <h3 className="font-bold">Mr. Bholeshwor Dulal</h3>
+              <h3 className="font-bold">Mr. Bipin Kabra</h3>
               <p className="text-sm">
                 Vice President & Coordinator Birat Expo {year}
               </p>
-              <a href="tel:9851131915" className="text-sm hover:underline">
-                Mobile 9851131915
+              <a href="tel:9852022000" className="text-sm hover:underline">
+                Mobile 9852022000
               </a>
             </div>
             <div className="text-left">
               <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-3">
                 <Image
-                  src="/Parash Luniya.jpeg"
-                  alt="Mr. Bholeshwor Dulal"
+                  src="/deepak-1.webp"
+                  alt="Mr. Deepak Agrawal"
                   fill
                   className="object-cover"
                 />
               </div>
-              <h3 className="font-bold">Mr. Paras Luniya</h3>
+              <h3 className="font-bold">Mr. Deepak Agrawal</h3>
               <p className="text-sm">
                 Executive member & Co-Coordinator Birat Expo {year}
               </p>
-              <a href="tel:9802771077" className="text-sm hover:underline">
+              {/* <a href="tel:9802771077" className="text-sm hover:underline">
                 Mobile 9802771077
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
