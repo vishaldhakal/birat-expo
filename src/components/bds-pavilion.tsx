@@ -49,10 +49,10 @@ const BDSPavilion: React.FC<BDSPRops> = ({
     setTotalPrice(calculatedTotal);
   }, [selectedStalls, primeStallsType1, primeStallsType2, setTotalPrice]);
 
-  // Cyan highlight stalls according to floor plan image: E36 and E14
-  const cyanStalls = new Set(["E36", "E14"]);
+  // Cyan highlight stalls according to floor plan image: E36, E15
+  const cyanStalls = new Set(["E36", "E15"]);
 
-  // Yellow highlighted stalls from floor plan image
+  // Yellow highlighted stalls from floor plan image (Prime stalls)
   const yellowHighlightStalls = new Set([
     "E49",
     "E50",

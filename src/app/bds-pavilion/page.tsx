@@ -27,7 +27,7 @@ const Hanger1Page = () => {
     if (isLoading || isError) return { bookedStalls: [], reservedStalls: [] };
 
     const processData = (
-      data: StallTypeData
+      data: StallTypeData,
     ): { booked: StallInfo[]; reserved: StallInfo[] } => {
       const booked = data.stall_no_booked.map((stall) => ({
         id: stall[0],
@@ -43,7 +43,12 @@ const Hanger1Page = () => {
     const bdsProcessed = processData(
       bdsData.stallTypeData
         ? bdsData.stallTypeData
-        : { booked: [], pending: [], stall_no_booked: [], stall_no_pending: [] }
+        : {
+            booked: [],
+            pending: [],
+            stall_no_booked: [],
+            stall_no_pending: [],
+          },
     );
 
     return {
@@ -70,19 +75,19 @@ const Hanger1Page = () => {
     });
   }, []);
 
-  const primeStallsType1 = ["E1", "E2", "E35", "E36"];
+  const primeStallsType1 = ["E2", "E1"];
 
   const primeStallsType2 = [
-    "E10",
-    "E27",
+    "E49",
+    "E50",
+    "E32",
+    "E31",
+    "E26",
+    "E25",
     "E17",
     "E18",
-    "E19",
-    "E20",
-    "E12",
-    "E13",
+    "E23",
     "E24",
-    "E25",
   ];
 
   const notAvailableStalls = ["ca2ada087c"];
@@ -102,8 +107,8 @@ const Hanger1Page = () => {
       }
       router.push(
         `/book-stalls?stalls=${selectedStalls.join(
-          ","
-        )}&total=${totalPrice}&type=${type}`
+          ",",
+        )}&total=${totalPrice}&type=${type}`,
       );
     }
   };
