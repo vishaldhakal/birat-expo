@@ -1,79 +1,100 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero2026() {
   return (
-    <div className="container mx-auto px-4 md:px-8 py-12 md:py-16">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-        {/* Left Side: Info */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-8">
-          <div className="flex items-center space-x-4">
-            <Image
-              src="/1.png"
-              alt="CIM Logo"
-              width={80}
-              height={40}
-              className="rounded-full bg-white w-auto h-auto"
-            />
-            <Image
-              src="/2.png"
-              alt="Baliyo Logo"
-              width={80}
-              height={40}
-              className="rounded-md w-auto h-auto"
-            />
-          </div>
+    <section className="relative overflow-hidden bg-white py-12 md:py-20">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+          {/* Left Side: Info */}
+          <div className="w-full lg:w-7/12 flex flex-col items-center lg:items-start text-center lg:text-left">
+            {/* Pills row */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5">
+              <span className="text-sm font-bold text-gray-800 border border-gray-200 px-4 py-1.5 rounded-full uppercase tracking-wider bg-gray-50/50">
+                9th edition
+              </span>
+              <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 bg-blue-50 px-4 py-1.5 rounded-full uppercase tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                17–26 Dec 2026
+              </span>
+              <span className="text-base text-gray-500 font-medium italic">
+                2–11 Poush 2083
+              </span>
+            </div>
 
-          <div className="text-left">
-            <span className="bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
-              9th Edition
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-950 mt-5 leading-none uppercase tracking-tight">
-              Birat Expo 2026
+            {/* Headline */}
+            <h1 className="mt-6 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.02] text-gray-950 uppercase">
+              Birat Expo
+              <span className="block text-blue-600">2026</span>
             </h1>
-            <div className="w-20 h-1.5 bg-blue-600 my-4 mx-0"></div>
-            <p className="text-xl md:text-2xl text-blue-600 font-extrabold uppercase tracking-wide">
-              Theme: The Ecosystem of Opportunities
+
+            {/* Subheading */}
+            <p className="mt-6 text-2xl sm:text-3xl md:text-4xl text-gray-800 font-extrabold uppercase tracking-wide">
+              The Ecosystem of Opportunities
             </p>
-            <p className="text-sm md:text-base text-gray-500 font-semibold mt-1.5 italic tracking-wide">
-              Brand Promise: Nepal&apos;s Business Ecosystem Platform
+
+            {/* Description */}
+            <p className="mt-4 text-base sm:text-lg md:text-xl text-gray-600 font-medium leading-relaxed max-w-xl">
+              Nepal&apos;s business ecosystem platform — where industries,
+              entrepreneurs, students, and ideas meet.
             </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8 sm:mt-10">
+              <Link
+                href="/book-stalls"
+                className="inline-flex items-center justify-center gap-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-blue-600/20 transition-all duration-200 hover:-translate-y-0.5 text-base uppercase tracking-wider"
+              >
+                Book your stall
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/sponsorship"
+                className="inline-flex items-center justify-center gap-2.5 border-2 border-gray-200 hover:border-gray-400 bg-white text-gray-900 font-bold px-7 py-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 text-base uppercase tracking-wider"
+              >
+                Explore sponsorship
+              </Link>
+            </div>
           </div>
 
-          <div className="w-full bg-gray-50 border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 text-gray-700 font-medium">
-            <div className="flex items-start gap-3">
-              <span className="text-blue-600 font-bold">Date:</span>
-              <span>17 – 26 December, 2026 (2–11 Poush 2083)</span>
-            </div>
-            <div className="w-full h-px bg-gray-200"></div>
-            <div className="flex items-start gap-3">
-              <span className="text-blue-600 font-bold">Venue:</span>
-              <span>Degree Campus, Biratnagar, Nepal</span>
-            </div>
-            <div className="w-full h-px bg-gray-200"></div>
-            <div className="flex items-start gap-3">
-              <span className="text-blue-600 font-bold">Organized by:</span>
-              <span>Chamber of Industries Morang (CIM)</span>
-            </div>
-          </div>
-        </div>
+          {/* Right Side: Poster card */}
+          <div className="w-full lg:w-5/12 max-w-md lg:max-w-lg shrink-0">
+            <div className="relative w-full aspect-[4/5] rounded-3xl bg-gradient-to-b from-blue-600 to-blue-700 p-8 flex flex-col justify-between overflow-hidden shadow-2xl shadow-blue-600/20">
+              {/* Top row */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-extrabold text-blue-100 uppercase tracking-widest">
+                  Biratnagar
+                </span>
+                <span className="text-sm font-extrabold text-blue-100 uppercase tracking-widest">
+                  Nepal
+                </span>
+              </div>
 
-        {/* Right Side: Mascot */}
-        <div className="w-full md:w-1/2 flex justify-center items-center md:justify-end">
-          <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl flex justify-center items-center p-2">
-            {/* Subtle background glow/card for crisp presentation */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/50 via-sky-50/30 to-transparent rounded-3xl -z-10 blur-xl"></div>
-            <Image
-              src="/biratmascot.png"
-              alt="Birat Expo 2026 Mascot"
-              width={700}
-              height={800}
-              className="w-full h-auto max-h-[550px] md:max-h-[680px] object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300"
-              priority
-            />
+              {/* Mascot */}
+              <div className="flex-1 flex items-center justify-center py-4">
+                <Image
+                  src="/biratmascot.png"
+                  alt="Birat Expo 2026 Mascot"
+                  width={520}
+                  height={620}
+                  className="w-full h-auto max-h-[420px] object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300"
+                  priority
+                />
+              </div>
+
+              {/* Bottom row */}
+              <div className="bg-blue-800/40 backdrop-blur-md rounded-2xl p-4 border border-blue-400/20">
+                <p className="text-white font-extrabold text-xl leading-tight">
+                  Degree Campus
+                </p>
+                <p className="text-blue-100 text-sm font-medium mt-0.5">Biratnagar, Nepal</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

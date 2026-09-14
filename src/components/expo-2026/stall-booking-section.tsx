@@ -1,102 +1,119 @@
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const stallCategories = [
   {
-    tag: "Hanger 1",
-    title: "Hanger 1 : Industrial & Corporate Stalls",
-    description:
-      "Explore premier corporate and industrial showcases highlighting manufacturing, technology, and big enterprises.",
+    num: "01",
+    badge: "CORPORATE",
+    title: "Industrial & Corporate",
+    description: "Manufacturing, technology, and leading enterprises.",
     href: "/hanger-1",
-    badgeColor: "bg-blue-600 text-white",
-    borderColor: "hover:border-blue-500",
-    buttonBg: "bg-blue-600 hover:bg-blue-700",
+    textColor: "text-blue-600",
+    badgeBg: "bg-blue-50 text-blue-700 border-blue-100",
+    hoverBorder: "hover:border-blue-500",
   },
   {
-    tag: "Hanger 2",
-    title: "Hanger 2 : Industrial and Corporate Stalls",
-    description:
-      "Featured exhibition section dedicated to high-impact industrial solutions and institutional growth.",
+    num: "02",
+    badge: "CORPORATE",
+    title: "Industrial & Corporate",
+    description: "High-impact solutions and institutional growth.",
     href: "/hanger-2",
-    badgeColor: "bg-indigo-600 text-white",
-    borderColor: "hover:border-indigo-500",
-    buttonBg: "bg-indigo-600 hover:bg-indigo-700",
+    textColor: "text-indigo-600",
+    badgeBg: "bg-indigo-50 text-indigo-700 border-indigo-100",
+    hoverBorder: "hover:border-indigo-500",
   },
   {
-    tag: "Hanger 3",
-    title: "Hanger 3 : Agro & SMEs stalls",
-    description:
-      "Promoting agricultural advances, local business innovators, emerging SMEs, and sustainable practices.",
+    num: "03",
+    badge: "AGRO + SME",
+    title: "Agro & SMEs",
+    description: "Local enterprise, agriculture, and new ideas.",
     href: "/bds-pavilion",
-    badgeColor: "bg-emerald-600 text-white",
-    borderColor: "hover:border-emerald-500",
-    buttonBg: "bg-emerald-600 hover:bg-emerald-700",
+    textColor: "text-emerald-600",
+    badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    hoverBorder: "hover:border-emerald-500",
   },
   {
-    tag: "Hanger 4",
-    title: "Hanger 4 : Automobiles Stalls",
-    description:
-      "Unveiling latest automobile models, EV technology, accessories, and auto business development pavilions.",
+    num: "04",
+    badge: "MOBILITY",
+    title: "Automobiles",
+    description: "Vehicles, EV technology, and accessories.",
     href: "/auto-bds-pavilion",
-    badgeColor: "bg-amber-600 text-white",
-    borderColor: "hover:border-amber-500",
-    buttonBg: "bg-amber-600 hover:bg-amber-700",
+    textColor: "text-amber-600",
+    badgeBg: "bg-amber-50 text-amber-700 border-amber-100",
+    hoverBorder: "hover:border-amber-500",
   },
   {
-    tag: "Hanger 5",
-    title: "Hanger 5: Food Stalls",
-    description:
-      "Vibrant culinary space featuring top local food brands, multi-cuisine stalls, and refreshment corners.",
+    num: "05",
+    badge: "FOOD",
+    title: "Food",
+    description: "Local brands, multi-cuisine, and refreshment.",
     href: "/food-stalls",
-    badgeColor: "bg-rose-600 text-white",
-    borderColor: "hover:border-rose-500",
-    buttonBg: "bg-rose-600 hover:bg-rose-700",
+    textColor: "text-rose-600",
+    badgeBg: "bg-rose-50 text-rose-700 border-rose-100",
+    hoverBorder: "hover:border-rose-500",
   },
 ];
 
 export default function StallBookingSection() {
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50 border-y border-gray-100 relative overflow-hidden">
-      {/* Decorative background glow */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-50/60 rounded-full filter blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-50/60 rounded-full filter blur-3xl pointer-events-none" />
-
+    <section className="py-16 md:py-20 bg-gray-50/50 border-y border-gray-100 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        {/* Header Title */}
-        <div className="flex flex-col items-start mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-950 uppercase tracking-tight">
-            Stall Booking
-          </h2>
-          <div className="w-24 h-1.5 bg-blue-600 mt-4 mb-4" />
-          <p className="text-gray-600 text-base md:text-lg max-w-3xl font-medium leading-relaxed">
-            Select a pavilion or hanger below to view floor plans, check
-            real-time availability, and reserve your stall for Birat Expo 2026.
+        {/* Header Layout matching reference */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <span className="text-xs font-bold text-red-600 uppercase tracking-widest block mb-2">
+              STALL BOOKING
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
+              Five hangers, one fair
+            </h2>
+          </div>
+
+          <p className="text-gray-600 text-sm sm:text-base max-w-md font-medium leading-relaxed md:text-right">
+            Choose the exhibition area that matches your sector and reserve
+            directly.
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* 5 Hangers Cards Grid matching reference layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
           {stallCategories.map((item, index) => (
             <div
               key={index}
-              className={`group relative bg-white border border-gray-200/80 rounded-2xl p-6 md:p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${item.borderColor}`}
+              className={`group relative bg-white border border-gray-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200 ${item.hoverBorder}`}
             >
               <div>
-                {/* Title & Description */}
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200">
+                {/* Top Row: Number + Sector Badge */}
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-3xl font-black text-gray-900 tracking-tight">
+                    {item.num}
+                  </span>
+                  <span
+                    className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border ${item.badgeBg}`}
+                  >
+                    {item.badge}
+                  </span>
+                </div>
+
+                {/* Hanger Title */}
+                <h3 className="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6 font-normal">
+
+                {/* Short Description */}
+                <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-6">
                   {item.description}
                 </p>
               </div>
 
-              {/* Action Link Button */}
+              {/* Bottom Reserve Link */}
               <Link
                 href={item.href}
-                className={`w-full inline-flex items-center justify-center font-bold text-white py-3.5 px-5 rounded-xl text-sm transition-all duration-200 shadow-md hover:shadow-lg ${item.buttonBg}`}
+                className={`inline-flex items-center gap-1.5 font-bold text-sm ${item.textColor} hover:underline pt-2 border-t border-gray-100`}
               >
-                <span>Book Stalls Now</span>
+                <span>Reserve</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           ))}
