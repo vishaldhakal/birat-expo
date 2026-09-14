@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
@@ -12,18 +11,14 @@ export default function Hero2026() {
           <div className="w-full lg:w-7/12 flex flex-col items-start text-left">
             {/* Logos */}
             <div className="flex items-center gap-3 p-0 mb-4">
-              <Image
+              <img
                 src="/1.png"
                 alt="CIM Logo"
-                width={48}
-                height={48}
                 className="h-16 sm:h-24 w-auto object-contain"
               />
-              <Image
+              <img
                 src="/2.png"
                 alt="Baliyo Logo"
-                width={48}
-                height={48}
                 className="h-20 sm:h-28 w-auto object-contain"
               />
             </div>
@@ -91,13 +86,10 @@ export default function Hero2026() {
 
               {/* Mascot */}
               <div className="flex-1 flex items-center justify-center py-4">
-                <Image
+                <img
                   src="/biratmascot.png"
                   alt="Birat Expo 2026 Mascot"
-                  width={520}
-                  height={620}
                   className="w-full h-auto max-h-[420px] object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300"
-                  priority
                 />
               </div>
 
