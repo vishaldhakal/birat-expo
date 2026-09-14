@@ -183,11 +183,9 @@ const ExhibitionForm = () => {
       <div className="mx-auto max-w-4xl overflow-hidden rounded-lg bg-white shadow-md">
         <div className="bg-blue-800 p-6 text-center text-white">
           <h1 className="text-3xl font-bold ">BIRAT EXPO-2026</h1>
-          <p className="mt-2 text-xl">
-            Digital Koshi : Bridging Innovation and Investment
-          </p>
+          <p className="mt-2 text-xl">The Ecosystem of Opportunities</p>
           <p className="mt-2">
-            17<sup>th</sup> Dec 2026 - 17<sup>th</sup> Dec 2026
+            17<sup>th</sup> Dec 2026 - 26<sup>th</sup> Dec 2026
           </p>
           <p>Biratnagar, Nepal</p>
         </div>
@@ -314,7 +312,9 @@ const ExhibitionForm = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td className="border p-2">Degree Campus, Biratnagar, Nepal</td>
+                  <td className="border p-2">
+                    Degree Campus, Biratnagar, Nepal
+                  </td>
                   <td className="border p-2">15th & 16th Dec 2026</td>
                   <td className="border p-2">17th - 26th Dec 2026</td>
                   <td className="border p-2">10 A.M to 8 P.M</td>
@@ -338,13 +338,13 @@ const ExhibitionForm = () => {
               </thead>
               <tbody>
                 {[
-                  { type: "National Prime", rate: "Rs. 60,000" },
+                  { type: "National Prime", rate: "Rs. 75,000" },
                   { type: "National General", rate: "Rs. 50,000" },
                   { type: "International", rate: "US$ 500" },
                   { type: "Agro and MSME", rate: "Rs. 25,000" },
-                  { type: "Automobiles", rate: "Rs. 60,000" },
-                  { type: "Food Stalls", rate: "Rs. 1,00,000" },
-                  { type: "BDS Providers Stall", rate: "Rs. 60,000" },
+                  { type: "Automobiles", rate: "Rs. 1,25,000" },
+                  { type: "Food Stalls", rate: "Rs. 1,25,000" },
+                  // { type: "BDS Providers Stall", rate: "Rs. 60,000" },
                 ].map((stall, index) => (
                   <tr key={index}>
                     <td className="border p-2">{stall.type}</td>

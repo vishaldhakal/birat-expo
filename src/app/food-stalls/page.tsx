@@ -140,7 +140,7 @@ const FoodPage = () => {
           onAvailableStallClick,
           selectedStalls,
           totalPrice,
-          stallPrice: 100000,
+          stallPrice: 125000,
           setTotalPrice,
         }}
       />

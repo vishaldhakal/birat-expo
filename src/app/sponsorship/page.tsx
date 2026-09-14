@@ -116,7 +116,7 @@ export default function Sponsorship() {
         sponsor_type: "Silver",
         price: 500000,
         color: "#BDC3C7",
-        stallid: ["S9", "S10", "S11", "S12"],
+        stallid: ["S9", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17"],
       },
     ],
     [],

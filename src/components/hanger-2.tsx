@@ -42,7 +42,7 @@ const Hanger2: React.FC<HangerOneProps> = ({
 
   useEffect(() => {
     const primeStallCount = selectedStalls.filter((stall) =>
-      primeStallsSet.has(stall)
+      primeStallsSet.has(stall),
     ).length;
     const regularStallCount = selectedStalls.length - primeStallCount;
     const calculatedTotal = primeStallCount * 60000 + regularStallCount * 50000;
@@ -72,7 +72,7 @@ const Hanger2: React.FC<HangerOneProps> = ({
           let color = "#ffffff";
           let cursor: "pointer" | "not-allowed" | "normal" = "pointer";
           let isClickable = true;
-          const stallPrice = isPrime ? 60000 : 50000;
+          const stallPrice = isPrime ? 75000 : 50000;
           let tooltipContent = `Stall ${stall.id}- Rs. ${stallPrice.toLocaleString()}`;
 
           if (reserved) {

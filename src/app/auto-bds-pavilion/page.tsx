@@ -32,7 +32,7 @@ const AutoPage = () => {
     if (isLoading || isError) return { bookedStalls: [], reservedStalls: [] };
 
     const processData = (
-      data: StallTypeData
+      data: StallTypeData,
     ): { booked: StallInfo[]; reserved: StallInfo[] } => {
       const booked = data.stall_no_booked.map((stall) => ({
         id: stall[0],
@@ -48,7 +48,12 @@ const AutoPage = () => {
     const autoProcessed = processData(
       autoData.stallTypeData
         ? autoData.stallTypeData
-        : { booked: [], pending: [], stall_no_booked: [], stall_no_pending: [] }
+        : {
+            booked: [],
+            pending: [],
+            stall_no_booked: [],
+            stall_no_pending: [],
+          },
     );
 
     return {
@@ -61,7 +66,7 @@ const AutoPage = () => {
     setSelectedStalls((prevSelected) =>
       prevSelected.includes(stallId)
         ? prevSelected.filter((id) => id !== stallId)
-        : [...prevSelected, stallId]
+        : [...prevSelected, stallId],
     );
   }, []);
 
@@ -79,8 +84,8 @@ const AutoPage = () => {
     const type = hasAutoStalls ? "Automobiles" : "BDS Providers Stall";
     router.push(
       `/book-stalls?stalls=${selectedStalls.join(
-        ","
-      )}&total=${totalPrice}&type=${type}`
+        ",",
+      )}&total=${totalPrice}&type=${type}`,
     );
   };
 
@@ -133,7 +138,7 @@ const AutoPage = () => {
           reservedStalls,
           onAvailableStallClick,
           selectedStalls,
-          stallPrice: 60000,
+          stallPrice: 125000,
           totalPrice,
           setTotalPrice,
         }}

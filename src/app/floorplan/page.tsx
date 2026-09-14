@@ -7,10 +7,10 @@ export default function Proposal() {
     <div className="pt-20 pb-40 flex justify-center">
       <div className="flex justify-center flex-col items-center">
         <h2 className="text-4xl sm:text-5xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase mb-10">
-          Birat Expo 2025 Floor Plan
+          Birat Expo 2026 Floor Plan
         </h2>
         <Image
-          src="/floor-plan.jpg"
+          src="/birat-expo-2026/floorplan.jpeg"
           alt="biratexpo floor plan"
           className="max-w-100 border  rounded-r-md"
           width={1000}
