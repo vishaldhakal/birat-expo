@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const stallCategories = [
   {
@@ -113,7 +113,7 @@ export default function StallBookingSection() {
                 className={`inline-flex items-center gap-1.5 font-bold text-sm ${item.textColor} hover:underline pt-2 border-t border-gray-100`}
               >
                 <span>Reserve</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           ))}
