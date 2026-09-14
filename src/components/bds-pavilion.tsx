@@ -146,12 +146,12 @@ const BDSPavilion: React.FC<BDSPRops> = ({
               tooltipContent = "";
             } else if (isSelected) {
               color = "#00ff00";
+            } else if (cyanStalls.has(stall.id)) {
+              color = "#38bdf8"; // Cyan blue corner accent
             } else if (isPrime1) {
               color = "#f5aeae";
             } else if (isPrime2) {
               color = "#f3efa3";
-            } else if (cyanStalls.has(stall.id)) {
-              color = "#38bdf8"; // Cyan blue corner accent
             } else if (yellowHighlightStalls.has(stall.id)) {
               color = "#fef08a"; // Soft yellow accent
             }

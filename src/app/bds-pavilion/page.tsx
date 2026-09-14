@@ -75,7 +75,7 @@ const Hanger1Page = () => {
     });
   }, []);
 
-  const primeStallsType1 = ["E2", "E1"];
+  const primeStallsType1 = ["E36", "E15", "E2", "E1"];
 
   const primeStallsType2 = [
     "E49",
