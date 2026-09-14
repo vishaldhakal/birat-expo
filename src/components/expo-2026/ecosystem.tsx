@@ -8,17 +8,19 @@ export default function Ecosystem2026() {
           The Ecosystem of Opportunities
         </h2>
         <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed text-justify">
-          Economic growth is not created through isolated initiatives. It is created through ecosystems.
-          An ecosystem where businesses collaborate rather than compete in isolation. Where students connect with industries.
-          Where entrepreneurs meet investors. Where innovation reaches markets. Where policy meets practice.
-          Where partnerships create impact. This philosophy defines Birat Expo 2026.
+          Economic growth is not created through isolated initiatives. It is
+          created through ecosystems. An ecosystem where businesses collaborate
+          rather than compete in isolation. Where students connect with
+          industries. Where entrepreneurs meet investors. Where innovation
+          reaches markets. Where policy meets practice. Where partnerships
+          create impact. This philosophy defines Birat Expo 2026.
         </p>
 
-        <div className="w-full overflow-hidden mb-8 border border-gray-200 bg-white">
+        <div className="w-full flex justify-center items-center mb-10">
           <img
             src="/birat-expo-2026/ecosystemofoppurtunities.jpeg"
             alt="Ecosystem of Opportunities Circle"
-            className="w-full h-auto"
+            className="max-h-[400px] sm:max-h-[500px] md:max-h-[600px] lg:max-h-[780px] w-auto object-contain mx-auto rounded-2xl shadow-md"
           />
         </div>
 
@@ -30,29 +32,31 @@ export default function Ecosystem2026() {
             {
               title: "LEARN",
               desc: "Knowledge, Skills, Career, Education and Industry Exposure.",
-              border: "border-amber-500"
+              border: "border-amber-500",
             },
             {
               title: "BUILD",
               desc: "Entrepreneurship, Innovation, Startups, Enterprise Development.",
-              border: "border-blue-500"
+              border: "border-blue-500",
             },
             {
               title: "CONNECT",
               desc: "Trade, Investment, Business Networking, Policy Dialogue, Strategic Partnerships.",
-              border: "border-emerald-500"
+              border: "border-emerald-500",
             },
             {
               title: "EXPERIENCE",
               desc: "Products, Technology, Culture, Food, Entertainment, Community.",
-              border: "border-rose-500"
-            }
+              border: "border-rose-500",
+            },
           ].map((p, i) => (
             <div
               key={i}
               className={`bg-white border-t-4 ${p.border} border-x border-b border-gray-200 rounded-xl p-6 transition-all duration-300`}
             >
-              <h4 className="text-xl font-bold text-gray-900 mb-2">{p.title}</h4>
+              <h4 className="text-xl font-bold text-gray-900 mb-2">
+                {p.title}
+              </h4>
               <p className="text-sm text-gray-600 leading-relaxed">{p.desc}</p>
             </div>
           ))}

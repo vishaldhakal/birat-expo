@@ -59,15 +59,19 @@ export default function Hero2026() {
         </div>
 
         {/* Right Side: Mascot */}
-        <div className="w-full md:w-1/2 flex justify-center md:justify-end">
-          <Image
-            src="/biratmascot.png"
-            alt="Birat Expo 2026 Mascot"
-            width={500}
-            height={600}
-            className="max-w-full h-auto w-auto"
-            priority
-          />
+        <div className="w-full md:w-1/2 flex justify-center items-center md:justify-end">
+          <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl flex justify-center items-center p-2">
+            {/* Subtle background glow/card for crisp presentation */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/50 via-sky-50/30 to-transparent rounded-3xl -z-10 blur-xl"></div>
+            <Image
+              src="/biratmascot.png"
+              alt="Birat Expo 2026 Mascot"
+              width={700}
+              height={800}
+              className="w-full h-auto max-h-[550px] md:max-h-[680px] object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300"
+              priority
+            />
+          </div>
         </div>
       </div>
     </div>
