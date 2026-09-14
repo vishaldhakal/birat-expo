@@ -114,9 +114,9 @@ const ContactInformation = ({ year = 2026 }: { year?: number }) => {
               <p className="text-sm">
                 Executive member & Co-Coordinator Birat Expo {year}
               </p>
-              {/* <a href="tel:9802771077" className="text-sm hover:underline">
-                Mobile 9802771077
-              </a> */}
+              <a href="tel:9852026361" className="text-sm hover:underline">
+                Mobile 9852026361
+              </a>
             </div>
           </div>
         </div>
