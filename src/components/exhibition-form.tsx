@@ -82,7 +82,7 @@ const ExhibitionForm = () => {
     reValidateMode: "onSubmit",
     defaultValues: {
       stall_no: searchParams.get("stalls") || "",
-      total_amount: Math.ceil(parseInt(searchParams.get("total") || "") * 1.13),
+      total_amount: parseInt(searchParams.get("total") || "0") || 0,
       stall_type: searchParams.get("type") || "",
     },
   });
@@ -331,7 +331,7 @@ const ExhibitionForm = () => {
               <thead>
                 <tr className="bg-gray-100">
                   <th className="border p-2">Stall/Categories</th>
-                  <th className="border p-2">Rates Exclusive Tax</th>
+                  <th className="border p-2">Rates (Inclusive of VAT)</th>
                   <th className="border p-2">Facilities</th>
                   <th className="border p-2">Select</th>
                 </tr>
@@ -382,7 +382,7 @@ const ExhibitionForm = () => {
             )}
             <p className="mt-2 text-sm">
               <span className="text-red-500">* </span>
-              All above rates are exclusive of VAT
+              All above rates are inclusive of VAT
             </p>
           </div>
 
@@ -423,24 +423,12 @@ const ExhibitionForm = () => {
               </div>
               <div className="items-center italic mt-10 underline underline-offset-4 inline gap-2 p-2">
                 <span className="text-red-500">* </span>
-                <span className="">
+                <span className="font-semibold">
                   Stall Amount : Rs.{" "}
                   {`${formatNumberInternational(
-                    parseInt(searchParams.get("total") || ""),
-                  )}`}
-                </span>
-                <span className="">
-                  +{" Rs. "}
-                  {`${formatNumberInternational(
-                    parseInt(searchParams.get("total") || "") * 0.13,
-                  )}`}
-                  (13 % VAT) ={" "}
-                  <span className="font-semibold">
-                    Rs.{" "}
-                    {`${formatNumberInternational(
-                      parseInt(searchParams.get("total") || "") * 1.13,
-                    )}`}
-                  </span>
+                    parseInt(searchParams.get("total") || "0") || 0,
+                  )}`}{" "}
+                  (Inclusive of VAT)
                 </span>
               </div>
               <div className="flex items-center gap-2">
