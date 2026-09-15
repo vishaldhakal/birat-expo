@@ -1,14 +1,12 @@
 "use client";
-import FloorPlan2026 from "@/components/expo-2026/floor-plan";
-import StallBookingSection2026 from "@/components/expo-2026/stall-booking-section";
+import ExhibitionForm from "@/components/exhibition-form";
 import React, { Suspense } from "react";
 
 const BookStalls = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="mb-40">
-        <StallBookingSection2026 />
-        <FloorPlan2026 />
+        <ExhibitionForm />
       </div>
     </Suspense>
   );
