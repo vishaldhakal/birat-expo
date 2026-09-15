@@ -4,12 +4,14 @@ export default function OpportunitiesCreated2026() {
   return (
     <section className="py-12 border-t border-gray-100 bg-white">
       <div className="container mx-auto px-4 md:px-8">
-        <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 border-l-[6px] border-blue-600 pl-4 uppercase">
-          Opportunities Created
-        </h2>
-        <p className="text-base md:text-lg text-gray-600 mb-10 pl-4 italic">
-          &quot;Notice the subtle difference. We are not counting activities. We are counting opportunities created.&quot;
-        </p>
+        <div className="max-w-2xl mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
+            Opportunities <span className="text-blue-600">Created</span>
+          </h2>
+          <p className="mt-2 text-sm sm:text-base text-gray-600 font-medium italic">
+            &quot;Notice the subtle difference. We are not counting activities. We are counting opportunities created.&quot;
+          </p>
+        </div>
 
         <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
           {[

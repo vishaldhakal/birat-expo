@@ -4,12 +4,14 @@ export default function SignaturePrograms2026() {
   return (
     <section className="py-12 border-t border-gray-100 bg-gray-50/50">
       <div className="container mx-auto px-4 md:px-8">
-        <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 border-l-[6px] border-blue-600 pl-4 uppercase">
-          Signature Programs
-        </h2>
-        <p className="w-full text-base md:text-lg text-gray-700 mb-10 leading-relaxed text-justify">
-          The vision of Birat Expo 2026 – The Ecosystem of Opportunities is translated into action through CIM&apos;s flagship platforms. Rather than creating temporary activities, the Expo integrates proven year-round platforms for greater visibility, wider participation, and stronger impact.
-        </p>
+        <div className="max-w-3xl mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
+            5 Signature <span className="text-blue-600">Experiences</span>
+          </h2>
+          <p className="mt-2 text-sm sm:text-base text-gray-600 font-medium leading-relaxed">
+            Integrating proven year-round platforms for greater visibility, wider participation, and stronger impact across Koshi Province.
+          </p>
+        </div>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
