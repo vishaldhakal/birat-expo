@@ -32,11 +32,18 @@ export default function Hero2026() {
       {/* ── Content ── */}
       <div className="relative z-20 w-full container mx-auto px-4 md:px-8 py-24 md:py-32">
         <div className="max-w-2xl flex flex-col items-start text-left">
-
           {/* Logos */}
           <div className="flex items-center gap-3 mb-6">
-            <img src="/1.png" alt="CIM Logo" className="h-12 sm:h-16 w-auto object-contain" />
-            <img src="/2.png" alt="Baliyo Logo" className="h-14 sm:h-20 w-auto object-contain" />
+            <img
+              src="/1.png"
+              alt="CIM Logo"
+              className="h-12 sm:h-16 w-auto object-contain"
+            />
+            <img
+              src="/2.png"
+              alt="Baliyo Logo"
+              className="h-14 sm:h-20 w-auto object-contain"
+            />
           </div>
 
           {/* Pills */}
@@ -72,7 +79,7 @@ export default function Hero2026() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-8 sm:mt-10 w-full sm:w-auto">
             <Link
-              href="/book-stalls"
+              href="/stalls"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-200 hover:-translate-y-0.5 text-sm uppercase tracking-wider w-full sm:w-auto"
             >
               Book Your Stall
@@ -85,7 +92,6 @@ export default function Hero2026() {
               Explore Sponsorship
             </Link>
           </div>
-
         </div>
       </div>
     </section>
