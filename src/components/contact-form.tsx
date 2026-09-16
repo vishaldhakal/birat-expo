@@ -68,9 +68,13 @@ const ContactForm = () => {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
+              className="text-center"
             >
-              <h2 className="text-3xl font-extrabold text-gray-800 mb-10 text-center">
-                Any questions? Feel free to ask us.
+              <span className="inline-block text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-4">
+                Get In Touch
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 mb-10 text-center tracking-tight">
+                Any questions? <span className="text-blue-600">Feel free to ask us.</span>
               </h2>
             </motion.div>
 

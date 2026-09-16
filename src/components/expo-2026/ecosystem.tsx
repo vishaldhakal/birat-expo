@@ -12,7 +12,6 @@ import {
   Landmark,
   ShoppingBag,
   Users,
-  X,
 } from "lucide-react";
 
 const opportunities = [
@@ -24,8 +23,7 @@ const opportunities = [
     border: "border-emerald-500",
     text: "text-emerald-600",
     bg: "bg-emerald-600",
-    gradient: "from-emerald-500 to-emerald-700",
-    pos: { left: "50%", top: "8%" },
+    pos: { left: "50%", top: "10.5%" },
   },
   {
     number: "02",
@@ -35,8 +33,7 @@ const opportunities = [
     border: "border-blue-500",
     text: "text-blue-600",
     bg: "bg-blue-600",
-    gradient: "from-blue-500 to-blue-700",
-    pos: { left: "75%", top: "16%" },
+    pos: { left: "70.42%", top: "18.04%" },
   },
   {
     number: "03",
@@ -46,8 +43,7 @@ const opportunities = [
     border: "border-violet-500",
     text: "text-violet-600",
     bg: "bg-violet-600",
-    gradient: "from-violet-500 to-violet-700",
-    pos: { left: "90%", top: "37%" },
+    pos: { left: "83.01%", top: "37.79%" },
   },
   {
     number: "04",
@@ -57,8 +53,7 @@ const opportunities = [
     border: "border-orange-500",
     text: "text-orange-600",
     bg: "bg-orange-500",
-    gradient: "from-orange-500 to-orange-700",
-    pos: { left: "90%", top: "63%" },
+    pos: { left: "83.01%", top: "62.21%" },
   },
   {
     number: "05",
@@ -68,8 +63,7 @@ const opportunities = [
     border: "border-cyan-500",
     text: "text-cyan-600",
     bg: "bg-cyan-600",
-    gradient: "from-cyan-500 to-cyan-700",
-    pos: { left: "75%", top: "84%" },
+    pos: { left: "70.42%", top: "81.96%" },
   },
   {
     number: "06",
@@ -79,8 +73,7 @@ const opportunities = [
     border: "border-pink-500",
     text: "text-pink-600",
     bg: "bg-pink-600",
-    gradient: "from-pink-500 to-pink-700",
-    pos: { left: "50%", top: "92%" },
+    pos: { left: "50%", top: "89.5%" },
   },
   {
     number: "07",
@@ -90,8 +83,7 @@ const opportunities = [
     border: "border-indigo-500",
     text: "text-indigo-600",
     bg: "bg-indigo-600",
-    gradient: "from-indigo-500 to-indigo-700",
-    pos: { left: "25%", top: "84%" },
+    pos: { left: "29.58%", top: "81.96%" },
   },
   {
     number: "08",
@@ -101,8 +93,7 @@ const opportunities = [
     border: "border-purple-500",
     text: "text-purple-700",
     bg: "bg-purple-700",
-    gradient: "from-purple-500 to-purple-700",
-    pos: { left: "10%", top: "63%" },
+    pos: { left: "16.99%", top: "62.21%" },
   },
   {
     number: "09",
@@ -112,8 +103,7 @@ const opportunities = [
     border: "border-amber-500",
     text: "text-amber-600",
     bg: "bg-amber-600",
-    gradient: "from-amber-500 to-amber-700",
-    pos: { left: "10%", top: "37%" },
+    pos: { left: "16.99%", top: "37.79%" },
   },
   {
     number: "10",
@@ -123,8 +113,7 @@ const opportunities = [
     border: "border-teal-500",
     text: "text-teal-700",
     bg: "bg-teal-700",
-    gradient: "from-teal-500 to-teal-700",
-    pos: { left: "25%", top: "16%" },
+    pos: { left: "29.58%", top: "18.04%" },
   },
 ];
 
@@ -148,30 +137,31 @@ export default function Ecosystem2026() {
   }, [selected]);
 
   return (
-    <section className="py-12 md:py-20 border-t border-gray-100">
+    <section className="py-16 md:py-24 border-t border-gray-100 bg-white">
       <div className="container mx-auto px-4 md:px-8">
         {/* Header — left aligned */}
         <div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight whitespace-nowrap">
+          <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+            Interactive Ecosystem
+          </span>
+          <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight whitespace-nowrap">
             The Ecosystem of{" "}
             <span className="text-blue-600">Opportunities</span>
           </h2>
         </div>
 
         {/* Radial diagram — desktop / tablet, hover to focus, click for detail */}
-        <div className="hidden md:block relative mx-auto mt-10 w-full max-w-3xl h-[600px] lg:h-[660px]">
-          {/* dashed ring */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[50%] rounded-full border-2 border-dashed border-gray-300" />
+        <div className="hidden md:block relative mx-auto mt-14 w-full max-w-5xl h-[900px] overflow-visible">
+          {/* dashed ring — aspect-square keeps it a true circle regardless of container proportions */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[46%] aspect-square rounded-full border-2 border-dashed border-gray-300" />
 
           {/* hub */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20  flex flex-col items-center justify-center text-center p-4">
-            <span className="  flex items-center justify-center overflow-hidden mb-2 ">
-              <img
-                src="/logo2.png"
-                alt="Birat Expo 2026 logo"
-                className="w-28 h-28 lg:w-60 lg:h-60 object-contain"
-              />
-            </span>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[30%] aspect-square rounded-full bg-white border border-gray-200 shadow-xl shadow-gray-900/5 flex items-center justify-center p-6">
+            <img
+              src="/logo2.png"
+              alt="Birat Expo 2026 logo"
+              className="w-full h-full object-contain"
+            />
           </div>
 
           {/* nodes */}
@@ -191,28 +181,28 @@ export default function Ecosystem2026() {
                   onMouseLeave={() => setHoveredId(null)}
                   onClick={() => setSelected(o)}
                   aria-label={`Opportunity to ${o.label} — view details`}
-                  className={`relative w-32 h-32 lg:w-40 lg:h-40 rounded-full bg-white border-2 ${o.border} flex flex-col items-center justify-center text-center px-4 transition-all duration-200 ${
+                  className={`relative w-40 h-40 rounded-full bg-white border-2 ${o.border} flex flex-col items-center justify-center text-center px-5 transition-all duration-200 ${
                     isHovered
-                      ? "scale-125 shadow-xl z-30"
+                      ? "scale-110 shadow-xl z-30"
                       : isDimmed
-                        ? "opacity-50 z-10"
+                        ? "opacity-40 z-10"
                         : "shadow-sm z-10"
                   }`}
                 >
                   <span
-                    className={`absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full ${o.bg} text-white text-[11px] font-bold flex items-center justify-center border-2 border-white`}
+                    className={`absolute -top-3.5 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full ${o.bg} text-white text-[11px] font-bold flex items-center justify-center border-2 border-white`}
                   >
                     {o.number}
                   </span>
-                  <Icon className={`w-4.5 h-4.5 lg:w-5 lg:h-5 ${o.text}`} />
+                  <Icon className={`w-6 h-6 ${o.text}`} />
                   <p
-                    className={`mt-1 text-[10px] lg:text-[11px] font-black ${o.text} uppercase leading-tight`}
+                    className={`mt-2 text-[11px] font-black ${o.text} uppercase leading-tight`}
                   >
                     Opportunity
                     <br />
                     to {o.label}
                   </p>
-                  <p className="mt-1 text-[8px] lg:text-[9px] text-gray-500 leading-snug line-clamp-3">
+                  <p className="mt-1.5 text-[9px] text-gray-500 leading-snug line-clamp-3">
                     {o.desc}
                   </p>
                 </button>
@@ -257,6 +247,41 @@ export default function Ecosystem2026() {
           })}
         </div>
       </div>
+
+      {/* Detail modal */}
+      {selected && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-4"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="absolute inset-0 bg-gray-950/60 backdrop-blur-sm"
+            onClick={() => setSelected(null)}
+          />
+          <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6">
+            <button
+              type="button"
+              onClick={() => setSelected(null)}
+              aria-label="Close"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
+            >
+              ✕
+            </button>
+            <span
+              className={`inline-flex items-center justify-center w-10 h-10 rounded-full ${selected.bg} text-white text-sm font-bold mb-4`}
+            >
+              {selected.number}
+            </span>
+            <h3 className={`text-lg font-black ${selected.text} uppercase`}>
+              Opportunity to {selected.label}
+            </h3>
+            <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+              {selected.desc}
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

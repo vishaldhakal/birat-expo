@@ -62,12 +62,15 @@ const stallCategories = [
 
 export default function StallBookingSection() {
   return (
-    <section className="py-16 md:py-20 bg-gray-50/50 border-y border-gray-100 relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-gray-50/50 border-t border-gray-100 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
+            <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+              Exhibitor Booking
+            </span>
+            <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
               5 Exhibition <span className="text-blue-600">Zones</span>
             </h2>
           </div>

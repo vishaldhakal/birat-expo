@@ -40,38 +40,38 @@ import ContactInformation from "@/components/contact-information";
 export default function Home() {
   return (
     <div className="w-full min-h-screen bg-white">
-      {/* 1. Hero */}
+      {/* 1. Hero — Full-screen cinematic experience */}
       <Hero2026 />
 
-      {/* Why Birat Expo? */}
+      {/* 2. Evolution — Story & Heritage of Birat Expo */}
+      <Evolution2026 />
+
+      {/* 3. Why Birat Expo? — Key Objectives & Value */}
       <WhyBiratExpo2026 />
 
-      {/* 2. More Than an Exhibition */}
-      {/* <Evolution2026 /> */}
-
-      {/* 4. The Ecosystem */}
+      {/* 4. The Ecosystem — Interactive Radial Hub */}
       <Ecosystem2026 />
 
-      {/* 3. Expo in Numbers */}
+      {/* 5. Expo in Numbers — Measured Impact & Metrics */}
       <OpportunitiesCreated2026 />
 
-      {/* 5. Choose Your Experience */}
+      {/* 6. 6 Opportunity Zones & Platforms — Detailed Categories */}
       <Platforms2026 />
 
-      {/* 6. 5 Signature Experiences */}
+      {/* 7. 5 Signature Experiences — Key Events */}
       <SignaturePrograms2026 />
 
-      {/* 7. Meet Asha — The Dolphin of Opportunity */}
+      {/* 8. Meet Asha — The Dolphin of Opportunity (Mascot & Spirit) */}
       <Mascot2026 />
 
-      {/* 8. Explore the Expo / Interactive Map */}
+      {/* 9. Floor Plan & Venue Location */}
       <FloorPlan2026 />
       <VenueMap2026 />
 
-      {/* 9. Why Exhibit? */}
+      {/* 10. Stall Booking & Exhibition Zones */}
       <StallBookingSection2026 />
 
-      {/* 11. Final CTA — Your Opportunity Is Waiting */}
+      {/* 11. Contact & Inquiry */}
       <ContactInformation year={2026} />
     </div>
   );

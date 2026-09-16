@@ -2,9 +2,12 @@ import React from "react";
 
 export default function VenueMap2026() {
   return (
-    <section className="py-12 md:py-16 border-t border-gray-100 bg-white">
+    <section className="py-16 md:py-24 border-t border-gray-100 bg-white">
       <div className="container mx-auto px-4 md:px-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight mb-8">
+        <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+          Location & Navigation
+        </span>
+        <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight mb-8">
           Event Venue <span className="text-blue-600">(Degree Campus, Biratnagar)</span>
         </h2>
         <div className="w-full border border-gray-200 rounded-2xl overflow-hidden shadow-sm">

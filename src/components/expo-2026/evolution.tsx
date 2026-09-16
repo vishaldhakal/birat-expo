@@ -49,16 +49,16 @@ export default function Evolution2026() {
   }, [isImageOpen]);
 
   return (
-    <section className="bg-white py-12 md:py-20">
+    <section className="bg-white py-16 md:py-24 border-t border-gray-100">
       <div className="container mx-auto px-4 md:px-8">
         {/* Header — text + image side by side, mirrors hero's split layout */}
         <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
           <div className="w-full lg:w-7/12 flex flex-col items-start text-left">
-            <span className="text-xs sm:text-sm font-bold text-gray-800 border border-gray-200 px-3.5 sm:px-4 py-1.5 rounded-full uppercase tracking-wider bg-gray-50/50">
+            <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
               Since 2053 B.S.
             </span>
-            <h2 className="mt-5 sm:mt-6 text-2xl sm:text-4xl md:text-5xl font-black text-gray-950">
-              The Evolution of Birat Expo
+            <h2 className="mt-4 sm:mt-5 text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-950 tracking-tight">
+              The Evolution of <span className="text-blue-600">Birat Expo</span>
             </h2>
             <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-gray-600 font-medium leading-relaxed">
               Organized by the Chamber of Industries Morang (CIM), Birat Expo

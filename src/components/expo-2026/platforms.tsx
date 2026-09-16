@@ -134,11 +134,14 @@ export default function Platforms2026() {
   ];
 
   return (
-    <section className="py-16 border-t border-gray-100 bg-white text-gray-900">
+    <section className="py-16 md:py-24 border-t border-gray-100 bg-white text-gray-900">
       <div className="container mx-auto px-4 md:px-8">
         {/* Section Header */}
         <div className="mb-10 max-w-2xl">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
+          <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+            Curated Zones
+          </span>
+          <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
             6 Opportunity <span className="text-blue-600">Zones & Platforms</span>
           </h2>
           <p className="text-sm sm:text-base text-gray-600 font-medium mt-2 leading-relaxed">

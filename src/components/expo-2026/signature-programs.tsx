@@ -2,10 +2,13 @@ import React from "react";
 
 export default function SignaturePrograms2026() {
   return (
-    <section className="py-12 border-t border-gray-100 bg-gray-50/50">
+    <section className="py-16 md:py-24 border-t border-gray-100 bg-gray-50/50">
       <div className="container mx-auto px-4 md:px-8">
         <div className="max-w-3xl mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
+          <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+            Flagship Events
+          </span>
+          <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-950 tracking-tight">
             5 Signature <span className="text-blue-600">Experiences</span>
           </h2>
           <p className="mt-2 text-sm sm:text-base text-gray-600 font-medium leading-relaxed">

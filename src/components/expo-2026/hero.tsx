@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 
 export default function Hero2026() {
   return (
-    <section className="relative overflow-hidden bg-gray-950 min-h-screen flex items-center">
+    <section className="relative overflow-hidden bg-gray-950 min-h-screen flex items-end">
       {/* ── YouTube Background Video ── */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <iframe
@@ -24,30 +24,32 @@ export default function Hero2026() {
         <div className="absolute inset-0 pointer-events-auto" />
       </div>
 
-      {/* ── Cinematic Overlay ── */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-gray-950/90 via-gray-950/75 to-gray-950/50" />
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 z-10 bg-gradient-to-t from-gray-950 to-transparent" />
+      {/*
+        ── Overlay ──
+        Kept minimal so the video reads clearly. Just enough contrast
+        at the bottom for the text to stay legible over motion.
+      */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-gray-950/85 via-gray-950/20 to-transparent" />
 
       {/* ── Content ── */}
-      <div className="relative z-20 w-full container mx-auto px-4 md:px-8 py-24 md:py-32">
-        <div className="max-w-2xl flex flex-col items-start text-left">
+      <div className="relative z-20 w-full container mx-auto px-4 md:px-8 pb-16 md:pb-24 pt-24">
+        <div className="max-w-2xl flex flex-col items-start text-left gap-5">
           {/* Logos */}
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3">
             <img
               src="/1.png"
               alt="CIM Logo"
-              className="h-12 sm:h-16 w-auto object-contain"
+              className="h-10 sm:h-14 w-auto object-contain"
             />
             <img
               src="/2.png"
               alt="Baliyo Logo"
-              className="h-14 sm:h-20 w-auto object-contain"
+              className="h-12 sm:h-16 w-auto object-contain"
             />
           </div>
 
           {/* Pills */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold text-white/80 border border-white/20 px-3 py-1 rounded-full uppercase tracking-wider bg-white/10 backdrop-blur-sm">
               9th Edition
             </span>
@@ -61,23 +63,17 @@ export default function Hero2026() {
           </div>
 
           {/* Headline */}
-          <h1 className="mt-5 text-3xl sm:text-5xl md:text-6xl font-black text-white leading-none tracking-tight">
-            Birat Expo <span className="text-blue-400">2026</span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="mt-3 text-lg sm:text-2xl md:text-3xl text-white/80 font-extrabold">
-            The Ecosystem of Opportunities
-          </p>
-
-          {/* Description */}
-          <p className="mt-3 text-sm sm:text-base text-white/55 font-medium leading-relaxed max-w-lg">
-            Nepal&apos;s premier business ecosystem platform — where industries,
-            entrepreneurs, students, and ideas converge.
-          </p>
+          <div>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-[1.05] tracking-tight drop-shadow-lg">
+              Birat Expo <span className="text-blue-400">2026</span>
+            </h1>
+            <p className="mt-2 text-base sm:text-xl md:text-2xl text-white/80 font-semibold">
+              The Ecosystem of Opportunities
+            </p>
+          </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-8 sm:mt-10 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-2 w-full sm:w-auto">
             <Link
               href="/stalls"
               className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-200 hover:-translate-y-0.5 text-sm uppercase tracking-wider w-full sm:w-auto"
@@ -87,7 +83,7 @@ export default function Hero2026() {
             </Link>
             <Link
               href="/sponsorship"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/20 hover:border-white/50 bg-white/10 hover:bg-white/15 backdrop-blur-sm text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 text-sm uppercase tracking-wider w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white/25 hover:border-white/50 bg-white/5 hover:bg-white/15 backdrop-blur-sm text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 text-sm uppercase tracking-wider w-full sm:w-auto"
             >
               Explore Sponsorship
             </Link>

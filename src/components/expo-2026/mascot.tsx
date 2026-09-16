@@ -13,7 +13,7 @@ const traits = [
 
 export default function Mascot2026() {
   return (
-    <section className="py-12 md:py-20 border-t border-gray-100">
+    <section className="py-16 md:py-24 border-t border-gray-100 bg-white">
       <div className="container mx-auto px-4 md:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50 via-white to-blue-50 border border-blue-100 p-6 sm:p-10 lg:p-14">
           {/* decorative blurred accents */}
@@ -23,8 +23,8 @@ export default function Mascot2026() {
           <div className="relative flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
             {/* Text content — left on desktop, below image on mobile */}
             <div className="order-2 lg:order-1 w-full lg:w-6/12 text-center lg:text-left">
-              <span className="inline-block text-xs sm:text-sm font-bold text-gray-800 border border-gray-200 px-3.5 sm:px-4 py-1.5 rounded-full uppercase tracking-wider bg-white">
-                Say Hello
+              <span className="inline-block text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                Official Mascot
               </span>
               <h2 className="mt-5 text-2xl sm:text-3xl md:text-4xl font-black text-gray-950 leading-tight">
                 Meet <span className="text-blue-600">Asha</span>
