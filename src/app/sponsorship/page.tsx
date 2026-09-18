@@ -60,7 +60,7 @@ export default function Sponsorship() {
   // Memoize constant data
   const legendItemsSponsors = useMemo(
     () => [
-      { color: "#3498DB", label: "Main Sponsor" },
+      { color: "#3498DB", label: "Title Sponsor" },
       { color: "#E67E22", label: "Powered By Sponsor" },
       { color: "#95A5A6", label: "Platinum" },
       { color: "#1ABC9C", label: "Diamond" },
@@ -77,20 +77,20 @@ export default function Sponsorship() {
   const sponsorStallProps: SponsorStallPropsType[] = useMemo(
     () => [
       {
-        sponsor_type: "Main Sponsor",
-        price: 7500000,
+        sponsor_type: "Title Sponsor",
+        price: 4500000,
         color: "#3498DB",
         stallid: ["S1"],
       },
       {
         sponsor_type: "Powered By Sponsor",
-        price: 3500000,
+        price: 2500000,
         color: "#E67E22",
         stallid: ["S2"],
       },
       {
         sponsor_type: "Platinum",
-        price: 200000,
+        price: 2000000,
         color: "#95A5A6",
         stallid: ["S3"],
       },
