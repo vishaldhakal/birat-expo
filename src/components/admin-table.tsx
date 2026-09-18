@@ -86,7 +86,7 @@ const AdminTable: React.FC = () => {
   const handleViewDetails = async (id: number) => {
     try {
       const response = await axios.get(
-        `https://cim.baliyoventures.com/api/stall/${id}/`
+        `https://cim.baliyoventures.com/api/stall/${id}/`,
       );
       setSelectedStall(response.data);
       setIsModalOpen(true);
@@ -97,15 +97,13 @@ const AdminTable: React.FC = () => {
 
   const handleStatusChange = async (
     id: number,
-    newStatus: "Approved" | "Rejected"
+    newStatus: "Approved" | "Rejected",
   ) => {
     setLoadingStallId(id);
     try {
       const endpoint =
         newStatus === "Approved" ? "approve-stall" : "reject-stall";
-      await axios.post(
-        `https://cim.baliyoventures.com/api/${endpoint}/${id}/`
-      );
+      await axios.post(`https://cim.baliyoventures.com/api/${endpoint}/${id}/`);
       if (selectedStall && selectedStall.id === id) {
         setSelectedStall({ ...selectedStall, status: newStatus });
       }
@@ -143,7 +141,7 @@ const AdminTable: React.FC = () => {
             (field) =>
               field !== null &&
               field !== undefined &&
-              field.toString().toLowerCase().includes(value.toLowerCase())
+              field.toString().toLowerCase().includes(value.toLowerCase()),
           );
         }
         if (key === "paymentStatus") {
@@ -259,7 +257,7 @@ const AdminTable: React.FC = () => {
           <thead className="bg-gray-200 text-gray-600">
             <tr>
               {[
-                "ID",
+                "Applied Date",
                 "Company",
                 "Chief Executive",
                 "Stall Type",
@@ -284,7 +282,15 @@ const AdminTable: React.FC = () => {
                 key={item.id}
                 className="border-b border-gray-200 hover:bg-gray-100"
               >
-                <td className="py-4 px-6">{item.id}</td>
+                <td className="py-4 px-6 text-xs whitespace-nowrap">
+                  {item.created_at
+                    ? new Date(item.created_at).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })
+                    : "-"}
+                </td>
                 <td className="py-4 px-6">{item.company}</td>
                 <td className="py-4 px-6">{item.chief_executive}</td>
                 <td className="py-4 px-6">{item.stall_type}</td>
@@ -294,7 +300,7 @@ const AdminTable: React.FC = () => {
                 </td>
                 <td
                   className={`py-4 px-6 font-semibold ${getStatusColor(
-                    item.status
+                    item.status,
                   )}`}
                 >
                   {item.status}
@@ -395,7 +401,7 @@ const AdminTable: React.FC = () => {
                     ) : key === "status" ? (
                       <span
                         className={`mt-1 font-semibold ${getStatusColor(
-                          value as string
+                          value as string,
                         )}`}
                       >
                         {value as string}
@@ -418,7 +424,7 @@ const AdminTable: React.FC = () => {
                         selectedStall.id,
                         selectedStall.status === "Approved"
                           ? "Rejected"
-                          : "Approved"
+                          : "Approved",
                       ).then(() => setIsModalOpen(false))
                     }
                     className={`${
