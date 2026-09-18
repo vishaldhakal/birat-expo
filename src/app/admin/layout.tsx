@@ -24,7 +24,7 @@ export default function ParticipantLayout({
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (email === "admin@admin.com" && password === "biratexpo2025!@") {
+    if (email === "admin@admin.com" && password === "biratexpo2026!@") {
       localStorage.setItem("adminSession", "true");
       setIsLoggedIn(true);
     } else {
