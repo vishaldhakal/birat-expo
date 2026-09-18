@@ -52,7 +52,7 @@ export type SponsorStallType = {
 };
 
 export function useGetSponsorStallStatus() {
-  const URL = `https://cim.baliyoventures.com/api/sponsor`;
+  const URL = `https://cim.baliyoventures.com/api/sponsor/`;
 
   const { data, isLoading, error, isValidating } = useSWR<any>(
     URL,

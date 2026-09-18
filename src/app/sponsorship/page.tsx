@@ -1,288 +1,224 @@
-// pages/sponsorship.js
 "use client";
 
+import { useMemo } from "react";
 import { sponsorshipLevels } from "@/components/other-sections";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo } from "react";
-import { useState, useCallback } from "react";
-import StallArea from "@/components/stall-area";
-import Sponsors from "@/components/sponsors";
+import { useRouter } from "next/navigation";
 import { useGetSponsorStallStatus } from "@/api/stall-status";
 
-type SponsorStallPropsType = {
-  sponsor_type: string;
-  price: number;
-  color: string;
-  stallid: string[];
+// Map display titles to backend-accepted values
+const tierToBackendType: Record<string, string> = {
+  "Title Partner": "Title Partner",
+  "Powered By Partner": "Powered By Partner",
+  "Platinum Partner": "Platinum",
+  "Diamond Partner": "Diamond",
+  "Gold Partner": "Gold",
+  "Silver Partner": "Silver",
 };
 
-type StallInfo = {
-  id: string;
-  companyName: string;
-};
+// Extract stall count from stalls string e.g. "4 stalls . Full benefits package"
+function getStallCount(stallsStr: string): number {
+  const match = stallsStr.match(/^(\d+)/);
+  return match ? parseInt(match[1], 10) : 1;
+}
 
 export default function Sponsorship() {
-  const pathname = usePathname();
   const router = useRouter();
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [selectedStalls, setSelectedStalls] = useState<string[]>([]);
+  const { sponsorStallStatus, sponsorStallStatusLoading } =
+    useGetSponsorStallStatus();
 
-  const {
-    sponsorStallStatus,
-    sponsorStallStatusLoading,
-    sponsorStallStatusError,
-    sponsorStallStatusValidating,
-  } = useGetSponsorStallStatus();
-
-  const isLoading = sponsorStallStatusLoading || sponsorStallStatusValidating;
-  const isError = sponsorStallStatusError;
-
-  // Memoize stall data processing
-  const { bookedStalls, reservedStalls } = useMemo(() => {
-    if (isLoading || isError) return { bookedStalls: [], reservedStalls: [] };
-
-    const booked =
-      sponsorStallStatus?.map((stall) => ({
-        id: stall.stall_id,
-        companyName: stall.company_name,
-      })) || [];
-
-    // Reserved stalls can be added here if needed
-    const reserved: StallInfo[] = [];
-
-    return {
-      bookedStalls: booked,
-      reservedStalls: reserved,
-    };
-  }, [isLoading, isError, sponsorStallStatus]);
-
-  // Memoize constant data
-  const legendItemsSponsors = useMemo(
-    () => [
-      { color: "#3498DB", label: "Title Sponsor" },
-      { color: "#E67E22", label: "Powered By Sponsor" },
-      { color: "#95A5A6", label: "Platinum" },
-      { color: "#1ABC9C", label: "Diamond" },
-      { color: "#F1C40F", label: "Gold" },
-      { color: "#BDC3C7", label: "Silver" },
-      { color: "#E74C3C", label: "Booked" },
-      { color: "#ffff00", label: "Reserved" },
-      { color: "#2ECC71", label: "Selected" },
-    ],
-    [],
-  );
-
-  const sponsorStallProps: SponsorStallPropsType[] = useMemo(
-    () => [
-      {
-        sponsor_type: "Title Sponsor",
-        price: 4500000,
-        color: "#3498DB",
-        stallid: ["S1"],
-      },
-      {
-        sponsor_type: "Powered By Sponsor",
-        price: 2500000,
-        color: "#E67E22",
-        stallid: ["S2"],
-      },
-      {
-        sponsor_type: "Platinum",
-        price: 2000000,
-        color: "#95A5A6",
-        stallid: ["S3"],
-      },
-      {
-        sponsor_type: "Diamond",
-        price: 1500000,
-        color: "#1ABC9C",
-        stallid: ["S4", "S5"],
-      },
-      {
-        sponsor_type: "Gold",
-        price: 1000000,
-        color: "#F1C40F",
-        stallid: ["S6", "S7", "S8", "S9"],
-      },
-      {
-        sponsor_type: "Silver",
-        price: 500000,
-        color: "#BDC3C7",
-        stallid: ["S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17"],
-      },
-    ],
-    [],
-  );
-
-  useEffect(() => {
-    if (pathname.includes("#")) {
-      const hash = pathname.split("#")[1];
-      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [pathname]);
-
-  const onAvailableStallClick = useCallback(
-    (stallId: string) => {
-      setSelectedStalls((prevSelected) => {
-        if (prevSelected.includes(stallId)) {
-          return prevSelected.filter((id) => id !== stallId);
-        } else {
-          if (prevSelected.length === 0) {
-            return [stallId];
-          } else {
-            // Find sponsor type of currently selected stall
-            const currentSponsorType = sponsorStallProps.find((stall) =>
-              stall.stallid.some((id) => stallId === id),
-            )?.sponsor_type;
-
-            // Find sponsor type of previously selected stall
-            const previousSponsorType = sponsorStallProps.find((stall) =>
-              stall.stallid.some((id) => prevSelected.includes(id)),
-            )?.sponsor_type;
-
-            // Only allow selection if it's from the same sponsor type
-            if (currentSponsorType === previousSponsorType) {
-              return [...prevSelected, stallId];
-            } else {
-              alert("You can only select stalls from the same sponsor type.");
-              return prevSelected;
-            }
-          }
-        }
-      });
-    },
-    [sponsorStallProps],
-  );
-
-  const handleProceed = useCallback(() => {
-    if (selectedStalls.length > 0) {
-      // Find the sponsor type by checking if any of the stall's IDs match the selected stall
-      const sponsorStall = sponsorStallProps.find((stall) =>
-        stall.stallid.some((id) => selectedStalls.includes(id)),
-      );
-
-      if (sponsorStall) {
-        router.push(
-          `/sponsor-booking?stall_id=${selectedStalls.join(",")}&sponsor_type=${
-            sponsorStall.sponsor_type
-          }`,
-        );
+  // Create a map of booked tier -> sponsor details
+  const bookedSponsorsMap = useMemo(() => {
+    const map: Record<string, { companyName: string }> = {};
+    if (!sponsorStallStatus) return map;
+    for (const item of sponsorStallStatus) {
+      if (item.stall_type) {
+        const key = item.stall_type.toLowerCase().trim();
+        map[key] = { companyName: item.company_name || "Booked Sponsor" };
       }
     }
-  }, [selectedStalls, sponsorStallProps, router]);
+    return map;
+  }, [sponsorStallStatus]);
+
+  const handleBook = (level: (typeof sponsorshipLevels)[0]) => {
+    const backendType = tierToBackendType[level.title];
+    const stallCount = getStallCount(level.stalls);
+    router.push(
+      `/sponsor-booking?sponsor_type=${encodeURIComponent(backendType)}&max_stalls=${stallCount}`,
+    );
+  };
 
   return (
-    <>
-      <div className="relative">
-        <StallArea
-          title="Sponsors Pavilion"
-          legendItems={legendItemsSponsors}
-          StallComponent={Sponsors}
-          stallProps={{
-            sponsorStallProps: sponsorStallProps,
-            bookedStalls: bookedStalls,
-            reservedStalls: reservedStalls,
-            totalPrice: totalPrice,
-            setTotalPrice: setTotalPrice,
-            onAvailableStallClick: onAvailableStallClick,
-            selectedStalls: selectedStalls,
-          }}
-        />
-
-        {selectedStalls.length > 0 && (
-          <div className="fixed gap-4 bottom-8 left-1/2 transform -translate-x-1/2 flex justify-center z-50 bg-white px-10 py-10 rounded-md shadow-lg">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 text-lg rounded-full shadow-lg">
-              Selected ({selectedStalls.join(",")})
-            </button>
-
-            <button
-              onClick={handleProceed}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 text-lg rounded-full shadow-lg"
-            >
-              Book Now
-            </button>
-          </div>
-        )}
-      </div>
+    <div>
+      {/* Tier Cards */}
       <div className="container mx-auto py-12">
         <h2 className="text-4xl font-black text-start border-l-[5px] ps-2 border-blue-800 text-gray-800 mb-10">
           Sponsorship <span className="text-blue-500">Opportunity</span>
         </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sponsorshipLevels.map((level, index) => {
+            const stallCount = getStallCount(level.stalls);
+            const backendType = tierToBackendType[level.title] || level.title;
+            const bookedInfo =
+              bookedSponsorsMap[backendType.toLowerCase().trim()];
+            const isBooked = Boolean(bookedInfo);
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {sponsorshipLevels.map((level, index) => (
-            <div
-              id={level.title.toLowerCase().replace(/ /g, "-")}
-              key={index}
-              className="scroll-offset rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between"
-            >
-              {/* Header Box */}
-              <div>
+            return (
+              <div
+                key={index}
+                className={`group bg-white rounded-2xl border shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col ${
+                  isBooked ? "border-red-200 opacity-90" : "border-gray-100"
+                }`}
+              >
+                {/* Colored header */}
                 <div
-                  className={`${level.bgHeader} text-white text-center py-4 px-6 relative`}
+                  className={`${
+                    isBooked ? "bg-gray-800" : level.bgHeader
+                  } px-6 py-5 text-white flex items-start justify-between gap-2`}
                 >
-                  <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-wide">
-                    {level.title}
-                  </h3>
+                  <div>
+                    <h3 className="text-xl font-extrabold uppercase tracking-wide">
+                      {level.title}
+                    </h3>
+                    <p className="text-white/70 text-xs mt-1 uppercase tracking-wider">
+                      Partner Package
+                    </p>
+                  </div>
+                  {isBooked && (
+                    <span className="bg-red-500 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shrink-0 shadow">
+                      Already Booked
+                    </span>
+                  )}
                 </div>
 
-                {/* Investment Content */}
-                <div className="p-6 text-center border-b border-gray-100">
-                  <div className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
+                {/* Price + stalls */}
+                <div className="px-6 py-5 border-b border-gray-100">
+                  <div className="text-3xl font-black text-gray-900 tracking-tight">
                     {level.price}
                   </div>
-                  <span className="text-xs uppercase font-bold text-gray-400 tracking-wider">
+                  <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mt-1">
                     Investment
-                  </span>
-                  <div className="w-16 h-0.5 bg-gray-200 mx-auto my-4" />
-                  <p className="text-emerald-700 font-bold text-sm md:text-base">
-                    {level.stalls}
                   </p>
+                  <div className="mt-4 inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-bold px-3 py-1.5 rounded-full">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                    {stallCount} Stall{stallCount > 1 ? "s" : ""} (3&times;3 m)
+                  </div>
                 </div>
 
-                {/* Detailed Benefits List */}
-                {/* <div className="p-6">
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+                {/* Benefits */}
+                <div className="px-6 py-4 flex-1">
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
                     Package Benefits
-                  </h4>
-                  <ul className="space-y-2 text-left">
+                  </p>
+                  <ul className="space-y-2">
                     {level.benefits.map((benefit, i) => (
                       <li
                         key={i}
-                        className="text-xs md:text-sm text-gray-600 flex items-start gap-2"
+                        className="flex items-start gap-2 text-sm text-gray-600"
                       >
-                        <span className={`font-bold ${level.accentColor}`}>•</span>
+                        <span
+                          className={`mt-0.5 font-bold text-base leading-none ${level.accentColor}`}
+                        >
+                          &#10003;
+                        </span>
                         <span>{benefit}</span>
                       </li>
                     ))}
                   </ul>
-                </div> */}
+                </div>
+
+                {/* Action buttons */}
+                <div className="px-6 pb-6 pt-4 flex flex-col gap-3">
+                  <button
+                    disabled={isBooked || sponsorStallStatusLoading}
+                    onClick={() => handleBook(level)}
+                    className={`w-full py-3 rounded-xl font-bold text-sm tracking-wide transition-all duration-200 ${
+                      isBooked
+                        ? "bg-gray-200 text-gray-500 border border-gray-300 cursor-not-allowed shadow-none"
+                        : `${level.bgHeader} text-white opacity-90 hover:opacity-100 shadow-md hover:shadow-lg active:scale-95`
+                    }`}
+                  >
+                    {isBooked ? (
+                      <span className="inline-flex items-center gap-1.5 justify-center">
+                        Already Booked
+                      </span>
+                    ) : (
+                      <>
+                        Book Now
+                        <svg
+                          className="inline-block ml-1.5 w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                  <Link href="/proposal" className="w-full">
+                    <button className="w-full py-3 rounded-xl border border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors">
+                      View Proposal
+                    </button>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
-        <div className="flex justify-center flex-col items-center">
-          <h2 className="text-4xl sm:text-5xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase mb-10">
+
+        {/* Download section */}
+        <div className="mt-16 text-center">
+          <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase mb-6">
             Birat Expo 2026 Proposal
           </h2>
-          <div className="flex justify-center my-6">
+          <div className="flex justify-center mb-8">
             <a
               href="/birat-expo-2026/Contract_Sponsorships_Birat_Expo_2026.pdf"
               download
-              className="px-4 py-2 text-white bg-blue-600 rounded-md no-underline"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-semibold shadow-md"
             >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
               Download Sponsorship Contract
             </a>
           </div>
           <object
-            className="pdf"
+            className="pdf mx-auto rounded-lg shadow-lg"
             data="/birat-expo-2026/Contract_Sponsorships_Birat_Expo_2026.pdf"
             width="800"
             height="750"
-          ></object>
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 }
