@@ -34,6 +34,7 @@ export default function CountdownTimer2026() {
     seconds: 0,
   });
   const [isMounted, setIsMounted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -42,10 +43,12 @@ export default function CountdownTimer2026() {
       const diff = TARGET_DATE - Date.now();
 
       if (diff <= 0) {
+        setHasStarted(true);
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
 
+      setHasStarted(false);
       setTimeLeft({
         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
         hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -61,25 +64,37 @@ export default function CountdownTimer2026() {
   }, []);
 
   return (
-    <div
-      className="w-full container mx-auto px-4 md:px-8 py-6 sm:py-10"
-      role="timer"
-      aria-label="Countdown to Birat Expo 2026"
+    <section
+      className="w-full container mx-auto px-4 md:px-8 py-8 sm:py-12 text-center"
+      aria-label="Birat Expo 2026 countdown"
     >
-      <div className="grid grid-cols-4 gap-2 sm:gap-6 md:gap-10 max-w-4xl mx-auto">
-        <TimeUnit value={timeLeft.days} label="Days" isMounted={isMounted} />
-        <TimeUnit value={timeLeft.hours} label="Hours" isMounted={isMounted} />
-        <TimeUnit
-          value={timeLeft.minutes}
-          label="Minutes"
-          isMounted={isMounted}
-        />
-        <TimeUnit
-          value={timeLeft.seconds}
-          label="Seconds"
-          isMounted={isMounted}
-        />
-      </div>
-    </div>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-600 tracking-tight">
+        {hasStarted ? "Birat Expo is now live" : "Birat Expo starts in"}
+      </h2>
+
+      {!hasStarted && (
+        <div
+          role="timer"
+          className="mt-8 sm:mt-10 grid grid-cols-4 gap-2 sm:gap-6 md:gap-10 max-w-4xl mx-auto"
+        >
+          <TimeUnit value={timeLeft.days} label="Days" isMounted={isMounted} />
+          <TimeUnit
+            value={timeLeft.hours}
+            label="Hours"
+            isMounted={isMounted}
+          />
+          <TimeUnit
+            value={timeLeft.minutes}
+            label="Minutes"
+            isMounted={isMounted}
+          />
+          <TimeUnit
+            value={timeLeft.seconds}
+            label="Seconds"
+            isMounted={isMounted}
+          />
+        </div>
+      )}
+    </section>
   );
 }
