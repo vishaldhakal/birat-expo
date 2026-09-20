@@ -2,6 +2,7 @@ import React from "react";
 
 // 1. Hero — Full-screen cinematic experience
 import Hero2026 from "@/components/expo-2026/hero";
+import CountdownTimer2026 from "@/components/expo-2026/countdown-timer";
 
 // Why Birat Expo?
 import WhyBiratExpo2026 from "@/components/expo-2026/why-birat-expo";
@@ -42,6 +43,9 @@ export default function Home() {
     <div className="w-full min-h-screen bg-white">
       {/* 1. Hero — Full-screen cinematic experience */}
       <Hero2026 />
+
+      {/* Countdown Timer */}
+      <CountdownTimer2026 />
 
       {/* 2. Evolution — Story & Heritage of Birat Expo */}
       <Evolution2026 />
