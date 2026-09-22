@@ -32,10 +32,13 @@ import VenueMap2026 from "@/components/expo-2026/venue-map";
 // 9. Why Exhibit?
 import StallBookingSection2026 from "@/components/expo-2026/stall-booking-section";
 
-// 10. One Idea. One Connection. One Opportunity.
+// 10. Our Partners
+import Partners2026 from "@/components/expo-2026/partners";
+
+// 11. One Idea. One Connection. One Opportunity.
 import OneCTA2026 from "@/components/expo-2026/one-cta";
 
-// 11. Final CTA — Your Opportunity Is Waiting
+// 12. Final CTA — Your Opportunity Is Waiting
 import ContactInformation from "@/components/contact-information";
 
 export default function Home() {
@@ -75,7 +78,10 @@ export default function Home() {
       {/* 10. Stall Booking & Exhibition Zones */}
       <StallBookingSection2026 />
 
-      {/* 11. Contact & Inquiry */}
+      {/* 11. Our Partners */}
+      <Partners2026 />
+
+      {/* 12. Contact & Inquiry */}
       <ContactInformation year={2026} />
     </div>
   );
