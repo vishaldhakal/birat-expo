@@ -2,15 +2,6 @@ import React from "react";
 
 const partners = [
   {
-    name: "Bam Bam!",
-    badge: "Hydration Partner",
-    category: "Hydration Drink",
-    image: "/birat-expo-2026/images/partners/bambam.png",
-    alt: "Bam Bam Hydration Drink",
-    description:
-      "Costa Brava Bam Bam! Hydration Drink fuels peak endurance, active wellness, and rapid rehydration.",
-  },
-  {
     name: "Xtreme",
     badge: "Title Partner",
     category: "Energy Drink",
@@ -19,6 +10,16 @@ const partners = [
     description:
       "Xtreme Energy Drink powers peak focus and dynamic energy to drive bold ideas and enterprise.",
   },
+  {
+    name: "Bam Bam!",
+    badge: "Hydration Partner",
+    category: "Hydration Drink",
+    image: "/birat-expo-2026/images/partners/bambam.png",
+    alt: "Bam Bam Hydration Drink",
+    description:
+      "Costa Brava Bam Bam! Hydration Drink fuels peak endurance, active wellness, and rapid rehydration.",
+  },
+
   {
     name: "Max Tiger",
     badge: "Energy Partner",
