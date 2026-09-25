@@ -402,13 +402,6 @@ const SponsorBookingForm = () => {
               Sponsorship Tier
             </span>
             <span className="text-lg font-bold text-gray-900">{sponsorType}</span>
-            <p className="text-xs text-gray-600 mt-0.5">
-              Requires selecting{" "}
-              <strong className="text-gray-900 font-bold">
-                exactly {maxStalls} stall{maxStalls > 1 ? "s" : ""}
-              </strong>{" "}
-              (3m × 3m each)
-            </p>
           </div>
 
           <div className="flex items-center gap-4">
@@ -416,27 +409,9 @@ const SponsorBookingForm = () => {
               <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">
                 Stalls Selected
               </span>
-              <span
-                className={`text-xl font-extrabold ${
-                  isSelectionComplete ? "text-green-600" : "text-red-600"
-                }`}
-              >
-                {selectedStalls.length} of {maxStalls}
+              <span className="text-xl font-extrabold text-blue-600">
+                {selectedStalls.length}
               </span>
-            </div>
-
-            <div
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold ${
-                isSelectionComplete
-                  ? "bg-green-50 text-green-700 border border-green-200"
-                  : "bg-red-50 text-red-600 border border-red-200"
-              }`}
-            >
-              {isSelectionComplete
-                ? "✓ Requirement Met"
-                : `${remainingStalls} more stall${
-                    remainingStalls > 1 ? "s" : ""
-                  } needed to book`}
             </div>
           </div>
         </div>
@@ -451,8 +426,7 @@ const SponsorBookingForm = () => {
               Select Your Stalls
             </h2>
             <p className="text-xs text-gray-500 mt-0.5">
-              Click on the available stalls below to select your {maxStalls}{" "}
-              stall positions. Click a selected stall again to deselect it.
+              Click on the available stalls below to select your stall positions. Click a selected stall again to deselect it.
             </p>
           </div>
 
@@ -483,14 +457,10 @@ const SponsorBookingForm = () => {
                 {sponsorStallsData.map((stall) => {
                   const booked = bookedStallsMap[stall.id];
                   const isSelected = selectedStalls.includes(stall.id);
-                  const isAtMax =
-                    selectedStalls.length >= maxStalls && !isSelected;
 
                   let color = "#E879B0"; // Available
-                  let cursor: "pointer" | "not-allowed" = isAtMax
-                    ? "not-allowed"
-                    : "pointer";
-                  let isClickable = !booked && !isAtMax;
+                  let cursor: "pointer" | "not-allowed" = "pointer";
+                  let isClickable = !booked;
                   let tooltip = `Stall ${stall.id} — Available`;
 
                   if (booked) {
@@ -501,9 +471,6 @@ const SponsorBookingForm = () => {
                   } else if (isSelected) {
                     color = "#22C55E";
                     tooltip = `Stall ${stall.id} — Selected (click to remove)`;
-                  } else if (isAtMax) {
-                    color = "#CBD5E1";
-                    tooltip = `Stall ${stall.id} — Max stalls reached`;
                   }
 
                   return (
@@ -556,21 +523,6 @@ const SponsorBookingForm = () => {
                 {stallError}
               </p>
             )}
-
-            {/* Red callout message when not all stalls selected */}
-            {!isSelectionComplete ? (
-              <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-xs font-bold text-red-600">
-                Please select {remainingStalls} more stall
-                {remainingStalls > 1 ? "s" : ""} on the map above to enable
-                booking.
-              </div>
-            ) : (
-              <p className="mt-3 text-xs font-semibold text-green-600 flex items-center gap-1">
-                <Check className="w-3.5 h-3.5" />
-                All {maxStalls} stalls selected. Please fill in your details
-                below to confirm.
-              </p>
-            )}
           </div>
         </div>
 
@@ -617,11 +569,7 @@ const SponsorBookingForm = () => {
                       : "None selected"
                   }
                   disabled
-                  className={`w-full rounded-lg border px-3 py-2 text-sm font-medium ${
-                    selectedStalls.length === maxStalls
-                      ? "bg-green-50 border-green-200 text-green-700 font-bold"
-                      : "bg-red-50 border-red-200 text-red-600 font-medium"
-                  }`}
+                  className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm font-medium text-gray-700"
                 />
               </div>
 
@@ -698,57 +646,19 @@ const SponsorBookingForm = () => {
               </div>
             </div>
 
-            {/* Submit Button & Clear Red Notice */}
+            {/* Submit Button */}
             <div className="pt-3 space-y-2">
               <button
-                type={isSelectionComplete ? "submit" : "button"}
-                onClick={
-                  !isSelectionComplete
-                    ? () => {
-                        setStallError(
-                          `Please select ${remainingStalls} more stall${
-                            remainingStalls > 1 ? "s" : ""
-                          } on the map above to enable booking.`,
-                        );
-                        stallPickerRef.current?.scrollIntoView({
-                          behavior: "smooth",
-                        });
-                      }
-                    : undefined
-                }
+                type="submit"
                 disabled={isSubmitting}
                 className={`w-full py-3.5 rounded-lg text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-sm ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : !isSelectionComplete
-                    ? "bg-red-600 hover:bg-red-700 cursor-pointer"
                     : "bg-blue-600 hover:bg-blue-700 cursor-pointer"
                 }`}
               >
-                {isSubmitting ? (
-                  "Submitting..."
-                ) : !isSelectionComplete ? (
-                  <span>
-                    Select {remainingStalls} more stall
-                    {remainingStalls !== 1 ? "s" : ""} to enable booking (
-                    {selectedStalls.length}/{maxStalls})
-                  </span>
-                ) : (
-                  "Confirm Booking ✓"
-                )}
+                {isSubmitting ? "Submitting..." : "Confirm Booking ✓"}
               </button>
-
-              {!isSelectionComplete ? (
-                <p className="text-center text-xs font-bold text-red-600 mt-2">
-                  Please select {remainingStalls} more stall
-                  {remainingStalls !== 1 ? "s" : ""} on the map above to
-                  enable booking.
-                </p>
-              ) : (
-                <p className="text-center text-xs font-medium text-green-600 mt-2">
-                  ✓ Ready to submit. Click Confirm Booking above.
-                </p>
-              )}
             </div>
           </form>
         </div>
