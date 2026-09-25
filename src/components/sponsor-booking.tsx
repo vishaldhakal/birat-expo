@@ -159,28 +159,14 @@ const SponsorBookingForm = () => {
         if (prev.includes(stallId)) {
           return prev.filter((id) => id !== stallId);
         }
-        if (prev.length >= maxStalls) {
-          setStallError(
-            `You can select only ${maxStalls} stall${maxStalls > 1 ? "s" : ""} for ${sponsorType}. Deselect one to choose ${stallId}.`,
-          );
-          return prev;
-        }
         return [...prev, stallId];
       });
     },
-    [bookedStallsMap, maxStalls, sponsorType],
+    [bookedStallsMap],
   );
 
   // Submit booking
   const onSubmit = async (data: SponsorBookingFormData) => {
-    if (selectedStalls.length !== maxStalls) {
-      setStallError(
-        `Please select all ${maxStalls} required stalls. Currently selected: ${selectedStalls.length}.`,
-      );
-      stallPickerRef.current?.scrollIntoView({ behavior: "smooth" });
-      return;
-    }
-
     setIsSubmitting(true);
     setError("");
 
