@@ -46,7 +46,7 @@ const Hanger1: React.FC<HangerOneProps> = ({
     ).length;
     const regularStallCount = selectedStalls.length - primeStallCount;
     const calculatedTotal =
-      primeStallCount * 750000 + regularStallCount * 50000;
+      primeStallCount * 75000 + regularStallCount * 50000;
     setTotalPrice(calculatedTotal);
   }, [selectedStalls, primeStallsType1, primeStallsType2, setTotalPrice]);
 
