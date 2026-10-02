@@ -76,8 +76,11 @@ const FoodPage = () => {
     );
   }, []);
 
+  const [isNavigating, setIsNavigating] = useState(false);
+
   const handleProceed = () => {
     if (selectedStalls.length > 0) {
+      setIsNavigating(true);
       router.push(
         `/book-stalls?stalls=${selectedStalls.join(
           ",",
@@ -153,9 +156,13 @@ const FoodPage = () => {
 
           <button
             onClick={handleProceed}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 text-lg rounded-full shadow-lg transition duration-300"
+            disabled={isNavigating}
+            className="bg-green-500 hover:bg-green-700 disabled:bg-green-400 text-white font-bold py-3 px-6 text-lg rounded-full shadow-lg transition duration-300 flex items-center gap-2"
           >
-            Book Now
+            {isNavigating && (
+              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+            )}
+            {isNavigating ? "Loading..." : "Book Now"}
           </button>
         </div>
       )}
