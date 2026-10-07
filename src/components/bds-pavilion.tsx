@@ -45,7 +45,7 @@ const BDSPavilion: React.FC<BDSPRops> = ({
       primeStallsSet.has(stall),
     ).length;
     const regularStallCount = selectedStalls.length - primeStallCount;
-    const calculatedTotal = primeStallCount * 75000 + regularStallCount * 50000;
+    const calculatedTotal = primeStallCount * 75000 + regularStallCount * 25000;
     setTotalPrice(calculatedTotal);
   }, [selectedStalls, primeStallsType1, primeStallsType2, setTotalPrice]);
 
