@@ -45,40 +45,6 @@ export default function ThematicSessions() {
             ))}
           </div>
         )}
-
-        {/* Registration CTA Footer */}
-        <div className="mt-20 sm:mt-24 text-center">
-          <div className="max-w-2xl mx-auto space-y-6">
-            <p className="text-gray-600 text-sm sm:text-base">
-              Activities include Startup Hackathon, Rojagar Koshi live training
-              for youths, Business Clinic, Q-HSEF, B2B sessions, and various
-              thematic discussions.
-            </p>
-            <a
-              href="/thematic/register"
-              className="inline-flex items-center px-8 py-4 text-base sm:text-lg rounded-full text-white font-medium 
-                     bg-gradient-to-r from-blue-600 to-indigo-600 
-                     hover:from-blue-700 hover:to-indigo-700 
-                     transition-all duration-200 shadow-lg hover:shadow-xl
-                     transform hover:-translate-y-0.5 active:translate-y-0"
-            >
-              Register for All Sessions
-              <svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </a>
-          </div>
-        </div>
       </div>
     </section>
   );

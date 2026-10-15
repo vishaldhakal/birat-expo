@@ -96,47 +96,28 @@ export function SessionCard({ session, index = 0 }: SessionCardProps) {
 
       {/* Main Container */}
       <div className="p-6 sm:p-8 lg:p-10 flex-1 flex flex-col">
-        {/* Header Row */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-gray-100">
-          <div className="flex flex-wrap items-center gap-2.5">
-            {/* Day Badge - No Sparkles Icon */}
-            <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200/80">
-              {dayLabel}
-            </span>
-
-            {/* Date Pill */}
-            {formattedDate && (
-              <span className="inline-flex items-center gap-1.5 bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-gray-200/70">
-                <CalendarDays className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
-                {formattedDate}
-              </span>
-            )}
-
-            {/* Time Pill */}
-            {(formattedStartTime || formattedEndTime) && (
-              <span className="inline-flex items-center gap-1.5 bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-gray-200/70">
-                <Clock className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
-                {formattedStartTime} – {formattedEndTime}
-              </span>
-            )}
-          </div>
-
-          {/* Top Register Button */}
-          <Link
-            href={`/thematic/register?session=${session.id}`}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-sm hover:shadow-md shrink-0 self-start md:self-auto"
-          >
-            <span>Register for {dayLabel}</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        {/* Theme Title */}
-        <div className="mt-6 mb-6">
+        {/* Title & Schedule Info */}
+        <div className="mb-6 pb-6 border-b border-gray-100">
           <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight leading-snug">
             <span className="text-indigo-600">{dayLabel}: </span>
             {theme}
           </h3>
+
+          {/* Date & Time below the title */}
+          <div className="mt-3 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
+            {formattedDate && (
+              <span className="inline-flex items-center gap-1.5 font-medium text-gray-700 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                <CalendarDays className="h-4 w-4 text-indigo-600 shrink-0" />
+                {formattedDate}
+              </span>
+            )}
+            {(formattedStartTime || formattedEndTime) && (
+              <span className="inline-flex items-center gap-1.5 font-medium text-gray-700 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                <Clock className="h-4 w-4 text-indigo-600 shrink-0" />
+                {formattedStartTime} – {formattedEndTime}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Full Details & Schedule (No truncation, no details page needed) */}
