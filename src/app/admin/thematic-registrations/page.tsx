@@ -30,12 +30,6 @@ export default function ThematicRegistrationsPage() {
 
           <div className="flex items-center gap-2">
             <Link
-              href="/admin/live-training"
-              className="px-3.5 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition shadow-sm"
-            >
-              Live Training Admin
-            </Link>
-            <Link
               href="/admin"
               className="px-3.5 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition shadow-sm"
             >

@@ -29,7 +29,10 @@ import { ThematicRegistrationResponse } from "@/types/thematic";
 
 type RegistrationStatus = "Pending" | "Approved" | "Rejected";
 
-const registrationStatuses: { value: RegistrationStatus | ""; label: string }[] = [
+const registrationStatuses: {
+  value: RegistrationStatus | "";
+  label: string;
+}[] = [
   { value: "", label: "All Statuses" },
   { value: "Pending", label: "Pending" },
   { value: "Approved", label: "Approved" },
@@ -92,18 +95,18 @@ export default function ThematicAdminTable() {
 
   const handleStatusChange = async (
     id: number,
-    newStatus: RegistrationStatus
+    newStatus: RegistrationStatus,
   ) => {
     setLoadingStatusId(id);
     try {
       await axios.patch(
         `https://cim.baliyoventures.com/api/thematic-registrations/${id}/`,
-        { status: newStatus }
+        { status: newStatus },
       );
 
       // Revalidate SWR cache for the active page
       await mutate(
-        `https://cim.baliyoventures.com/api/thematic-registrations/?page=${page}`
+        `https://cim.baliyoventures.com/api/thematic-registrations/?page=${page}`,
       );
 
       // Also update selectedParticipant if modal is open
@@ -164,12 +167,18 @@ export default function ThematicAdminTable() {
       `"${(reg.additional_info || "").replace(/"/g, '""')}"`,
     ]);
 
-    const csvContent = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((r) => r.join(",")),
+    ].join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", `business_summit_registrations_page_${page}.csv`);
+    link.setAttribute(
+      "download",
+      `business_summit_registrations_page_${page}.csv`,
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -224,10 +233,12 @@ export default function ThematicAdminTable() {
         {/* Results count indicator */}
         <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
           <span>
-            Total Registrations: <strong className="text-gray-900 font-semibold">{count}</strong>
+            Total Registrations:{" "}
+            <strong className="text-gray-900 font-semibold">{count}</strong>
           </span>
           <span>
-            Page <strong className="text-gray-900">{page}</strong> of <strong className="text-gray-900">{totalPages}</strong>
+            Page <strong className="text-gray-900">{page}</strong> of{" "}
+            <strong className="text-gray-900">{totalPages}</strong>
           </span>
         </div>
       </div>
@@ -237,12 +248,16 @@ export default function ThematicAdminTable() {
         {thematicRegistrationsLoading ? (
           <div className="py-24 flex flex-col items-center justify-center gap-3 text-gray-500">
             <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm font-medium">Loading thematic registrations...</p>
+            <p className="text-sm font-medium">
+              Loading thematic registrations...
+            </p>
           </div>
         ) : thematicRegistrationsError ? (
           <div className="py-20 text-center text-red-500">
             <p className="font-semibold">Failed to load registration data.</p>
-            <p className="text-xs text-gray-400 mt-1">Please refresh or try again later.</p>
+            <p className="text-xs text-gray-400 mt-1">
+              Please refresh or try again later.
+            </p>
           </div>
         ) : filteredData.length === 0 ? (
           <div className="py-20 text-center text-gray-500">
@@ -259,22 +274,26 @@ export default function ThematicAdminTable() {
                   <th className="py-3.5 px-4 w-14">#ID</th>
                   <th className="py-3.5 px-4">Participant Details</th>
                   <th className="py-3.5 px-4">Organization & Role</th>
-                  <th className="py-3.5 px-4">Opportunities / Interests</th>
+                  <th className="py-3.5 px-4">Business Connection Seeking</th>
                   <th className="py-3.5 px-4">Sessions</th>
-                  <th className="py-3.5 px-4">Food</th>
                   <th className="py-3.5 px-4">Status</th>
                   <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredData.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50/80 transition-colors">
+                  <tr
+                    key={item.id}
+                    className="hover:bg-gray-50/80 transition-colors"
+                  >
                     <td className="py-4 px-4 font-mono text-xs text-gray-400">
                       #{item.id}
                     </td>
 
                     <td className="py-4 px-4">
-                      <div className="font-medium text-gray-900">{item.name}</div>
+                      <div className="font-medium text-gray-900">
+                        {item.name}
+                      </div>
                       <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
                         <Mail className="w-3 h-3 text-gray-400" />
                         {item.email}
@@ -286,8 +305,12 @@ export default function ThematicAdminTable() {
                     </td>
 
                     <td className="py-4 px-4">
-                      <div className="font-medium text-gray-900">{item.organization}</div>
-                      <div className="text-xs text-gray-500">{item.designation}</div>
+                      <div className="font-medium text-gray-900">
+                        {item.organization}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {item.designation}
+                      </div>
                       <div className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
                         <MapPin className="w-3 h-3" />
                         {item.address}
@@ -295,21 +318,14 @@ export default function ThematicAdminTable() {
                     </td>
 
                     <td className="py-4 px-4 max-w-xs">
-                      {item.opportunity_theme1 || item.business_connections ? (
-                        <div className="space-y-1">
-                          {item.opportunity_theme1 && (
-                            <span className="inline-block bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-md font-medium truncate max-w-full">
-                              🎯 {item.opportunity_theme1}
-                            </span>
-                          )}
-                          {item.business_connections && (
-                            <p className="text-xs text-gray-500 line-clamp-2" title={item.business_connections}>
-                              🤝 {item.business_connections}
-                            </p>
-                          )}
-                        </div>
+                      {item.business_connections ? (
+                        <span className="inline-flex items-center gap-1 text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-md font-medium">
+                          🤝 {item.business_connections}
+                        </span>
                       ) : (
-                        <span className="text-xs text-gray-400 italic">None specified</span>
+                        <span className="text-xs text-gray-400 italic">
+                          None specified
+                        </span>
                       )}
                     </td>
 
@@ -319,7 +335,7 @@ export default function ThematicAdminTable() {
                           {item.sessions.map((sess) => (
                             <span
                               key={sess.id}
-                              className="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-medium truncate"
+                              className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-medium truncate"
                               title={sess.title}
                             >
                               {sess.title}
@@ -327,17 +343,9 @@ export default function ThematicAdminTable() {
                           ))}
                         </div>
                       ) : (
-                        <span className="text-xs text-gray-400 italic">No sessions</span>
-                      )}
-                    </td>
-
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      {item.food ? (
-                        <span className="text-xs px-2 py-1 rounded bg-gray-100 font-medium text-gray-700">
-                          {item.food === "Veg" ? "🥗 Veg" : "🍗 Non-Veg"}
+                        <span className="text-xs text-gray-400 italic">
+                          No sessions
                         </span>
-                      ) : (
-                        <span className="text-xs text-gray-400">—</span>
                       )}
                     </td>
 
@@ -358,8 +366,8 @@ export default function ThematicAdminTable() {
                             item.status === "Approved"
                               ? "bg-green-50 text-green-700 border-green-200"
                               : item.status === "Rejected"
-                              ? "bg-red-50 text-red-700 border-red-200"
-                              : "bg-amber-50 text-amber-700 border-amber-200"
+                                ? "bg-red-50 text-red-700 border-red-200"
+                                : "bg-amber-50 text-amber-700 border-amber-200"
                           }`}
                         >
                           <option value="Pending">Pending</option>
@@ -399,7 +407,8 @@ export default function ThematicAdminTable() {
             <span className="font-semibold text-gray-800">
               {Math.min(page * pageSize, count)}
             </span>{" "}
-            of <span className="font-semibold text-gray-800">{count}</span> entries
+            of <span className="font-semibold text-gray-800">{count}</span>{" "}
+            entries
           </div>
 
           <div className="flex items-center gap-2">
@@ -415,7 +424,9 @@ export default function ThematicAdminTable() {
             {/* Page number buttons */}
             <div className="flex items-center gap-1">
               {Array.from({ length: totalPages }, (_, i) => i + 1)
-                .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+                .filter(
+                  (p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1,
+                )
                 .map((pageNum, idx, arr) => {
                   const prevPageNum = arr[idx - 1];
                   const showEllipsis = prevPageNum && pageNum - prevPageNum > 1;
@@ -456,11 +467,17 @@ export default function ThematicAdminTable() {
       {statusChangeInfo && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-xl animate-in fade-in zoom-in-95 duration-150">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Confirm Status Change</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">
+              Confirm Status Change
+            </h3>
             <p className="text-sm text-gray-600 mb-6">
               Are you sure you want to change the registration status of{" "}
-              <strong className="text-gray-900">{statusChangeInfo.name}</strong> to{" "}
-              <strong className="text-indigo-600 font-semibold">{statusChangeInfo.newStatus}</strong>?
+              <strong className="text-gray-900">{statusChangeInfo.name}</strong>{" "}
+              to{" "}
+              <strong className="text-indigo-600 font-semibold">
+                {statusChangeInfo.newStatus}
+              </strong>
+              ?
             </p>
             <div className="flex justify-end gap-3">
               <button
@@ -494,7 +511,8 @@ export default function ThematicAdminTable() {
                   {selectedParticipant.name}
                 </h2>
                 <p className="text-sm text-gray-500">
-                  {selectedParticipant.designation} · {selectedParticipant.organization}
+                  {selectedParticipant.designation} ·{" "}
+                  {selectedParticipant.organization}
                 </p>
               </div>
               <button
@@ -507,92 +525,98 @@ export default function ThematicAdminTable() {
 
             {/* Modal Content Sections */}
             <div className="space-y-6">
-              {/* Personal Information */}
+              {/* Personal & Organization Information */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
-                  Contact Information
+                  Participant & Organization Information
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 rounded-xl p-4">
                   <div>
+                    <span className="text-xs text-gray-500">Full Name</span>
+                    <p className="text-sm font-semibold text-gray-900 mt-0.5">
+                      {selectedParticipant.name}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">Organization</span>
+                    <p className="text-sm font-semibold text-gray-900 mt-0.5">
+                      {selectedParticipant.organization}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">
+                      Designation / Role
+                    </span>
+                    <p className="text-sm font-medium text-gray-900 mt-0.5">
+                      {selectedParticipant.designation}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">
+                      Address / City
+                    </span>
+                    <p className="text-sm font-medium text-gray-900 mt-0.5">
+                      {selectedParticipant.address}
+                    </p>
+                  </div>
+                  <div>
                     <span className="text-xs text-gray-500">Email Address</span>
-                    <p className="text-sm font-medium text-gray-900 mt-0.5">{selectedParticipant.email}</p>
+                    <p className="text-sm font-medium text-gray-900 mt-0.5">
+                      {selectedParticipant.email}
+                    </p>
                   </div>
                   <div>
                     <span className="text-xs text-gray-500">Phone Contact</span>
-                    <p className="text-sm font-medium text-gray-900 mt-0.5">{selectedParticipant.contact}</p>
-                  </div>
-                  <div>
-                    <span className="text-xs text-gray-500">Address</span>
-                    <p className="text-sm font-medium text-gray-900 mt-0.5">{selectedParticipant.address}</p>
-                  </div>
-                  <div>
-                    <span className="text-xs text-gray-500">Food Preference</span>
                     <p className="text-sm font-medium text-gray-900 mt-0.5">
-                      {selectedParticipant.food || "Not specified"}
+                      {selectedParticipant.contact}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Opportunity Themes */}
+              {/* Business Connections Seeking */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
-                  Opportunity & Networking Themes
+                  Business Connection
                 </h3>
-                <div className="space-y-3 bg-gray-50 rounded-xl p-4">
-                  <div>
-                    <span className="text-xs font-semibold text-gray-600">Opportunity Theme 1:</span>
-                    <p className="text-sm text-gray-800 mt-0.5">
-                      {selectedParticipant.opportunity_theme1 || "—"}
-                    </p>
-                  </div>
-                  {selectedParticipant.opportunity_theme2 && (
-                    <div>
-                      <span className="text-xs font-semibold text-gray-600">Opportunity Theme 2:</span>
-                      <p className="text-sm text-gray-800 mt-0.5">
-                        {selectedParticipant.opportunity_theme2}
-                      </p>
-                    </div>
-                  )}
-                  {selectedParticipant.opportunity_theme3 && (
-                    <div>
-                      <span className="text-xs font-semibold text-gray-600">Opportunity Theme 3:</span>
-                      <p className="text-sm text-gray-800 mt-0.5">
-                        {selectedParticipant.opportunity_theme3}
-                      </p>
-                    </div>
-                  )}
-                  {selectedParticipant.business_connections && (
-                    <div>
-                      <span className="text-xs font-semibold text-gray-600">Business Connections Sought:</span>
-                      <p className="text-sm text-gray-800 mt-0.5">
-                        {selectedParticipant.business_connections}
-                      </p>
-                    </div>
-                  )}
+                <div className="bg-indigo-50/60 border border-indigo-100 rounded-xl p-4">
+                  <span className="text-xs text-indigo-700 font-medium">
+                    Type of Connection:
+                  </span>
+                  <p className="text-sm font-semibold text-indigo-950 mt-1">
+                    {selectedParticipant.business_connections ||
+                      "None specified"}
+                  </p>
                 </div>
               </div>
 
               {/* Sessions */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
-                  Registered Sessions
+                  Selected Sessions ({selectedParticipant.sessions?.length || 0}
+                  )
                 </h3>
                 <div className="space-y-2">
-                  {selectedParticipant.sessions && selectedParticipant.sessions.length > 0 ? (
+                  {selectedParticipant.sessions &&
+                  selectedParticipant.sessions.length > 0 ? (
                     selectedParticipant.sessions.map((session) => (
                       <div
                         key={session.id}
-                        className="bg-indigo-50/70 border border-indigo-100 rounded-xl p-3"
+                        className="bg-gray-50 border border-gray-200 rounded-xl p-3"
                       >
-                        <p className="text-sm font-semibold text-indigo-950">{session.title}</p>
-                        <p className="text-xs text-indigo-700 mt-0.5">
-                          📅 {session.date} · ⏰ {session.start_time} – {session.end_time}
+                        <p className="text-sm font-semibold text-gray-900">
+                          {session.title}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          📅 {session.date} · ⏰ {session.start_time} –{" "}
+                          {session.end_time}
                         </p>
                       </div>
                     ))
                   ) : (
-                    <p className="text-sm text-gray-400 italic">No sessions selected</p>
+                    <p className="text-sm text-gray-400 italic">
+                      No sessions selected
+                    </p>
                   )}
                 </div>
               </div>
@@ -601,7 +625,7 @@ export default function ThematicAdminTable() {
               {selectedParticipant.additional_info && (
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
-                    Additional Information
+                    Additional Information / Notes
                   </h3>
                   <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 whitespace-pre-wrap">
                     {selectedParticipant.additional_info}
@@ -619,8 +643,8 @@ export default function ThematicAdminTable() {
                     selectedParticipant.status === "Approved"
                       ? "bg-green-100 text-green-800"
                       : selectedParticipant.status === "Rejected"
-                      ? "bg-red-100 text-red-800"
-                      : "bg-amber-100 text-amber-800"
+                        ? "bg-red-100 text-red-800"
+                        : "bg-amber-100 text-amber-800"
                   }`}
                 >
                   {selectedParticipant.status || "Pending"}

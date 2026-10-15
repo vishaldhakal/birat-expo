@@ -53,10 +53,91 @@ function Field({
   );
 }
 
+import { ChevronDown, Check } from "lucide-react";
+
+function CustomSelect({
+  value,
+  onChange,
+  options,
+  placeholder,
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  options: string[];
+  placeholder?: string;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={`w-full rounded-xl border bg-white px-3.5 py-2.5 text-left text-sm transition-all flex items-center justify-between ${
+          isOpen
+            ? "border-indigo-500 ring-4 ring-indigo-500/10 shadow-sm"
+            : "border-gray-200 hover:border-gray-300 shadow-xs"
+        }`}
+      >
+        <span className={value ? "text-gray-900 font-medium" : "text-gray-400"}>
+          {value || placeholder || "Select option"}
+        </span>
+        <ChevronDown
+          className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
+            isOpen ? "rotate-180 text-indigo-600" : ""
+          }`}
+        />
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-30 mt-1.5 w-full rounded-xl border border-gray-100 bg-white p-1.5 shadow-xl shadow-gray-200/50 animate-in fade-in zoom-in-95 duration-150">
+          <div className="max-h-60 overflow-y-auto space-y-0.5">
+            {options.map((opt) => {
+              const isSelected = value === opt;
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => {
+                    onChange(opt);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg text-left transition-colors ${
+                    isSelected
+                      ? "bg-indigo-50 text-indigo-700 font-medium"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  <span>{opt}</span>
+                  {isSelected && (
+                    <Check className="w-4 h-4 text-indigo-600 shrink-0 ml-2" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const inputCls =
   "w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition";
-const selectCls =
-  "w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition bg-white";
 
 function SectionCard({
   title,
@@ -205,16 +286,25 @@ export default function ThematicRegistrationForm() {
               hint="Select the type of business connection you are looking for"
               error={errors.business_connections?.message}
             >
-              <select {...register("business_connections")} className={selectCls}>
-                <option value="">Select connection type...</option>
-                <option value="Buyers / Bulk Purchasers">Buyers / Bulk Purchasers</option>
-                <option value="Suppliers / Raw Materials">Suppliers / Raw Materials</option>
-                <option value="Distributors / Dealers">Distributors / Dealers</option>
-                <option value="Investors / Joint-Venture Partners">Investors / Joint-Venture Partners</option>
-                <option value="Technology / Technical Partners">Technology / Technical Partners</option>
-                <option value="Export Markets / International Buyers">Export Markets / International Buyers</option>
-                <option value="Other Business Collaborations">Other Business Collaborations</option>
-              </select>
+              <CustomSelect
+                value={watch("business_connections") || ""}
+                onChange={(val) =>
+                  setValue("business_connections", val, {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  })
+                }
+                placeholder="Select connection type..."
+                options={[
+                  "Buyers / Bulk Purchasers",
+                  "Suppliers / Raw Materials",
+                  "Distributors / Dealers",
+                  "Investors / Joint-Venture Partners",
+                  "Technology / Technical Partners",
+                  "Export Markets / International Buyers",
+                  "Other Business Collaborations",
+                ]}
+              />
             </Field>
           </div>
         </SectionCard>
