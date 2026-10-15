@@ -32,41 +32,78 @@ export default function ThematicHero() {
       <div className="container max-w-7xl mx-auto px-4 py-16 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
           {/* Left content */}
-          <div className="z-10 space-y-8">
-            <div className="space-y-4">
-              <div>
-                <h1 className="text-6xl font-bold">
-                  <span className="text-white">Thematic</span>{" "}
-                  <span className="text-yellow-300">Sessions</span>
-                </h1>
-                <h2 className="text-base font-medium text-white mt-2">
-                  Digital Koshi: Bridging Innovation and Investment
-                </h2>
-              </div>
-              <div>
-                <p className="text-gray-200 text-lg max-w-xl">
-                  The Chamber of Industries Morang (CIM) is organizing the Birat
-                  Expo 2025 from 24th January to 2nd February in Biratnagar.
-                </p>
-                <p className="text-gray-200 text-lg max-w-xl mt-4">
-                  Unlike traditional trade exhibitions, CIM is striving to
-                  revolutionize the concept of expos by incorporating engagement
-                  activities focusing on youths, industries, and policy
-                  stakeholders.
-                </p>
-              </div>
+          <div className="z-10 space-y-6">
+            <div className="space-y-3">
+              <p className="text-yellow-300 text-xs font-semibold uppercase tracking-widest">
+                A Flagship Business Networking Platform · Birat Expo 2026
+              </p>
+              <h1 className="text-5xl font-bold leading-tight whitespace-nowrap">
+                <span className="text-white">Birat Business </span>
+                <span className="text-yellow-300">Summit 2026</span>
+              </h1>
+              <p className="text-blue-200 text-sm font-medium tracking-wide">
+                Opportunity Connect
+              </p>
+            </div>
+
+            <p className="text-gray-200 text-base max-w-lg leading-relaxed">
+              Connecting Chambers, Industries, Investors, Buyers, Suppliers and
+              Entrepreneurs across Nepal — a three-day summit organized by CIM
+              to facilitate B2B meetings, interprovincial trade, and investment
+              partnerships.
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-blue-100 text-sm backdrop-blur-sm">
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                22–24 December, 2026
+              </span>
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-blue-100 text-sm backdrop-blur-sm">
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Biratnagar, Nepal
+              </span>
             </div>
 
             <a
               href="/thematic/register"
-              className="inline-flex items-center px-8 py-4 text-lg rounded-full text-white font-medium 
-              bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 
-              hover:from-indigo-600 hover:via-indigo-700 hover:to-violet-700 
-              transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 px-7 py-3.5 text-base rounded-full text-white font-semibold
+              bg-gradient-to-r from-indigo-500 to-violet-600
+              hover:from-indigo-600 hover:to-violet-700
+              transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]"
             >
               Register Now
               <svg
-                className="w-6 h-6 ml-2"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -79,18 +116,6 @@ export default function ThematicHero() {
                 />
               </svg>
             </a>
-
-            {/* Additional info */}
-            <div className="text-gray-200 text-sm">
-              <p>
-                * Participation is by invitation only or requires
-                pre-registration.
-              </p>
-              <p>
-                * First 200 participants will be incorporated on first-come
-                basis.
-              </p>
-            </div>
           </div>
 
           {/* Right content */}
@@ -98,8 +123,8 @@ export default function ThematicHero() {
             {/* Logo */}
             <div className="relative z-10">
               <Image
-                src="/mascot.png"
-                alt="Birat Digital Expo 2025"
+                src="/biratmascot.png"
+                alt="Birat Digital Expo 2026"
                 width={1000}
                 height={500}
                 className="w-200 h-200"

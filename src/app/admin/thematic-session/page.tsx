@@ -7,7 +7,7 @@ export default function ThematicSessionPage() {
     <div className="container mx-auto p-4">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-3xl font-semibold text-gray-800 py-10">
-          Thematic Session Dashboard
+          Business Summit Dashboard
         </h1>
 
         {/* button tthat links to https://cim.baliyoventures.com/api/export */}

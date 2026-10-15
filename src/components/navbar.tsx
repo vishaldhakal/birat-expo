@@ -47,7 +47,7 @@ export const navItems = [
     subtitleClass: "text-green-700",
   },
   {
-    title: "Thematic Sessions",
+    title: "BUSINESS SUMMIT",
     href: "/thematic",
     subtitle: "Register Now",
     subtitleClass: "text-green-700",

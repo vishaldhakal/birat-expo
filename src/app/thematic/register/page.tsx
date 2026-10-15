@@ -7,12 +7,26 @@ export default function ThematicRegistrationPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900">
-            Thematic Session Registration
-          </h1>
-          <p className="mt-4 text-lg text-gray-600">
-            Register for the Thematic Sessions at Birat Expo 2025
+          <p className="text-indigo-600 font-semibold uppercase tracking-wider text-xs sm:text-sm mb-2">
+            A Flagship Business Networking Platform · Birat Expo 2026
           </p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+            Birat Business Summit 2026
+          </h1>
+          <p className="text-lg font-medium text-indigo-700 mt-1">
+            Opportunity Connect
+          </p>
+          <p className="mt-3 text-base text-gray-600 max-w-2xl mx-auto">
+            Connecting Chambers, Industries, Investors, Buyers, Suppliers and Entrepreneurs Across Nepal.
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm text-gray-500">
+            <span className="inline-flex items-center gap-1.5 bg-gray-100 px-3 py-1 rounded-full">
+              📅 22–24 December, 2026
+            </span>
+            <span className="inline-flex items-center gap-1.5 bg-gray-100 px-3 py-1 rounded-full">
+              📍 Biratnagar, Nepal
+            </span>
+          </div>
         </div>
 
         <Suspense

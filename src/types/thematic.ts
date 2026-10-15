@@ -43,20 +43,30 @@ export interface ThematicRegistration {
   address: string;
   email: string;
   contact: string;
+  participant: string | null;
   sessions: number[];
-  arrival_date: string;
-  departure_date: string;
-  participant: string;
-  checked_in?: boolean;
-  check_in_date?: string | null;
-  hotel?: string | null;
+
+  opportunity_theme1?: string | null;
+  opportunity_theme2?: string | null;
+  opportunity_theme3?: string | null;
+  business_connections?: string | null;
+
+  arrival_date?: string | null;
+  departure_date?: string | null;
   flight_no?: string | null;
   flight_time?: string | null;
-  food: string;
-  hotel_accomodation?: string | null;
   return_flight_no?: string | null;
   return_flight_time?: string | null;
   airline?: string | null;
+
+  food?: string | null;
+  hotel_accomodation?: string | null;
+  check_in_date?: string | null;
+  check_out_date?: string | null;
+  hotel?: string | null;
+
+  additional_info?: string | null;
+  checked_in?: boolean;
 }
 
 export interface ThematicRegistrationResponse {
@@ -71,15 +81,21 @@ export interface ThematicRegistrationResponse {
   sessions: ThematicSession[];
   arrival_date: string;
   departure_date: string;
-  participant: string;
+  participant: string | null;
   checked_in?: boolean;
+  opportunity_theme1?: string | null;
+  opportunity_theme2?: string | null;
+  opportunity_theme3?: string | null;
+  business_connections?: string | null;
+  additional_info?: string | null;
   check_in_date?: string | null;
+  check_out_date?: string | null;
   hotel?: string | null;
   flight_no?: string | null;
   flight_time?: string | null;
   return_flight_no?: string | null;
   return_flight_time?: string | null;
-  food: string;
+  food?: string | null;
   hotel_accomodation?: string | null;
   airline?: string | null;
 }

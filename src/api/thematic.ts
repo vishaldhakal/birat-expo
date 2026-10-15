@@ -124,15 +124,35 @@ export function useGetThematicSessions() {
   return memoizedValue;
 }
 
-export function useGetThematicRegistrations() {
-  const URL = `https://cim.baliyoventures.com/api/thematic-registrations/`;
+export interface PaginatedThematicRegistrationsResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: ThematicRegistrationResponse[];
+}
+
+export function useGetThematicRegistrations(page: number = 1) {
+  const URL = `https://cim.baliyoventures.com/api/thematic-registrations/?page=${page}`;
 
   const { data, error, isLoading, isValidating } = useSWR<any>(URL, fetcher);
 
   const memoizedValue = useMemo(() => {
-    const registrationsArray = Array.isArray(data) ? data : (data?.results || []);
+    const isPaginated = data && typeof data === "object" && "results" in data;
+    const registrationsArray: ThematicRegistrationResponse[] = isPaginated
+      ? data.results || []
+      : Array.isArray(data)
+      ? data
+      : [];
+
+    const count: number = isPaginated ? data.count : registrationsArray.length;
+    const next: string | null = isPaginated ? data.next : null;
+    const previous: string | null = isPaginated ? data.previous : null;
+
     return {
-      thematicRegistrations: registrationsArray as ThematicRegistrationResponse[],
+      thematicRegistrations: registrationsArray,
+      count,
+      next,
+      previous,
       thematicRegistrationsLoading: isLoading,
       thematicRegistrationsError: error,
       thematicRegistrationsValidating: isValidating,

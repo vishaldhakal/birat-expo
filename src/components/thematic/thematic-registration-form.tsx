@@ -8,7 +8,6 @@ import { fetchThematicSessions, type ThematicSession } from "@/types/thematic";
 import { registerForThematic } from "@/api/thematic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formatDate } from "date-fns";
-import { SessionModal } from "./components/session-modal";
 import { ThematicRegistration } from "@/types/thematic";
 
 const schema = yup.object().shape({
@@ -21,29 +20,61 @@ const schema = yup.object().shape({
     .string()
     .matches(/^\+?1?\d{9,15}$/, "Invalid phone number")
     .required("Contact number is required"),
+
   sessions: yup
     .array()
     .min(1, "Please select at least one session")
     .required("Please select at least one session"),
-  arrival_date: yup.string().required("Arrival date is required"),
-  departure_date: yup.string().required("Departure date is required"),
-  participant: yup
-    .string()
-    .oneOf(["Speaker", "Participant"])
-    .required("Participant type is required"),
-  food: yup
-    .string()
-    .oneOf(["Veg", "Non Veg"])
-    .required("Food preference is required"),
-  hotel_accomodation: yup.string().oneOf(["Self", "CIM"]).optional(),
-  airline: yup.string().optional(),
-  flight_no: yup.string().optional(),
-  flight_time: yup.string().optional(),
-  return_flight_no: yup.string().optional(),
-  return_flight_time: yup.string().optional(),
-  check_in_date: yup.string().optional(),
-  hotel: yup.string().optional(),
+  opportunity_theme1: yup.string().optional(),
+  opportunity_theme2: yup.string().optional(),
+  opportunity_theme3: yup.string().optional(),
+  business_connections: yup.string().optional(),
+  food: yup.string().oneOf(["Veg", "Non Veg"]).optional(),
+  additional_info: yup.string().optional(),
 });
+
+function Field({
+  label,
+  error,
+  hint,
+  children,
+}: {
+  label: string;
+  error?: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-1">
+      <label className="text-sm font-medium text-gray-700">{label}</label>
+      {hint && <p className="text-xs text-gray-400">{hint}</p>}
+      {children}
+      {error && <p className="text-xs text-red-500">{error}</p>}
+    </div>
+  );
+}
+
+const inputCls =
+  "w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition";
+const selectCls =
+  "w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition bg-white";
+
+function SectionCard({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div className="border-b border-gray-100 px-6 py-4">
+        <h2 className="text-base font-semibold text-gray-800">{title}</h2>
+      </div>
+      <div className="p-6">{children}</div>
+    </div>
+  );
+}
 
 export default function ThematicRegistrationForm() {
   const [loading, setLoading] = useState(false);
@@ -51,6 +82,7 @@ export default function ThematicRegistrationForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preSelectedSession = searchParams.get("session");
+
   const {
     register,
     handleSubmit,
@@ -68,41 +100,29 @@ export default function ThematicRegistrationForm() {
       email: "",
       contact: "",
       sessions: [],
-      hotel: "",
-      flight_no: "",
-      flight_time: "",
-      arrival_date: new Date().toISOString(),
-      departure_date: new Date().toISOString(),
-      participant: "Participant",
+      opportunity_theme1: "",
+      opportunity_theme2: "",
+      opportunity_theme3: "",
+      business_connections: "",
       food: "Veg",
-      hotel_accomodation: "Self",
-      airline: "",
-      check_in_date: new Date().toISOString(),
-      return_flight_no: "",
-      return_flight_time: "",
+      additional_info: "",
     },
   });
 
   const selectedSessions = watch("sessions") || [];
 
   useEffect(() => {
-    const loadSessions = async () => {
-      try {
-        const thematicSessions = await fetchThematicSessions();
-        setSessions(thematicSessions);
-      } catch (error) {
-        console.error("Failed to load sessions:", error);
-      }
-    };
-    loadSessions();
+    fetchThematicSessions()
+      .then(setSessions)
+      .catch((err) => console.error("Failed to load sessions:", err));
   }, []);
 
   useEffect(() => {
     if (preSelectedSession) {
-      const sessionId = parseInt(preSelectedSession);
-      const currentSessions = getValues("sessions") || [];
-      if (!currentSessions.includes(sessionId)) {
-        setValue("sessions", [...currentSessions, sessionId], {
+      const id = parseInt(preSelectedSession);
+      const cur = getValues("sessions") || [];
+      if (!cur.includes(id)) {
+        setValue("sessions", [...cur, id], {
           shouldValidate: true,
           shouldDirty: true,
         });
@@ -110,494 +130,184 @@ export default function ThematicRegistrationForm() {
     }
   }, [preSelectedSession, setValue, getValues]);
 
-  const handleSubmitForm = async (data: {
-    name: string;
-    organization: string;
-    designation: string;
-    address: string;
-    email: string;
-    contact: string;
-    sessions: string[];
-    arrival_date: string;
-    departure_date: string;
-    participant: string;
-    food: string;
-    hotel?: string | null;
-    hotel_accomodation?: string | null;
-    check_in_date?: string | null;
-    return_flight_no?: string | null;
-    return_flight_time?: string | null;
-    airline?: string | null;
-    flight_no?: string | null;
-    flight_time?: string | null;
-  }) => {
+  const handleSubmitForm = async (data: Record<string, unknown>) => {
     setLoading(true);
+    const fmt = (d?: string | null) => (d ? formatDate(d, "yyyy-MM-dd") : null);
 
     const payload: ThematicRegistration = {
-      name: data.name,
-      organization: data.organization,
-      designation: data.designation,
-      address: data.address,
-      email: data.email,
-      contact: data.contact,
-      sessions: data.sessions.map((sessionId) => parseInt(sessionId, 10)),
-      arrival_date: formatDate(data.arrival_date, "yyyy-MM-dd"),
-      departure_date: formatDate(data.departure_date, "yyyy-MM-dd"),
-      participant: data.participant,
-
-      food: data.food,
-      return_flight_no: data.return_flight_no || null,
-      return_flight_time: data.return_flight_time || null,
-      hotel_accomodation: data.hotel_accomodation || null,
-      ...(data.participant === "Speaker" && {
-        check_in_date: formatDate(data.check_in_date || "", "yyyy-MM-dd"),
-        airline: data.airline || null,
-        flight_no: data.flight_no || null,
-        flight_time: data.flight_time || null,
-        hotel: data.hotel || null,
-      }),
+      name: data.name as string,
+      organization: data.organization as string,
+      designation: data.designation as string,
+      address: data.address as string,
+      email: data.email as string,
+      contact: data.contact as string,
+      participant: null,
+      sessions: (data.sessions as string[]).map((id) => parseInt(id, 10)),
+      opportunity_theme1: (data.opportunity_theme1 as string) || null,
+      opportunity_theme2: (data.opportunity_theme2 as string) || null,
+      opportunity_theme3: (data.opportunity_theme3 as string) || null,
+      business_connections: (data.business_connections as string) || null,
+      food: (data.food as string) || null,
+      additional_info: (data.additional_info as string) || null,
     };
 
     try {
-      await registerForThematic(payload).then(() => {
-        router.push("/thematic/thank-you");
-      });
-    } catch (error) {
-      console.error("Registration failed:", error);
+      await registerForThematic(payload);
+      router.push("/thematic/thank-you");
+    } catch (err) {
+      console.error("Registration failed:", err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <form onSubmit={handleSubmit(handleSubmitForm)} className="space-y-8">
-        {/* Participant Selection Section */}
-        <div className="bg-white rounded-lg shadow p-6 space-y-6">
-          <h2 className="text-xl font-semibold mb-4">
-            Participant Information
-          </h2>
-          <div className="flex space-x-4">
-            <div
-              onClick={() => setValue("participant", "Participant")}
-              className={`flex-1 p-4 border rounded-lg cursor-pointer transition-all ${
-                watch("participant") === "Participant"
-                  ? "border-blue-500 bg-blue-50"
-                  : "border-gray-300"
-              }`}
-            >
-              <h3 className="text-lg font-semibold">Participant</h3>
-              <p className="text-sm text-gray-600">
-                Select this if you are a participant.
-              </p>
-            </div>
-            <div
-              onClick={() => setValue("participant", "Speaker")}
-              className={`flex-1 p-4 border rounded-lg cursor-pointer transition-all ${
-                watch("participant") === "Speaker"
-                  ? "border-blue-500 bg-blue-50"
-                  : "border-gray-300"
-              }`}
-            >
-              <h3 className="text-lg font-semibold">Speaker</h3>
-              <p className="text-sm text-gray-600">
-                Select this if you are a speaker.
-              </p>
-            </div>
+    <div className="max-w-3xl mx-auto px-4 py-10">
+      <form onSubmit={handleSubmit(handleSubmitForm)} className="flex flex-col gap-6">
+
+
+        {/* 2. Personal Information */}
+        <SectionCard title="Personal Information">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Field label="Full Name" error={errors.name?.message}>
+              <input type="text" {...register("name")} placeholder="e.g. Ram Prasad Sharma" className={inputCls} />
+            </Field>
+            <Field label="Organization" error={errors.organization?.message}>
+              <input type="text" {...register("organization")} placeholder="Company / Chamber" className={inputCls} />
+            </Field>
+            <Field label="Designation" error={errors.designation?.message}>
+              <input type="text" {...register("designation")} placeholder="e.g. CEO, Director" className={inputCls} />
+            </Field>
+            <Field label="Address" error={errors.address?.message}>
+              <input type="text" {...register("address")} placeholder="City, District" className={inputCls} />
+            </Field>
+            <Field label="Email Address" error={errors.email?.message}>
+              <input type="email" {...register("email")} placeholder="you@example.com" className={inputCls} />
+            </Field>
+            <Field label="Contact Number" error={errors.contact?.message}>
+              <input type="text" {...register("contact")} placeholder="+977-98XXXXXXXX" className={inputCls} />
+            </Field>
           </div>
+        </SectionCard>
 
-          {errors.participant && (
-            <p className="mt-1 text-sm text-red-600">
-              {errors.participant.message}
-            </p>
-          )}
-        </div>
-
-        {/* Personal Information Section */}
-        <div className="bg-white rounded-lg shadow p-6 space-y-6">
-          <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Name
-              </label>
-              <input
-                type="text"
-                {...register("name")}
-                className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-              />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.name.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Organization
-              </label>
-              <input
-                type="text"
-                {...register("organization")}
-                className="w-full p-2 border rounded-md  border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-              />
-              {errors.organization && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.organization.message}
-                </p>
-              )}
-            </div>
-
-            {/* Add other form fields similarly */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Designation
-              </label>
-              <input
-                type="text"
-                {...register("designation")}
-                className="w-full p-2 border rounded-md  border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-              />
-              {errors.designation && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.designation.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Address
-              </label>
-              <input
-                type="text"
-                {...register("address")}
-                className="w-full p-2 border rounded-md  border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-              />
-              {errors.address && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.address.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                {...register("email")}
-                className="w-full p-2 border rounded-md  border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Contact
-              </label>
-              <input
-                type="text"
-                {...register("contact")}
-                className="w-full p-2 border rounded-md  border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-              />
-              {errors.contact && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.contact.message}
-                </p>
-              )}
-            </div>
-
-            {watch("participant") === "Speaker" && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Food Preference
-                </label>
-                <select
-                  {...register("food")}
-                  className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                >
-                  <option value="Veg">Veg</option>
-                  <option value="Non Veg">Non Veg</option>
-                </select>
-                {errors.food && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.food.message}
-                  </p>
-                )}
-              </div>
-            )}
-
-            {watch("participant") === "Speaker" && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Travel Arrival Date
-                </label>
-                <input
-                  type="date"
-                  {...register("arrival_date")}
-                  min={new Date().toISOString()}
-                  className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                />
-
-                {errors.arrival_date && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.arrival_date.message}
-                  </p>
-                )}
-              </div>
-            )}
-
-            {watch("participant") === "Speaker" && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Travel Departure Date
-                </label>
-                <input
-                  type="date"
-                  {...register("departure_date")}
-                  min={new Date(
-                    watch("arrival_date") || new Date()
-                  ).toISOString()}
-                  className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                />
-
-                {errors.departure_date && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.departure_date.message}
-                  </p>
-                )}
-              </div>
-            )}
+        {/* 3. Opportunity & Networking */}
+        <SectionCard title="Opportunity & Networking Interests">
+          <div className="flex flex-col gap-4">
+            <Field label="Opportunity Theme 1" hint="Primary area of business interest you are bringing to the summit">
+              <input type="text" {...register("opportunity_theme1")} placeholder="e.g. Agricultural export" className={inputCls} />
+            </Field>
+            <Field label="Opportunity Theme 2">
+              <input type="text" {...register("opportunity_theme2")} placeholder="e.g. Technology partnerships" className={inputCls} />
+            </Field>
+            <Field label="Opportunity Theme 3">
+              <input type="text" {...register("opportunity_theme3")} placeholder="e.g. Investment in tourism" className={inputCls} />
+            </Field>
+            <Field label="Business Connections Sought" hint="What type of partners, buyers, suppliers or investors are you looking for?">
+              <input type="text" {...register("business_connections")} placeholder="e.g. Distributors in Kathmandu valley" className={inputCls} />
+            </Field>
           </div>
-          {watch("participant") === "Speaker" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              {/* Flight Information Section */}
-              <div className="bg-white rounded-lg p-6 space-y-6">
-                <h2 className="text-xl font-semibold mb-4">
-                  Flight Information
-                </h2>
+        </SectionCard>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Arrival Flight Number
-                  </label>
-                  <input
-                    type="text"
-                    {...register("flight_no")}
-                    className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Arrival Flight Time
-                  </label>
-                  <input
-                    type="time"
-                    {...register("flight_time")}
-                    className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Return Flight Number
-                  </label>
-                  <input
-                    type="text"
-                    {...register("return_flight_no")}
-                    className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Return Flight Time
-                  </label>
-                  <input
-                    type="time"
-                    {...register("return_flight_time")}
-                    className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Arrival Airline
-                  </label>
-                  <select
-                    {...register("airline")}
-                    className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
+        {/* 4. Session Selection */}
+        <SectionCard title="Select Sessions">
+          {sessions.length === 0 ? (
+            <p className="text-sm text-gray-400">Loading sessions…</p>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {sessions.map((session) => {
+                const selected = selectedSessions.includes(session.id);
+                return (
+                  <div
+                    key={session.id}
+                    onClick={() => {
+                      const next = selected
+                        ? selectedSessions.filter((id) => id !== session.id)
+                        : [...selectedSessions, session.id];
+                      setValue("sessions", next, { shouldValidate: true });
+                    }}
+                    className={`flex items-start gap-3 rounded-xl border-2 p-4 cursor-pointer transition-all ${
+                      selected ? "border-indigo-500 bg-indigo-50" : "border-gray-200 hover:border-gray-300"
+                    }`}
                   >
-                    <option value="">Select Airline</option>
-                    <option value="Yeti">Yeti</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Hotel Accommodation Section */}
-              <div className="bg-white rounded-lg p-6 space-y-6">
-                <h2 className="text-xl font-semibold mb-4">
-                  Hotel Accommodation
-                </h2>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Hotel Accommodation
-                  </label>
-                  <select
-                    {...register("hotel_accomodation")}
-                    className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                  >
-                    <option value="Self">Self</option>
-                    <option value="CIM">CIM</option>
-                  </select>
-                  {errors.hotel_accomodation && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.hotel_accomodation.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Check-in Date
-                  </label>
-                  <input
-                    type="date"
-                    {...register("check_in_date")}
-                    className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                  {errors.check_in_date && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.check_in_date.message}
-                    </p>
-                  )}
-                </div>
-                {watch("hotel_accomodation") === "CIM" && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Hotel
-                    </label>
-                    <select
-                      {...register("hotel")}
-                      className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
+                    <div
+                      className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all ${
+                        selected ? "border-indigo-500 bg-indigo-500" : "border-gray-300"
+                      }`}
                     >
-                      <option value="">Select Hotel</option>
-                      <option value="Ratna">Ratna</option>
-
-                      <option value="Nepalirika">Nepalirika</option>
-                      <option value="Harrison">Harrison</option>
-                    </select>
-                    {errors.hotel && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.hotel.message}
+                      {selected && (
+                        <svg className="h-3 w-3 text-white" viewBox="0 0 12 10" fill="none">
+                          <path d="M1 5l3.5 3.5L11 1" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-gray-800 text-sm">{session.title}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        <span className="text-indigo-600 font-medium">{session.date}</span>
+                        {" · "}
+                        {session.start_time} – {session.end_time}
                       </p>
-                    )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); router.push(`/thematic/details/${session.id}`); }}
+                      className="shrink-0 text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+                    >
+                      Details →
+                    </button>
                   </div>
-                )}
-                {watch("hotel_accomodation") === "Self" && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Enter Your Hotel Name
-                    </label>
-                    <input
-                      type="text"
-                      {...register("hotel")}
-                      className="w-full p-2 border rounded-md border-gray-800 focus:border-blue-500 focus:ring-blue-500"
-                    />
-                    {errors.hotel && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.hotel.message}
-                      </p>
-                    )}
-                  </div>
-                )}
-              </div>
+                );
+              })}
             </div>
           )}
-        </div>
+          {errors.sessions && (
+            <p className="mt-2 text-xs text-red-500">{errors.sessions.message}</p>
+          )}
+        </SectionCard>
 
-        {/* Session Selection Section */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">
-            Select Sessions
-            <span className="text-sm font-normal text-gray-500 ml-2">
-              (Multiple sessions can be selected)
-            </span>
-          </h2>
-          <div className="grid grid-cols-1 gap-4">
-            {sessions.map((session) => (
-              <div
-                key={session.id}
-                className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  selectedSessions.includes(session.id)
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-200 hover:border-blue-300"
+        {/* 5. Food Preference */}
+        <SectionCard title="Food Preference">
+          <div className="grid grid-cols-2 gap-3">
+            {(["Veg", "Non Veg"] as const).map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => setValue("food", opt)}
+                className={`rounded-xl border-2 p-3.5 text-sm font-medium text-left transition-all ${
+                  watch("food") === opt
+                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
+                    : "border-gray-200 text-gray-700 hover:border-gray-300"
                 }`}
-                onClick={() => {
-                  const newSessions = selectedSessions.includes(session.id)
-                    ? selectedSessions.filter((id) => id !== session.id)
-                    : [...selectedSessions, session.id];
-                  setValue("sessions", newSessions, { shouldValidate: true });
-                }}
               >
-                <div className="flex items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    checked={selectedSessions.includes(session.id)}
-                    onChange={() => {}}
-                    className="w-6 h-6 text-blue-600 form-checkbox rounded-md"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="font-medium">{session.title}</h3>
-                        <p className="text-sm">
-                          <span className="text-blue-600 font-medium">
-                            {session.date}
-                          </span>
-                          <span className="text-gray-500">
-                            {" "}
-                            | {session.start_time} - {session.end_time}
-                          </span>
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          router.push(`/thematic/details/${session.id}`);
-                        }}
-                        className="ml-2 text-blue-600 hover:text-blue-800 focus:outline-none"
-                      >
-                        View Details
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                {opt === "Veg" ? "🥗 " : "🍗 "}{opt}
+              </button>
             ))}
           </div>
-          {errors.sessions && (
-            <p className="mt-2 text-sm text-red-600">
-              {errors.sessions.message}
-            </p>
-          )}
-        </div>
+        </SectionCard>
 
+
+
+        {/* 8. Additional Info */}
+        <SectionCard title="Additional Information">
+          <Field label="Any other notes or special requirements" hint="Optional">
+            <textarea
+              {...register("additional_info")}
+              rows={3}
+              placeholder="Write here…"
+              className={`${inputCls} resize-none`}
+            />
+          </Field>
+        </SectionCard>
+
+        {/* Submit */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          className="w-full rounded-xl bg-indigo-600 py-3.5 text-sm font-semibold text-white
+            hover:bg-indigo-700 disabled:opacity-50 transition-all shadow-md hover:shadow-lg
+            hover:scale-[1.01] active:scale-[0.99]"
         >
-          {loading ? "Submitting..." : "Register"}
+          {loading ? "Submitting…" : "Complete Registration"}
         </button>
       </form>
     </div>

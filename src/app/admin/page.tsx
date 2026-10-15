@@ -9,17 +9,36 @@ export default function AdminPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row justify-between items-center">
-        <h1 className="text-3xl font-semibold text-gray-800 py-10">
-          Admin Dashboard
-        </h1>
+      <div className="flex flex-col md:flex-row justify-between items-center py-6 gap-4">
+        <div>
+          <h1 className="text-3xl font-semibold text-gray-800">
+            Admin Dashboard
+          </h1>
+          <p className="text-sm text-gray-500 mt-1">
+            Manage stalls, thematic registrations, and training
+          </p>
+        </div>
 
-        <a
-          href="https://cim.baliyoventures.com/api/export"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Export Data
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/admin/thematic-registrations"
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+          >
+            Business Summit
+          </a>
+          <a
+            href="/admin/live-training"
+            className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition"
+          >
+            Live Training
+          </a>
+          <a
+            href="https://cim.baliyoventures.com/api/export"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+          >
+            Export Data
+          </a>
+        </div>
       </div>
       <AdminTable />
     </div>

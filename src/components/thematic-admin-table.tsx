@@ -1,661 +1,662 @@
+"use client";
+
 import React, { useState, useMemo, useEffect } from "react";
 import axios from "axios";
 import { mutate } from "swr";
-import { ArrowDownFromLine, DownloadCloud, Loader } from "lucide-react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import {
+  DownloadCloud,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  Search,
+  Filter,
+  CheckCircle2,
+  XCircle,
+  Clock,
+  Briefcase,
+  Building2,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  Utensils,
+  Lightbulb,
+  Handshake,
+  FileText,
+} from "lucide-react";
 import { useGetThematicRegistrations } from "@/api/thematic";
 import { ThematicRegistrationResponse } from "@/types/thematic";
-import { ThematicRegistrationAdminPDF } from "./thematic-registration-admin-pdf";
 
 type RegistrationStatus = "Pending" | "Approved" | "Rejected";
 
-const registrationStatuses = [
+const registrationStatuses: { value: RegistrationStatus | ""; label: string }[] = [
+  { value: "", label: "All Statuses" },
   { value: "Pending", label: "Pending" },
   { value: "Approved", label: "Approved" },
   { value: "Rejected", label: "Rejected" },
 ];
 
-type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-};
-
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-end">
-          <button onClick={onClose} className="text-xl font-bold">
-            &times;
-          </button>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const participantTypes = [
-  { value: "Speaker", label: "Speaker" },
-  { value: "Participant", label: "Participant" },
-];
-
-const ConfirmDialog: React.FC<{
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  title: string;
-  message: string;
-  confirmText: string;
-  confirmClass?: string;
-}> = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  title,
-  message,
-  confirmText,
-  confirmClass,
-}) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg max-w-md w-full">
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-6">{message}</p>
-        <div className="flex justify-end space-x-4">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={onConfirm}
-            className={`px-4 py-2 text-white rounded transition-colors ${confirmClass}`}
-          >
-            {confirmText}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ThematicParticipationTable: React.FC = () => {
+export default function ThematicAdminTable() {
+  const [page, setPage] = useState(1);
   const {
     thematicRegistrations,
+    count,
+    next,
+    previous,
     thematicRegistrationsEmpty,
     thematicRegistrationsError,
     thematicRegistrationsLoading,
-  } = useGetThematicRegistrations();
+  } = useGetThematicRegistrations(page);
 
-  const [filters, setFilters] = useState<Record<string, string>>({});
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("");
   const [selectedParticipant, setSelectedParticipant] =
     useState<ThematicRegistrationResponse | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loadingStallId, setLoadingStallId] = useState<number | null>(null);
-  const [pdfData, setPdfData] = useState<ThematicRegistrationResponse | null>(
-    null
-  );
-  const [uniqueSessions, setUniqueSessions] = useState<
-    Array<{ id: number; title: string }>
-  >([]);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [loadingStatusId, setLoadingStatusId] = useState<number | null>(null);
   const [statusChangeInfo, setStatusChangeInfo] = useState<{
     id: number;
     newStatus: RegistrationStatus;
     name: string;
   } | null>(null);
 
-  useEffect(() => {
-    if (thematicRegistrations) {
-      const sessions = new Set<{ id: number; title: string }>();
-      thematicRegistrations.forEach((registration) => {
-        registration.sessions.forEach((session) => {
-          sessions.add({ id: session.id, title: session.title });
-        });
-      });
-      setUniqueSessions(Array.from(sessions));
-    }
-  }, [thematicRegistrations]);
+  // Filter current page items by search query and status filter
+  const filteredData = useMemo(() => {
+    if (!thematicRegistrations) return [];
 
-  const handlePdfGeneration = (item: ThematicRegistrationResponse) => {
-    setPdfData(item);
-  };
+    return thematicRegistrations.filter((item) => {
+      if (statusFilter && item.status !== statusFilter) {
+        return false;
+      }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Confirmed":
-        return "text-green-600";
-      case "Cancelled":
-        return "text-red-600";
-      default:
-        return "text-yellow-600";
-    }
-  };
+      if (search.trim()) {
+        const query = search.toLowerCase();
+        const searchable = [
+          item.name,
+          item.email,
+          item.contact,
+          item.organization,
+          item.designation,
+          item.address,
+          item.opportunity_theme1,
+          item.opportunity_theme2,
+          item.opportunity_theme3,
+          item.business_connections,
+        ];
+        return searchable.some((val) => val?.toLowerCase().includes(query));
+      }
 
-  const handleViewDetails = (id: number) => {
-    setSelectedParticipant(
-      thematicRegistrations?.find((item) => item.id === id) || null
-    );
-    setIsModalOpen(true);
-  };
+      return true;
+    });
+  }, [thematicRegistrations, search, statusFilter]);
 
   const handleStatusChange = async (
     id: number,
     newStatus: RegistrationStatus
   ) => {
-    setLoadingStallId(id);
+    setLoadingStatusId(id);
     try {
-      await axios
-        .patch(
-          `https://cim.baliyoventures.com/api/thematic-registrations/${id}/`,
-          {
-            status: newStatus,
-          }
-        )
-        .then(async (res) => {
-          if (newStatus === "Approved") {
-            try {
-              const emailResponse = await fetch("/api/thematic-registration", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ ...res.data, status: newStatus }),
-              });
-              if (!emailResponse.ok) {
-                console.error("Failed to send confirmation email");
-              }
-            } catch (emailError) {
-              console.error("Error sending confirmation email:", emailError);
-            }
-          }
-        });
+      await axios.patch(
+        `https://cim.baliyoventures.com/api/thematic-registrations/${id}/`,
+        { status: newStatus }
+      );
 
-      mutate("https://cim.baliyoventures.com/api/thematic-registrations/");
+      // Revalidate SWR cache for the active page
+      await mutate(
+        `https://cim.baliyoventures.com/api/thematic-registrations/?page=${page}`
+      );
+
+      // Also update selectedParticipant if modal is open
+      if (selectedParticipant && selectedParticipant.id === id) {
+        setSelectedParticipant({ ...selectedParticipant, status: newStatus });
+      }
     } catch (error) {
-      console.error("Error updating status:", error);
+      console.error("Error updating registration status:", error);
+      alert("Failed to update status. Please try again.");
     } finally {
-      setLoadingStallId(null);
+      setLoadingStatusId(null);
     }
-  };
-
-  const handleStatusChangeClick = (
-    id: number,
-    newStatus: RegistrationStatus,
-    name: string
-  ) => {
-    setStatusChangeInfo({ id, newStatus, name });
-    setShowConfirmDialog(true);
   };
 
   const confirmStatusChange = async () => {
     if (!statusChangeInfo) return;
     await handleStatusChange(statusChangeInfo.id, statusChangeInfo.newStatus);
-    setShowConfirmDialog(false);
     setStatusChangeInfo(null);
   };
 
-  const filteredAndSortedData = useMemo(() => {
-    if (!thematicRegistrations) return [];
-
-    return thematicRegistrations.filter((item) => {
-      return Object.entries(filters).every(([key, value]) => {
-        if (!value) return true;
-
-        if (key === "global") {
-          const searchableFields = [
-            item.name,
-            item.email,
-            item.contact,
-            item.organization,
-          ];
-          return searchableFields.some((field) =>
-            field?.toLowerCase().includes(value.toLowerCase())
-          );
-        }
-
-        if (key === "participant") {
-          return item.participant === value;
-        }
-
-        if (key === "contact") {
-          return item.contact.includes(value);
-        }
-
-        if (key === "session") {
-          return item.sessions.some(
-            (session) => session.id.toString() === value
-          );
-        }
-
-        const itemValue = item[key as keyof ThematicRegistrationResponse];
-        return itemValue
-          ?.toString()
-          .toLowerCase()
-          .includes(value.toLowerCase());
-      });
-    });
-  }, [thematicRegistrations, filters]);
-
-  const csvData =
-    thematicRegistrations?.map((registration) => ({
-      ID: registration.id,
-      Name: registration.name,
-      Email: registration.email,
-      Contact: registration.contact,
-      Organization: registration.organization,
-      Participant: registration.participant,
-      HotelAccommodation: registration.hotel_accomodation || "N/A",
-      Food: registration.food || "N/A",
-      ArrivalDate: registration.arrival_date || "N/A",
-      DepartureDate: registration.departure_date || "N/A",
-      Designation: registration.designation || "N/A",
-      Status: registration.status || "N/A",
-      Sessions: registration.sessions
-        .map((session) => session.title)
-        .join(", "),
-      SessionDates: registration.sessions
-        .map((session) => session.date)
-        .join(", "),
-      StartTimes: registration.sessions
-        .map((session) => session.start_time)
-        .join(", "),
-      EndTimes: registration.sessions
-        .map((session) => session.end_time)
-        .join(", "),
-      ArrivalFlightNo: registration.flight_no || "N/A",
-      ArrivalFlightTime: registration.flight_time || "N/A",
-      ArrivalAirline: registration.airline || "N/A",
-      ReturnFlightNo: registration.return_flight_no || "N/A",
-      ReturnFlightTime: registration.return_flight_time || "N/A",
-    })) || [];
-
+  // CSV download for current records
   const downloadCSV = () => {
+    if (!thematicRegistrations || thematicRegistrations.length === 0) return;
+
     const headers = [
       "ID",
       "Name",
+      "Organization",
+      "Designation",
+      "Address",
       "Email",
       "Contact",
-      "Organization",
-      "Participant",
-      "HotelAccommodation",
-      "Food",
-      "ArrivalDate",
-      "DepartureDate",
-      "Designation",
       "Status",
+      "Food",
       "Sessions",
-      "SessionDates",
-      "StartTimes",
-      "EndTimes",
+      "Opportunity Theme 1",
+      "Opportunity Theme 2",
+      "Opportunity Theme 3",
+      "Business Connections",
+      "Additional Info",
     ];
 
-    const rows = csvData.map((registration) => [
-      registration.ID,
-      registration.Name,
-      registration.Email,
-      registration.Contact,
-      registration.Organization,
-      registration.Participant,
-      registration.HotelAccommodation,
-      registration.Food,
-      registration.ArrivalDate,
-      registration.DepartureDate,
-      registration.Designation,
-      registration.Status,
-      registration.Sessions,
-      registration.SessionDates,
-      registration.StartTimes,
-      registration.EndTimes,
+    const rows = filteredData.map((reg) => [
+      reg.id,
+      `"${(reg.name || "").replace(/"/g, '""')}"`,
+      `"${(reg.organization || "").replace(/"/g, '""')}"`,
+      `"${(reg.designation || "").replace(/"/g, '""')}"`,
+      `"${(reg.address || "").replace(/"/g, '""')}"`,
+      `"${(reg.email || "").replace(/"/g, '""')}"`,
+      `"${(reg.contact || "").replace(/"/g, '""')}"`,
+      reg.status || "Pending",
+      reg.food || "",
+      `"${(reg.sessions?.map((s) => s.title).join("; ") || "").replace(/"/g, '""')}"`,
+      `"${(reg.opportunity_theme1 || "").replace(/"/g, '""')}"`,
+      `"${(reg.opportunity_theme2 || "").replace(/"/g, '""')}"`,
+      `"${(reg.opportunity_theme3 || "").replace(/"/g, '""')}"`,
+      `"${(reg.business_connections || "").replace(/"/g, '""')}"`,
+      `"${(reg.additional_info || "").replace(/"/g, '""')}"`,
     ]);
 
-    const csvContent = [
-      headers.join(","),
-      ...rows.map((e) => e.join(",")),
-    ].join("\n");
-
+    const csvContent = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
-    link.setAttribute("href", url);
-    link.setAttribute("download", "thematic_participation_data.csv");
-    link.style.visibility = "hidden";
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `business_summit_registrations_page_${page}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  if (thematicRegistrationsError)
-    return <div className="text-red-500">Failed to load data</div>;
-  if (thematicRegistrationsLoading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  if (thematicRegistrationsEmpty)
-    return <div className="text-gray-500">No data available</div>;
+  // Pagination calculation
+  const pageSize = 10;
+  const totalPages = Math.max(1, Math.ceil(count / pageSize));
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={downloadCSV}
-          className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          <DownloadCloud className="w-5 h-5 mr-2" />
-          Download CSV
-        </button>
-      </div>
-      <div className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        <input
-          type="text"
-          placeholder="Search (Name, Email, Organization)"
-          className="w-full p-2 border rounded"
-          onChange={(e) => setFilters({ ...filters, global: e.target.value })}
-        />
-
-        <input
-          type="text"
-          placeholder="Search Phone Number"
-          className="w-full p-2 border rounded"
-          onChange={(e) => setFilters({ ...filters, contact: e.target.value })}
-        />
-
-        <select
-          className="w-full p-2 border rounded"
-          onChange={(e) =>
-            setFilters({ ...filters, participant: e.target.value })
-          }
-        >
-          <option value="">All Types</option>
-          {participantTypes.map((type) => (
-            <option key={type.value} value={type.value}>
-              {type.label}
-            </option>
-          ))}
-        </select>
-
-        <select
-          className="w-full p-2 border rounded"
-          onChange={(e) => setFilters({ ...filters, session: e.target.value })}
-        >
-          <option value="">All Sessions</option>
-          {uniqueSessions.map((session) => (
-            <option key={session.id} value={session.id}>
-              {session.title}
-            </option>
-          ))}
-        </select>
-
-        <select
-          className="w-full p-2 border rounded"
-          onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-        >
-          <option value="">All Statuses</option>
-          {registrationStatuses.map((status) => (
-            <option key={status.value} value={status.value}>
-              {status.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="overflow-x-auto shadow-md rounded-lg">
-        <table className="min-w-full bg-white">
-          <thead className="bg-gray-200 text-gray-600">
-            <tr>
-              {[
-                "ID",
-                "Name",
-                "Organization",
-                "Email",
-                "Contact",
-                "Sessions",
-                "Status",
-                "Actions",
-              ].map((header) => (
-                <th
-                  key={header}
-                  className="py-3 px-6 text-left font-semibold uppercase text-sm"
-                >
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="text-gray-600 text-sm">
-            {filteredAndSortedData.map((item) => (
-              <tr
-                key={item.id}
-                className="border-b border-gray-200 hover:bg-gray-100"
-              >
-                <td className="py-4 px-6">{item.id}</td>
-                <td className="py-4 px-6">
-                  {item.name} / {item.participant}
-                </td>
-                <td className="py-4 px-6">{item.organization}</td>
-                <td className="py-4 px-6">{item.email}</td>
-                <td className="py-4 px-6">{item.contact}</td>
-                <td className="py-4 px-6">
-                  <ul className="list-disc list-inside">
-                    {item.sessions.map((session) => (
-                      <li key={session.id}>{session.title}</li>
-                    ))}
-                  </ul>
-                </td>
-                <td
-                  className={`py-4 px-6 font-semibold ${getStatusColor(
-                    item.status || "Pending"
-                  )}`}
-                >
-                  {loadingStallId === item.id ? (
-                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-blue-500" />
-                  ) : (
-                    <select
-                      value={item.status || "Pending"}
-                      onChange={(e) =>
-                        handleStatusChangeClick(
-                          item.id!,
-                          e.target.value as RegistrationStatus,
-                          item.name
-                        )
-                      }
-                      className={`px-2 py-1 rounded text-xs font-semibold ${
-                        item.status === "Approved"
-                          ? "bg-green-100 text-green-800"
-                          : item.status === "Rejected"
-                          ? "bg-red-100 text-red-800"
-                          : "bg-yellow-100 text-yellow-800"
-                      }`}
-                      disabled={
-                        item.status === "Approved" || item.status === "Rejected"
-                      }
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Approved">Accept</option>
-                      <option value="Rejected">Reject</option>
-                    </select>
-                  )}
-                </td>
-                <td className="py-4 px-6">
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleViewDetails(item.id!)}
-                      className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs"
-                    >
-                      View
-                    </button>
-
-                    {pdfData && pdfData.id === item.id ? (
-                      <PDFDownloadLink
-                        document={
-                          <ThematicRegistrationAdminPDF data={pdfData} />
-                        }
-                        fileName={`${pdfData.name}_registration.pdf`}
-                        className="bg-green-500 text-white px-2 py-1 rounded text-xs hover:bg-green-600"
-                      >
-                        {/* @ts-ignore */}
-                        {({ loading }) => (
-                          <span className="flex items-center">
-                            {loading ? (
-                              <Loader className="w-3 h-3 animate-spin" />
-                            ) : (
-                              <ArrowDownFromLine className="w-3 h-3" />
-                            )}
-                          </span>
-                        )}
-                      </PDFDownloadLink>
-                    ) : (
-                      <button
-                        onClick={() => handlePdfGeneration(item)}
-                        className="bg-green-500 text-white px-2 py-1 rounded text-xs hover:bg-green-600"
-                      >
-                        <DownloadCloud className="w-3 h-3" />
-                      </button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <ConfirmDialog
-        isOpen={showConfirmDialog}
-        onClose={() => {
-          setShowConfirmDialog(false);
-          setStatusChangeInfo(null);
-        }}
-        onConfirm={confirmStatusChange}
-        title="Confirm Status Change"
-        message={`Are you sure you want to ${statusChangeInfo?.newStatus.toLowerCase()} the registration for ${
-          statusChangeInfo?.name
-        }? This action cannot be undone.`}
-        confirmText={statusChangeInfo?.newStatus || ""}
-        confirmClass={
-          statusChangeInfo?.newStatus === "Approved"
-            ? "bg-green-600 hover:bg-green-700"
-            : "bg-red-600 hover:bg-red-700"
-        }
-      />
-
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {selectedParticipant && (
-          <div className="bg-white rounded-lg p-6">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">
-              Participant Details
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Name
-                </span>
-                <span className="mt-1">{selectedParticipant.name}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Email
-                </span>
-                <span className="mt-1">{selectedParticipant.email}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Contact
-                </span>
-                <span className="mt-1">{selectedParticipant.contact}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Organization
-                </span>
-                <span className="mt-1">{selectedParticipant.organization}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Designation
-                </span>
-                <span className="mt-1">{selectedParticipant.designation}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Address
-                </span>
-                <span className="mt-1">{selectedParticipant.address}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Arrival Date
-                </span>
-                <span className="mt-1">{selectedParticipant.arrival_date}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-600">
-                  Departure Date
-                </span>
-                <span className="mt-1">
-                  {selectedParticipant.departure_date}
-                </span>
-              </div>
-              <div className="col-span-2">
-                <span className="text-sm font-semibold text-gray-600">
-                  Sessions
-                </span>
-                <div className="mt-2 space-y-2">
-                  {selectedParticipant.sessions.map((session, index) => (
-                    <div key={index} className="p-2 bg-gray-50 rounded">
-                      {session.title}
-                    </div>
-                  ))}
-                </div>
-              </div>
+    <div className="space-y-6">
+      {/* Top Filter and Action Bar */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
+          <div className="flex-1 flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search by name, email, org, themes..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
             </div>
-            <div className="mt-8 flex justify-end space-x-4">
-              {loadingStallId ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
-              ) : (
-                <>
-                  <button
-                    onClick={() => {
-                      handleStatusChange(
-                        selectedParticipant.id!,
-                        selectedParticipant.status === "Approved"
-                          ? "Rejected"
-                          : "Approved"
-                      ).then(() => setIsModalOpen(false));
-                    }}
-                    className={`${
-                      selectedParticipant.status === "Approved"
-                        ? "bg-red-500 hover:bg-red-700"
-                        : "bg-green-500 hover:bg-green-700"
-                    } px-4 py-2 text-white rounded transition duration-300`}
-                  >
-                    {selectedParticipant.status === "Approved"
-                      ? "Reject Registration"
-                      : "Accept Registration"}
-                  </button>
-                  <button
-                    onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition duration-300"
-                  >
-                    Close
-                  </button>
-                </>
-              )}
+            <div className="sm:w-48">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                {registrationStatuses.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={downloadCSV}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition shadow-sm"
+            >
+              <DownloadCloud className="w-4 h-4" />
+              Export CSV
+            </button>
+          </div>
+        </div>
+
+        {/* Results count indicator */}
+        <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+          <span>
+            Total Registrations: <strong className="text-gray-900 font-semibold">{count}</strong>
+          </span>
+          <span>
+            Page <strong className="text-gray-900">{page}</strong> of <strong className="text-gray-900">{totalPages}</strong>
+          </span>
+        </div>
+      </div>
+
+      {/* Table Section */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        {thematicRegistrationsLoading ? (
+          <div className="py-24 flex flex-col items-center justify-center gap-3 text-gray-500">
+            <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm font-medium">Loading thematic registrations...</p>
+          </div>
+        ) : thematicRegistrationsError ? (
+          <div className="py-20 text-center text-red-500">
+            <p className="font-semibold">Failed to load registration data.</p>
+            <p className="text-xs text-gray-400 mt-1">Please refresh or try again later.</p>
+          </div>
+        ) : filteredData.length === 0 ? (
+          <div className="py-20 text-center text-gray-500">
+            <p className="text-base font-semibold">No registrations found</p>
+            <p className="text-xs text-gray-400 mt-1">
+              Try adjusting your search query or filter.
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm text-gray-600">
+              <thead className="bg-gray-50 border-b border-gray-200 text-xs uppercase font-semibold text-gray-500">
+                <tr>
+                  <th className="py-3.5 px-4 w-14">#ID</th>
+                  <th className="py-3.5 px-4">Participant Details</th>
+                  <th className="py-3.5 px-4">Organization & Role</th>
+                  <th className="py-3.5 px-4">Opportunities / Interests</th>
+                  <th className="py-3.5 px-4">Sessions</th>
+                  <th className="py-3.5 px-4">Food</th>
+                  <th className="py-3.5 px-4">Status</th>
+                  <th className="py-3.5 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {filteredData.map((item) => (
+                  <tr key={item.id} className="hover:bg-gray-50/80 transition-colors">
+                    <td className="py-4 px-4 font-mono text-xs text-gray-400">
+                      #{item.id}
+                    </td>
+
+                    <td className="py-4 px-4">
+                      <div className="font-medium text-gray-900">{item.name}</div>
+                      <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                        <Mail className="w-3 h-3 text-gray-400" />
+                        {item.email}
+                      </div>
+                      <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                        <Phone className="w-3 h-3 text-gray-400" />
+                        {item.contact}
+                      </div>
+                    </td>
+
+                    <td className="py-4 px-4">
+                      <div className="font-medium text-gray-900">{item.organization}</div>
+                      <div className="text-xs text-gray-500">{item.designation}</div>
+                      <div className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
+                        <MapPin className="w-3 h-3" />
+                        {item.address}
+                      </div>
+                    </td>
+
+                    <td className="py-4 px-4 max-w-xs">
+                      {item.opportunity_theme1 || item.business_connections ? (
+                        <div className="space-y-1">
+                          {item.opportunity_theme1 && (
+                            <span className="inline-block bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-md font-medium truncate max-w-full">
+                              🎯 {item.opportunity_theme1}
+                            </span>
+                          )}
+                          {item.business_connections && (
+                            <p className="text-xs text-gray-500 line-clamp-2" title={item.business_connections}>
+                              🤝 {item.business_connections}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-xs text-gray-400 italic">None specified</span>
+                      )}
+                    </td>
+
+                    <td className="py-4 px-4 max-w-xs">
+                      {item.sessions && item.sessions.length > 0 ? (
+                        <div className="flex flex-col gap-1">
+                          {item.sessions.map((sess) => (
+                            <span
+                              key={sess.id}
+                              className="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-medium truncate"
+                              title={sess.title}
+                            >
+                              {sess.title}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="text-xs text-gray-400 italic">No sessions</span>
+                      )}
+                    </td>
+
+                    <td className="py-4 px-4 whitespace-nowrap">
+                      {item.food ? (
+                        <span className="text-xs px-2 py-1 rounded bg-gray-100 font-medium text-gray-700">
+                          {item.food === "Veg" ? "🥗 Veg" : "🍗 Non-Veg"}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-gray-400">—</span>
+                      )}
+                    </td>
+
+                    <td className="py-4 px-4 whitespace-nowrap">
+                      {loadingStatusId === item.id ? (
+                        <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        <select
+                          value={item.status || "Pending"}
+                          onChange={(e) =>
+                            setStatusChangeInfo({
+                              id: item.id!,
+                              newStatus: e.target.value as RegistrationStatus,
+                              name: item.name,
+                            })
+                          }
+                          className={`text-xs font-semibold px-2.5 py-1 rounded-full border cursor-pointer focus:outline-none ${
+                            item.status === "Approved"
+                              ? "bg-green-50 text-green-700 border-green-200"
+                              : item.status === "Rejected"
+                              ? "bg-red-50 text-red-700 border-red-200"
+                              : "bg-amber-50 text-amber-700 border-amber-200"
+                          }`}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Approved">Approved</option>
+                          <option value="Rejected">Rejected</option>
+                        </select>
+                      )}
+                    </td>
+
+                    <td className="py-4 px-4 text-right whitespace-nowrap">
+                      <button
+                        onClick={() => {
+                          setSelectedParticipant(item);
+                          setIsModalOpen(true);
+                        }}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
-      </Modal>
+
+        {/* Pagination Bar */}
+        <div className="bg-gray-50 border-t border-gray-200 px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-xs text-gray-500">
+            Showing{" "}
+            <span className="font-semibold text-gray-800">
+              {count > 0 ? (page - 1) * pageSize + 1 : 0}
+            </span>{" "}
+            to{" "}
+            <span className="font-semibold text-gray-800">
+              {Math.min(page * pageSize, count)}
+            </span>{" "}
+            of <span className="font-semibold text-gray-800">{count}</span> entries
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={!previous && page === 1}
+              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+              Previous
+            </button>
+
+            {/* Page number buttons */}
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+                .map((pageNum, idx, arr) => {
+                  const prevPageNum = arr[idx - 1];
+                  const showEllipsis = prevPageNum && pageNum - prevPageNum > 1;
+
+                  return (
+                    <React.Fragment key={pageNum}>
+                      {showEllipsis && (
+                        <span className="px-1 text-gray-400 text-xs">…</span>
+                      )}
+                      <button
+                        onClick={() => setPage(pageNum)}
+                        className={`min-w-[32px] h-8 px-2 text-xs font-medium rounded-lg transition ${
+                          page === pageNum
+                            ? "bg-indigo-600 text-white"
+                            : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    </React.Fragment>
+                  );
+                })}
+            </div>
+
+            <button
+              onClick={() => setPage((p) => p + 1)}
+              disabled={!next && page >= totalPages}
+              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            >
+              Next
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Confirmation Dialog */}
+      {statusChangeInfo && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
+          <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-xl animate-in fade-in zoom-in-95 duration-150">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Confirm Status Change</h3>
+            <p className="text-sm text-gray-600 mb-6">
+              Are you sure you want to change the registration status of{" "}
+              <strong className="text-gray-900">{statusChangeInfo.name}</strong> to{" "}
+              <strong className="text-indigo-600 font-semibold">{statusChangeInfo.newStatus}</strong>?
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setStatusChangeInfo(null)}
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmStatusChange}
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition"
+              >
+                Confirm Change
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Participant Details Modal */}
+      {isModalOpen && selectedParticipant && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-center items-center p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-150">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between border-b pb-4 mb-6">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
+                  Registration Details #{selectedParticipant.id}
+                </span>
+                <h2 className="text-2xl font-bold text-gray-900 mt-1">
+                  {selectedParticipant.name}
+                </h2>
+                <p className="text-sm text-gray-500">
+                  {selectedParticipant.designation} · {selectedParticipant.organization}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="p-1 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Content Sections */}
+            <div className="space-y-6">
+              {/* Personal Information */}
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+                  Contact Information
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 rounded-xl p-4">
+                  <div>
+                    <span className="text-xs text-gray-500">Email Address</span>
+                    <p className="text-sm font-medium text-gray-900 mt-0.5">{selectedParticipant.email}</p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">Phone Contact</span>
+                    <p className="text-sm font-medium text-gray-900 mt-0.5">{selectedParticipant.contact}</p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">Address</span>
+                    <p className="text-sm font-medium text-gray-900 mt-0.5">{selectedParticipant.address}</p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">Food Preference</span>
+                    <p className="text-sm font-medium text-gray-900 mt-0.5">
+                      {selectedParticipant.food || "Not specified"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Opportunity Themes */}
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+                  Opportunity & Networking Themes
+                </h3>
+                <div className="space-y-3 bg-gray-50 rounded-xl p-4">
+                  <div>
+                    <span className="text-xs font-semibold text-gray-600">Opportunity Theme 1:</span>
+                    <p className="text-sm text-gray-800 mt-0.5">
+                      {selectedParticipant.opportunity_theme1 || "—"}
+                    </p>
+                  </div>
+                  {selectedParticipant.opportunity_theme2 && (
+                    <div>
+                      <span className="text-xs font-semibold text-gray-600">Opportunity Theme 2:</span>
+                      <p className="text-sm text-gray-800 mt-0.5">
+                        {selectedParticipant.opportunity_theme2}
+                      </p>
+                    </div>
+                  )}
+                  {selectedParticipant.opportunity_theme3 && (
+                    <div>
+                      <span className="text-xs font-semibold text-gray-600">Opportunity Theme 3:</span>
+                      <p className="text-sm text-gray-800 mt-0.5">
+                        {selectedParticipant.opportunity_theme3}
+                      </p>
+                    </div>
+                  )}
+                  {selectedParticipant.business_connections && (
+                    <div>
+                      <span className="text-xs font-semibold text-gray-600">Business Connections Sought:</span>
+                      <p className="text-sm text-gray-800 mt-0.5">
+                        {selectedParticipant.business_connections}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Sessions */}
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+                  Registered Sessions
+                </h3>
+                <div className="space-y-2">
+                  {selectedParticipant.sessions && selectedParticipant.sessions.length > 0 ? (
+                    selectedParticipant.sessions.map((session) => (
+                      <div
+                        key={session.id}
+                        className="bg-indigo-50/70 border border-indigo-100 rounded-xl p-3"
+                      >
+                        <p className="text-sm font-semibold text-indigo-950">{session.title}</p>
+                        <p className="text-xs text-indigo-700 mt-0.5">
+                          📅 {session.date} · ⏰ {session.start_time} – {session.end_time}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-gray-400 italic">No sessions selected</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Additional Information */}
+              {selectedParticipant.additional_info && (
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Additional Information
+                  </h3>
+                  <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 whitespace-pre-wrap">
+                    {selectedParticipant.additional_info}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Actions */}
+            <div className="mt-8 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500">Status:</span>
+                <span
+                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                    selectedParticipant.status === "Approved"
+                      ? "bg-green-100 text-green-800"
+                      : selectedParticipant.status === "Rejected"
+                      ? "bg-red-100 text-red-800"
+                      : "bg-amber-100 text-amber-800"
+                  }`}
+                >
+                  {selectedParticipant.status || "Pending"}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    const nextSt =
+                      selectedParticipant.status === "Approved"
+                        ? "Rejected"
+                        : "Approved";
+                    handleStatusChange(selectedParticipant.id!, nextSt);
+                  }}
+                  className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition ${
+                    selectedParticipant.status === "Approved"
+                      ? "bg-red-600 hover:bg-red-700"
+                      : "bg-green-600 hover:bg-green-700"
+                  }`}
+                >
+                  {selectedParticipant.status === "Approved"
+                    ? "Reject Registration"
+                    : "Approve Registration"}
+                </button>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
-
-export default ThematicParticipationTable;
+}
