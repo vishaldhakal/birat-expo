@@ -29,7 +29,6 @@ const schema = yup.object().shape({
   opportunity_theme2: yup.string().optional(),
   opportunity_theme3: yup.string().optional(),
   business_connections: yup.string().optional(),
-  food: yup.string().oneOf(["Veg", "Non Veg"]).optional(),
   additional_info: yup.string().optional(),
 });
 
@@ -104,7 +103,6 @@ export default function ThematicRegistrationForm() {
       opportunity_theme2: "",
       opportunity_theme3: "",
       business_connections: "",
-      food: "Veg",
       additional_info: "",
     },
   });
@@ -147,7 +145,7 @@ export default function ThematicRegistrationForm() {
       opportunity_theme2: (data.opportunity_theme2 as string) || null,
       opportunity_theme3: (data.opportunity_theme3 as string) || null,
       business_connections: (data.business_connections as string) || null,
-      food: (data.food as string) || null,
+      food: null,
       additional_info: (data.additional_info as string) || null,
     };
 
@@ -202,8 +200,21 @@ export default function ThematicRegistrationForm() {
             <Field label="Opportunity Theme 3">
               <input type="text" {...register("opportunity_theme3")} placeholder="e.g. Investment in tourism" className={inputCls} />
             </Field>
-            <Field label="Business Connections Sought" hint="What type of partners, buyers, suppliers or investors are you looking for?">
-              <input type="text" {...register("business_connections")} placeholder="e.g. Distributors in Kathmandu valley" className={inputCls} />
+            <Field
+              label="What types of business connections are you seeking?"
+              hint="Select the type of business connection you are looking for"
+              error={errors.business_connections?.message}
+            >
+              <select {...register("business_connections")} className={selectCls}>
+                <option value="">Select connection type...</option>
+                <option value="Buyers / Bulk Purchasers">Buyers / Bulk Purchasers</option>
+                <option value="Suppliers / Raw Materials">Suppliers / Raw Materials</option>
+                <option value="Distributors / Dealers">Distributors / Dealers</option>
+                <option value="Investors / Joint-Venture Partners">Investors / Joint-Venture Partners</option>
+                <option value="Technology / Technical Partners">Technology / Technical Partners</option>
+                <option value="Export Markets / International Buyers">Export Markets / International Buyers</option>
+                <option value="Other Business Collaborations">Other Business Collaborations</option>
+              </select>
             </Field>
           </div>
         </SectionCard>
@@ -263,26 +274,6 @@ export default function ThematicRegistrationForm() {
           {errors.sessions && (
             <p className="mt-2 text-xs text-red-500">{errors.sessions.message}</p>
           )}
-        </SectionCard>
-
-        {/* 5. Food Preference */}
-        <SectionCard title="Food Preference">
-          <div className="grid grid-cols-2 gap-3">
-            {(["Veg", "Non Veg"] as const).map((opt) => (
-              <button
-                key={opt}
-                type="button"
-                onClick={() => setValue("food", opt)}
-                className={`rounded-xl border-2 p-3.5 text-sm font-medium text-left transition-all ${
-                  watch("food") === opt
-                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                    : "border-gray-200 text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                {opt === "Veg" ? "🥗 " : "🍗 "}{opt}
-              </button>
-            ))}
-          </div>
         </SectionCard>
 
 
