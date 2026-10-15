@@ -349,13 +349,6 @@ export default function ThematicRegistrationForm() {
                         {session.start_time} – {session.end_time}
                       </p>
                     </div>
-                    <button
-                      type="button"
-                      onClick={(e) => { e.stopPropagation(); router.push(`/thematic/details/${session.id}`); }}
-                      className="shrink-0 text-xs text-indigo-600 hover:text-indigo-800 font-medium"
-                    >
-                      Details →
-                    </button>
                   </div>
                 );
               })}
