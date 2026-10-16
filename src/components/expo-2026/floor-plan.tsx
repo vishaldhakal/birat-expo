@@ -65,7 +65,7 @@ export default function FloorPlan2026() {
           </div>
 
           <a
-            href="/birat-expo-2026/Birat20Expo20Floor20plan202026-04.pdf"
+            href="/birat-expo-2026/floorplan1.jpeg"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition shadow-sm self-start sm:self-auto"
@@ -82,7 +82,7 @@ export default function FloorPlan2026() {
         >
           <div className="relative w-full flex items-center justify-center overflow-hidden rounded-xl bg-gray-50/80">
             <img
-              src="/birat-expo-2026/floorplan.jpg"
+              src="/birat-expo-2026/floorplan1.jpeg"
               alt="Birat Expo 2026 Floor Plan"
               className="max-h-[500px] md:max-h-[600px] w-auto object-contain transition-transform duration-300 group-hover:scale-[1.01]"
             />
