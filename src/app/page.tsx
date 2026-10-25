@@ -13,6 +13,9 @@ import Evolution2026 from "@/components/expo-2026/evolution";
 // 3. Expo in Numbers
 import OpportunitiesCreated2026 from "@/components/expo-2026/opportunities-created";
 
+// Video Showcase — Highlights & Experience
+import VideoShowcase2026 from "@/components/expo-2026/video-showcase";
+
 // 4. The Ecosystem — Learn / Build / Connect / Experience
 import Ecosystem2026 from "@/components/expo-2026/ecosystem";
 
@@ -55,6 +58,9 @@ export default function Home() {
 
       {/* 3. Why Birat Expo? — Key Objectives & Value */}
       <WhyBiratExpo2026 />
+
+      {/* Video Showcase — Overview of Birat Expo */}
+      <VideoShowcase2026 />
 
       {/* 4. The Ecosystem — Interactive Radial Hub */}
       <Ecosystem2026 />

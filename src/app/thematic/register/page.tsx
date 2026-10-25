@@ -17,11 +17,12 @@ export default function ThematicRegistrationPage() {
             Opportunity Connect
           </p>
           <p className="mt-3 text-base text-gray-600 max-w-2xl mx-auto">
-            Connecting Chambers, Industries, Investors, Buyers, Suppliers and Entrepreneurs Across Nepal.
+            Connecting Chambers, Industries, Investors, Buyers, Suppliers and
+            Entrepreneurs Across Nepal.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm text-gray-500">
             <span className="inline-flex items-center gap-1.5 bg-gray-100 px-3 py-1 rounded-full">
-              📅 22–24 December, 2026
+              📅 20–22 December, 2026
             </span>
             <span className="inline-flex items-center gap-1.5 bg-gray-100 px-3 py-1 rounded-full">
               📍 Biratnagar, Nepal
