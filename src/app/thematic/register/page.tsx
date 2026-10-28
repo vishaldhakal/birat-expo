@@ -25,7 +25,7 @@ export default function ThematicRegistrationPage() {
               📅 20–22 December, 2026
             </span>
             <span className="inline-flex items-center gap-1.5 bg-gray-100 px-3 py-1 rounded-full">
-              📍 Biratnagar, Nepal
+              📍 Degree Campus, Biratnagar, Nepal
             </span>
           </div>
         </div>
