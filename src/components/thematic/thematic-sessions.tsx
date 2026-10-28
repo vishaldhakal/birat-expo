@@ -20,13 +20,13 @@ export default function ThematicSessions() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-indigo-600 mb-2">
+          <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider">
             Birat Business Summit 2026
-          </p>
-          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-            Summit Schedule &amp; Thematic Days
+          </span>
+          <h2 className="mt-4 sm:mt-5 text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-950 tracking-tight">
+            Summit Schedule &amp; <span className="text-blue-600">Thematic Days</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg leading-relaxed text-gray-600">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-gray-600 font-medium leading-relaxed">
             Explore our comprehensive three-day program addressing investment,
             interprovincial trade, partnerships, and enterprise innovation.
             Review the complete schedule below and register for each day.
