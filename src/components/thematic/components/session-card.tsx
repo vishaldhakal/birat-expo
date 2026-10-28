@@ -89,17 +89,17 @@ export function SessionCard({ session, index = 0 }: SessionCardProps) {
   return (
     <div
       id={`day-${session.id}`}
-      className="bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+      className="bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col"
     >
-      {/* Decorative Top Accent Bar */}
-      <div className="h-2 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600" />
+      {/* Top Accent Line */}
+      <div className="h-1 w-full bg-blue-600" />
 
       {/* Main Container */}
       <div className="p-6 sm:p-8 lg:p-10 flex-1 flex flex-col">
         {/* Title & Schedule Info */}
         <div className="mb-6 pb-6 border-b border-gray-100">
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight leading-snug">
-            <span className="text-indigo-600">{dayLabel}: </span>
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-950 tracking-tight leading-snug">
+            <span className="text-blue-600">{dayLabel}: </span>
             {theme}
           </h3>
 
@@ -207,14 +207,14 @@ export function SessionCard({ session, index = 0 }: SessionCardProps) {
       </div>
 
       {/* Card Bottom CTA Footer */}
-      <div className="px-6 sm:px-8 lg:px-10 py-5 bg-gradient-to-r from-gray-50 to-indigo-50/30 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 mt-auto">
-        <p className="text-xs sm:text-sm text-gray-600 text-center sm:text-left">
+      <div className="px-6 sm:px-8 lg:px-10 py-4 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 mt-auto">
+        <p className="text-xs sm:text-sm text-gray-600 text-center sm:text-left font-medium">
           Participate in <span className="font-semibold text-gray-900">{dayLabel}</span> networking, B2B discussions, and partnerships.
         </p>
 
         <Link
           href={`/thematic/register?session=${session.id}`}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] transition shadow-md hover:shadow-lg w-full sm:w-auto shrink-0"
+          className="inline-flex items-center justify-center gap-1.5 px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.98] transition w-full sm:w-auto shrink-0"
         >
           <span>Register for {dayLabel}</span>
           <ChevronRight className="w-4 h-4" />

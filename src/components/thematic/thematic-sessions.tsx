@@ -16,7 +16,7 @@ export default function ThematicSessions() {
   });
 
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white py-20 sm:py-28">
+    <section className="bg-white py-16 sm:py-24 border-b border-gray-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
