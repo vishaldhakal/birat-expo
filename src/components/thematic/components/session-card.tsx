@@ -1,5 +1,5 @@
 import { ThematicSession } from "@/types/thematic";
-import { CalendarDays, Clock, ArrowRight } from "lucide-react";
+import { CalendarDays, Clock, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -217,7 +217,7 @@ export function SessionCard({ session, index = 0 }: SessionCardProps) {
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] transition shadow-md hover:shadow-lg w-full sm:w-auto shrink-0"
         >
           <span>Register for {dayLabel}</span>
-          <ArrowRight className="w-4 h-4" />
+          <ChevronRight className="w-4 h-4" />
         </Link>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ChevronRight } from "lucide-react";
 
 export default function ThematicHero() {
   return (
@@ -99,22 +100,10 @@ export default function ThematicHero() {
               className="inline-flex items-center gap-2 px-7 py-3.5 text-base rounded-full text-white font-semibold
               bg-gradient-to-r from-indigo-500 to-violet-600
               hover:from-indigo-600 hover:to-violet-700
-              transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]"
+              transition-all duration-200 shadow-md hover:scale-[1.02]"
             >
               Register Now
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
+              <ChevronRight className="w-5 h-5" />
             </a>
           </div>
 
