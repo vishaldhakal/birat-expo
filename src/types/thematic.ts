@@ -67,6 +67,8 @@ export interface ThematicRegistration {
 
   additional_info?: string | null;
   checked_in?: boolean;
+  presentation_slide?: File | string | null;
+  opportunity_wall?: File | string | null;
 }
 
 export interface ThematicRegistrationResponse {
@@ -98,6 +100,8 @@ export interface ThematicRegistrationResponse {
   food?: string | null;
   hotel_accomodation?: string | null;
   airline?: string | null;
+  presentation_slide?: string | null;
+  opportunity_wall?: string | null;
 }
 
 export async function fetchThematicSessions(): Promise<ThematicSession[]> {

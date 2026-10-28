@@ -13,9 +13,9 @@ interface RegistrationError {
 }
 
 export async function registerForThematic(
-  formData: ThematicRegistration
+  formData: ThematicRegistration | FormData
 ): Promise<any> {
-  const FETCH_TIMEOUT = 10000; // 10 seconds timeout
+  const FETCH_TIMEOUT = 30000; // 30 seconds timeout for file uploads
 
   const fetchWithTimeout = async (url: string, options: RequestInit) => {
     const controller = new AbortController();
@@ -35,19 +35,23 @@ export async function registerForThematic(
   };
 
   try {
+    const isFormData = typeof FormData !== "undefined" && formData instanceof FormData;
+
     // Main registration request
     const response = await fetchWithTimeout(
       "https://cim.baliyoventures.com/api/thematic-registrations/",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: isFormData
+          ? {}
+          : {
+              "Content-Type": "application/json",
+            },
+        body: isFormData ? formData : JSON.stringify(formData),
       }
     );
 
-    let data: ThematicRegistrationResponse;
+    let data: any;
     try {
       data = await response.json();
     } catch (parseError) {
@@ -55,11 +59,20 @@ export async function registerForThematic(
     }
 
     if (!response.ok) {
-      const errorMessage =
+      let errorMessage =
         (data as RegistrationError).error ||
-        (data as RegistrationError).message ||
-        "Registration failed. Please try again.";
-      throw new Error(errorMessage);
+        (data as RegistrationError).message;
+
+      if (!errorMessage && data && typeof data === "object") {
+        const errorEntries = Object.entries(data);
+        if (errorEntries.length > 0) {
+          const [field, errVal] = errorEntries[0];
+          const text = Array.isArray(errVal) ? errVal.join(", ") : String(errVal);
+          errorMessage = `${field}: ${text}`;
+        }
+      }
+
+      throw new Error(errorMessage || "Registration failed. Please try again.");
     }
 
     // Send confirmation email in the background

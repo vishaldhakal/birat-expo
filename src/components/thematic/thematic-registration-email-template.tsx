@@ -156,6 +156,33 @@ const ThematicEmailRegistrationTemplate = ({
             <DetailRow key={detail.label} {...detail} />
           ))}
 
+          {(data.presentation_slide || data.opportunity_wall) && (
+            <>
+              <h2
+                style={{
+                  color: "#3730a3",
+                  fontSize: "18px",
+                  marginTop: "20px",
+                  marginBottom: "15px",
+                }}
+              >
+                Uploaded Documents
+              </h2>
+              {data.presentation_slide && (
+                <DetailRow
+                  label="Presentation Slide"
+                  value={data.presentation_slide}
+                />
+              )}
+              {data.opportunity_wall && (
+                <DetailRow
+                  label="Opportunity Wall"
+                  value={data.opportunity_wall}
+                />
+              )}
+            </>
+          )}
+
           <h2
             style={{
               color: "#3730a3",
