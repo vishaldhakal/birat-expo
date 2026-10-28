@@ -47,7 +47,7 @@ export default function ProposalDetails() {
 
   return (
     <div className="bg-white text-gray-900 border-t border-gray-100 py-16 md:py-24">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 sm:space-y-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-20 sm:space-y-28">
 
         {/* 1. Objectives */}
         <section id="objectives" className="space-y-6">

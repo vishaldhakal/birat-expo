@@ -88,17 +88,17 @@ const implications = [
 
 export default function ThematicWhy() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-gray-50/70 via-white to-gray-50/50 py-20 sm:py-28 border-b border-gray-100">
+    <section className="bg-gradient-to-b from-gray-50/60 to-white py-20 sm:py-28 border-b border-gray-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3.5 py-1 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10 mb-3">
-            <span>02 · Strategic Imperative</span>
-          </div>
-          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-            Why Opportunity Connect, and Why Now?
+          <span className="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block">
+            02 · Strategic Imperative
+          </span>
+          <h2 className="mt-4 sm:mt-5 text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-950 tracking-tight">
+            Why Opportunity Connect, and <span className="text-blue-600">Why Now?</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg leading-relaxed text-gray-600">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-gray-600 font-medium leading-relaxed">
             Nepal&apos;s regional business communities hold proven industrial and agricultural strengths. 
             Yet, structured mechanisms that connect district chambers with buyers, investors, and interprovincial partners remain scarce. 
             The national data reflects exactly why these linkages cannot wait.
