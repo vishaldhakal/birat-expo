@@ -56,89 +56,9 @@ const Sponsors: React.FC<SponsorsProps> = ({
 
       <div className="w-full flex justify-center p-2">
         <div
-          className="relative bg-white border border-gray-300 rounded-xl overflow-hidden shadow-sm"
+          className="relative bg-gray-50 border border-gray-300 rounded-xl overflow-hidden shadow-inner"
           style={{ width: "min(100%, 360px)", aspectRatio: "1 / 2" }}
         >
-          {/* Hall Right Boundary Line */}
-          <div
-            className="absolute border-r border-gray-300 pointer-events-none"
-            style={{ right: "7%", top: "1%", bottom: "1%" }}
-          />
-
-          {/* Top Boundary Line */}
-          <div
-            className="absolute border-t border-gray-400 pointer-events-none"
-            style={{ left: "8%", right: "7%", top: "0.8%" }}
-          />
-
-          {/* SPONSORS Vertical Text */}
-          <div
-            className="absolute flex flex-col items-center justify-center select-none pointer-events-none font-bold text-[#D93685] tracking-widest"
-            style={{
-              left: "2%",
-              top: "3%",
-              height: "17%",
-            }}
-            aria-hidden="true"
-          >
-            {"SPONSORS".split("").map((c, i) => (
-              <span key={i} className="text-[9px] leading-tight font-extrabold">{c}</span>
-            ))}
-          </div>
-
-          {/* Left Directional Arrows */}
-          <span
-            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
-            style={{ left: "48%", top: "9.2%" }}
-            aria-hidden="true"
-          >
-            ←
-          </span>
-          <span
-            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
-            style={{ left: "19%", top: "9.2%" }}
-            aria-hidden="true"
-          >
-            ←
-          </span>
-
-          {/* Upward Directional Arrows in Walkway Corridor */}
-          <span
-            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
-            style={{ left: "63%", top: "13.2%" }}
-            aria-hidden="true"
-          >
-            ↑
-          </span>
-          <span
-            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
-            style={{ left: "63%", top: "25.0%" }}
-            aria-hidden="true"
-          >
-            ↑
-          </span>
-          <span
-            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
-            style={{ left: "63%", top: "43.0%" }}
-            aria-hidden="true"
-          >
-            ↑
-          </span>
-          <span
-            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
-            style={{ left: "63%", top: "61.0%" }}
-            aria-hidden="true"
-          >
-            ↑
-          </span>
-          <span
-            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
-            style={{ left: "63%", top: "79.0%" }}
-            aria-hidden="true"
-          >
-            ↑
-          </span>
-
           {/* Stalls */}
           {sponsorStallsData.map((stall) => {
             const booked = bookedStalls.find((b) => b.id === stall.id);
