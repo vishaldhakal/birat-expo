@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
-import { Check, CheckCircle2, ArrowLeft, Printer, Home } from "lucide-react";
+import { Check, CheckCircle2, ArrowLeft, Printer, Home, ChevronDown } from "lucide-react";
 import { useGetSponsorStallStatus } from "@/api/stall-status";
 import { StallItem } from "./stall-item";
 
@@ -64,6 +64,27 @@ const legend = [
   { color: "#EF4444", label: "Booked" },
 ];
 
+export const SPONSOR_TIERS = [
+  { value: "Title Partner", label: "Title Partner", maxStalls: 4, backendValue: "Title Partner" },
+  { value: "Powered By Partner", label: "Powered By Partner", maxStalls: 4, backendValue: "Powered By Partner" },
+  { value: "Diamond Partner", label: "Diamond Partner", maxStalls: 3, backendValue: "Diamond" },
+  { value: "Platinum Partner", label: "Platinum Partner", maxStalls: 4, backendValue: "Platinum" },
+  { value: "Gold Partner", label: "Gold Partner", maxStalls: 2, backendValue: "Gold" },
+  { value: "Silver Partner", label: "Silver Partner", maxStalls: 1, backendValue: "Silver" },
+];
+
+export const normalizeTier = (param: string | null): string => {
+  if (!param) return "Title Partner";
+  const p = param.trim().toLowerCase();
+  if (p.includes("title")) return "Title Partner";
+  if (p.includes("power")) return "Powered By Partner";
+  if (p.includes("diamond")) return "Diamond Partner";
+  if (p.includes("platinum")) return "Platinum Partner";
+  if (p.includes("gold")) return "Gold Partner";
+  if (p.includes("silver")) return "Silver Partner";
+  return param;
+};
+
 // Fallback tier counts
 const tierStallCounts: Record<string, number> = {
   "Title Partner": 4,
@@ -95,16 +116,39 @@ const SponsorBookingForm = () => {
   const searchParams = useSearchParams();
   const stallPickerRef = useRef<HTMLDivElement>(null);
 
-  const sponsorType = searchParams.get("sponsor_type") || "";
-  const paramStalls = searchParams.get("max_stalls");
+  const rawSponsorType = searchParams.get("sponsor_type");
+  const initialTier = useMemo(() => normalizeTier(rawSponsorType), [rawSponsorType]);
+  const [selectedSponsorType, setSelectedSponsorType] = useState<string>(initialTier);
 
-  const maxStalls = useMemo(() => {
-    if (paramStalls) {
-      const parsed = parseInt(paramStalls, 10);
-      if (!isNaN(parsed) && parsed > 0) return parsed;
+  // Sync if URL query param changes
+  useEffect(() => {
+    if (rawSponsorType) {
+      setSelectedSponsorType(normalizeTier(rawSponsorType));
     }
-    return tierStallCounts[sponsorType] || 4;
-  }, [paramStalls, sponsorType]);
+  }, [rawSponsorType]);
+
+  const activeTierConfig = useMemo(() => {
+    return (
+      SPONSOR_TIERS.find((t) => t.value === selectedSponsorType) || {
+        value: selectedSponsorType,
+        label: selectedSponsorType,
+        maxStalls: tierStallCounts[selectedSponsorType] || 4,
+        backendValue: selectedSponsorType,
+      }
+    );
+  }, [selectedSponsorType]);
+
+  const maxStalls = activeTierConfig.maxStalls;
+
+  const handleTierChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newTier = e.target.value;
+    setSelectedSponsorType(newTier);
+    setStallError("");
+
+    const newTierConfig = SPONSOR_TIERS.find((t) => t.value === newTier);
+    const newMax = newTierConfig ? newTierConfig.maxStalls : 4;
+    setSelectedStalls((prev) => (prev.length > newMax ? prev.slice(0, newMax) : prev));
+  };
 
   const [selectedStalls, setSelectedStalls] = useState<string[]>([]);
   const [stallError, setStallError] = useState("");
@@ -159,14 +203,14 @@ const SponsorBookingForm = () => {
         }
         if (prev.length >= maxStalls) {
           setStallError(
-            `You can select up to ${maxStalls} stall${maxStalls > 1 ? "s" : ""} for the ${sponsorType || "selected"} tier. Click a selected stall to deselect it first.`,
+            `You can select up to ${maxStalls} stall${maxStalls > 1 ? "s" : ""} for the ${selectedSponsorType} tier. Click a selected stall to deselect it first.`,
           );
           return prev;
         }
         return [...prev, stallId];
       });
     },
-    [bookedStallsMap, maxStalls, sponsorType],
+    [bookedStallsMap, maxStalls, selectedSponsorType],
   );
 
   // Submit booking
@@ -189,7 +233,7 @@ const SponsorBookingForm = () => {
 
     try {
       await axios.post("https://cim.baliyoventures.com/api/sponsor/", {
-        stall_type: sponsorType,
+        stall_type: activeTierConfig.backendValue,
         stall_id: stallId,
         company_name: data.companyName,
         company_email: data.companyEmail,
@@ -199,7 +243,7 @@ const SponsorBookingForm = () => {
       // Internal email dispatch (optional)
       try {
         await axios.post("/api/sponsor-booking", {
-          stallType: sponsorType,
+          stallType: selectedSponsorType,
           stallId,
           companyName: data.companyName,
           companyEmail: data.companyEmail,
@@ -216,7 +260,7 @@ const SponsorBookingForm = () => {
         contactPerson: data.contactPerson,
         companyEmail: data.companyEmail,
         contactNumber: data.contactNumber,
-        sponsorType,
+        sponsorType: selectedSponsorType,
         stalls: [...selectedStalls],
       });
       setIsConfirmed(true);
@@ -238,30 +282,6 @@ const SponsorBookingForm = () => {
 
   const isSelectionComplete = selectedStalls.length === maxStalls;
   const remainingStalls = maxStalls - selectedStalls.length;
-
-  // ── No Tier Selected Fallback ────────────────────────────────────────────
-  if (!sponsorType) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center p-6">
-        <div className="bg-white border border-gray-200 rounded-xl p-8 max-w-md w-full text-center shadow-sm">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">
-            No Sponsorship Tier Selected
-          </h2>
-          <p className="text-sm text-gray-500 mb-6">
-            Please choose a sponsorship package to proceed with stall
-            reservation.
-          </p>
-          <Link
-            href="/sponsorship"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Sponsorship
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   // ── Confirmation View (Clean & Simple) ───────────────────────────────────
   if (isConfirmed && confirmedBooking.referenceId) {
@@ -386,7 +406,7 @@ const SponsorBookingForm = () => {
             BIRAT EXPO-2026 Stall Booking
           </h1>
           <p className="text-sm text-gray-600 mt-1">
-            Confirm your stall reservation for the <strong>{sponsorType}</strong>{" "}
+            Confirm your stall reservation for the <strong>{selectedSponsorType}</strong>{" "}
             package.
           </p>
         </div>
@@ -397,7 +417,7 @@ const SponsorBookingForm = () => {
             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">
               Sponsorship Tier
             </span>
-            <span className="text-lg font-bold text-gray-900">{sponsorType}</span>
+            <span className="text-lg font-bold text-gray-900">{selectedSponsorType}</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -540,17 +560,27 @@ const SponsorBookingForm = () => {
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Sponsor Tier */}
+              {/* Sponsor Tier Dropdown */}
               <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1">
-                  Sponsor Tier
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Sponsor Tier <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="text"
-                  value={sponsorType}
-                  disabled
-                  className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700 font-medium"
-                />
+                <div className="relative">
+                  <select
+                    value={selectedSponsorType}
+                    onChange={handleTierChange}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-800 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer appearance-none pr-9 transition"
+                  >
+                    {SPONSOR_TIERS.map((tier) => (
+                      <option key={tier.value} value={tier.value}>
+                        {tier.label}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-gray-500">
+                    <ChevronDown className="h-4 w-4" />
+                  </div>
+                </div>
               </div>
 
               {/* Selected Stalls */}
