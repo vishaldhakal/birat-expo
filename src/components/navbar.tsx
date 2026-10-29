@@ -27,6 +27,10 @@ export const navItems = [
         title: "Hanger 5 : Food Stalls",
         href: "/food-stalls",
       },
+      {
+        title: "Sponsorship",
+        href: "/sponsorship",
+      },
     ],
   },
   {
@@ -103,7 +107,7 @@ const Navbar = () => {
             <div key={index} className="relative group">
               {item.items ? (
                 <>
-                  <button className=" bg-white text-sm text-gray-900 font-semibold flex items-center hover:text-blue-600 transition-colors duration-200">
+                  <button className="cursor-pointer bg-white text-sm text-gray-900 font-semibold flex items-center hover:text-blue-600 transition-colors duration-200">
                     {item.title}
                     <svg
                       className="ml-2 h-5 w-5"
@@ -123,7 +127,7 @@ const Navbar = () => {
                       <Link
                         key={subIndex}
                         href={subItem.href}
-                        className="block px-4 py-2 text-sm text-gray-900 font-medium hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                        className="cursor-pointer block px-4 py-2 text-sm text-gray-900 font-medium hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
                       >
                         {subItem.title}
                       </Link>
@@ -133,7 +137,7 @@ const Navbar = () => {
               ) : (
                 <Link
                   href={item.href}
-                  className={`px-4 py-2 bg-white text-sm text-gray-900 flex flex-col justify-center items-center hover:text-blue-600 transition-colors duration-200 ${
+                  className={`cursor-pointer px-4 py-2 bg-white text-sm text-gray-900 flex flex-col justify-center items-center hover:text-blue-600 transition-colors duration-200 ${
                     item.className || ""
                   }`}
                   rel={item.rel}
@@ -153,7 +157,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden focus:outline-none" onClick={toggleMenu}>
+        <button className="cursor-pointer md:hidden focus:outline-none" onClick={toggleMenu}>
           <svg
             className="w-6 h-6 text-gray-700"
             fill="none"
@@ -182,7 +186,7 @@ const Navbar = () => {
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <button className="mb-4 focus:outline-none" onClick={toggleMenu}>
+          <button className="cursor-pointer mb-4 focus:outline-none" onClick={toggleMenu}>
             <svg
               className="w-6 h-6 text-gray-700"
               fill="none"
@@ -207,7 +211,7 @@ const Navbar = () => {
                     <li key={subIndex} className="mb-1">
                       <Link
                         href={subItem.href}
-                        className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                        className="cursor-pointer text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
                       >
                         {subItem.title}
                       </Link>
@@ -217,7 +221,7 @@ const Navbar = () => {
               ) : (
                 <Link
                   href={item.href}
-                  className={`text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200 ${
+                  className={`cursor-pointer text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200 ${
                     item.className || ""
                   }`}
                   rel={item.rel}
