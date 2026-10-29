@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import { Check, CheckCircle2, ArrowLeft, Printer, Home, ChevronDown } from "lucide-react";
-import { useGetSponsorStallStatus } from "@/api/stall-status";
+import { useGetSponsorStallStatus, SponsorStallType } from "@/api/stall-status";
 import { StallItem } from "./stall-item";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -177,14 +177,14 @@ const SponsorBookingForm: React.FC<SponsorBookingFormProps> = ({
     sponsorStallStatusLoading || sponsorStallStatusValidating;
 
   const bookedStallsMap = useMemo(() => {
-    const map: Record<string, boolean> = {};
+    const map: Record<string, SponsorStallType> = {};
     if (!sponsorStallStatus) return map;
 
     for (const item of sponsorStallStatus) {
       if (!item.stall_id) continue;
       const ids = item.stall_id.split(",").map((id) => id.trim());
       for (const id of ids) {
-        if (id) map[id] = true;
+        if (id) map[id] = item;
       }
     }
     return map;
@@ -485,7 +485,7 @@ const SponsorBookingForm: React.FC<SponsorBookingFormProps> = ({
                     color = "#EF4444";
                     cursor = "not-allowed";
                     isClickable = false;
-                    tooltip = `Stall ${stall.id} — Already Booked`;
+                    tooltip = booked.company_name?.trim() || `Stall ${stall.id}`;
                   } else if (isSelected) {
                     color = "#22C55E";
                     tooltip = `Stall ${stall.id} — Selected (click to remove)`;

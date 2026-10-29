@@ -12,7 +12,9 @@ type SponsorStallPropsType = {
 
 type StallInfo = {
   id: string;
-  companyName: string;
+  companyName?: string;
+  company_name?: string;
+  stall_id?: string;
 };
 
 type SponsorsProps = {
@@ -26,6 +28,12 @@ type SponsorsProps = {
 };
 
 import { sponsorStallsData } from "./sponsor-booking";
+
+const matchStall = (item: StallInfo, stallId: string) => {
+  const raw = item.stall_id || item.id || "";
+  const ids = raw.split(",").map((s) => s.trim());
+  return ids.includes(stallId);
+};
 
 const Sponsors: React.FC<SponsorsProps> = ({
   sponsorStallProps,
@@ -61,8 +69,8 @@ const Sponsors: React.FC<SponsorsProps> = ({
         >
           {/* Stalls */}
           {sponsorStallsData.map((stall) => {
-            const booked = bookedStalls.find((b) => b.id === stall.id);
-            const reserved = reservedStalls.find((r) => r.id === stall.id);
+            const booked = bookedStalls.find((b) => matchStall(b, stall.id));
+            const reserved = reservedStalls.find((r) => matchStall(r, stall.id));
             const sponsorType = sponsorStallProps.find((sp) =>
               sp.stallid.includes(stall.id)
             );
@@ -79,12 +87,18 @@ const Sponsors: React.FC<SponsorsProps> = ({
               color = "#EF4444";
               cursor = "not-allowed";
               isClickable = false;
-              tooltipContent = `Company: ${booked.companyName}`;
+              tooltipContent =
+                booked.company_name?.trim() ||
+                booked.companyName?.trim() ||
+                `Stall ${stall.id}`;
             } else if (reserved) {
               color = "#EAB308";
               cursor = "not-allowed";
               isClickable = false;
-              tooltipContent = `Company: ${reserved.companyName}`;
+              tooltipContent =
+                reserved.company_name?.trim() ||
+                reserved.companyName?.trim() ||
+                `Stall ${stall.id}`;
             } else if (isSelected) {
               color = "#22C55E";
             }
