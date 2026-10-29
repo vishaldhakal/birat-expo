@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+import SponsorBookingForm from "@/components/sponsor-booking";
 import { sponsorshipLevels } from "@/components/other-sections";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -27,17 +29,35 @@ export default function Sponsorship() {
     const backendType = tierToBackendType[level.title] || level.title;
     const stallCount = getStallCount(level.stalls);
     router.push(
-      `/sponsor-booking?sponsor_type=${encodeURIComponent(backendType)}&max_stalls=${stallCount}`,
+      `/sponsorship?sponsor_type=${encodeURIComponent(backendType)}&max_stalls=${stallCount}#booking-form`,
     );
+    const el = document.getElementById("booking-form");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <div>
-      {/* Tier Cards */}
-      <div className="container mx-auto py-12">
-        <h2 className="text-4xl font-black text-start border-l-[5px] ps-2 border-blue-800 text-gray-800 mb-10">
-          Sponsorship <span className="text-blue-500">Opportunity</span>
-        </h2>
+      {/* 1. Sponsor Booking Form (First) */}
+      <div id="booking-form">
+        <Suspense
+          fallback={
+            <div className="min-h-[400px] flex items-center justify-center text-gray-400">
+              Loading booking form...
+            </div>
+          }
+        >
+          <SponsorBookingForm hideBackLink />
+        </Suspense>
+      </div>
+
+      {/* 2. Sponsorship Opportunity Section (Below) */}
+      <div id="sponsorship-opportunities" className="border-t border-gray-200 bg-white">
+        <div className="container mx-auto py-12 px-4 sm:px-6">
+          <h2 className="text-4xl font-black text-start border-l-[5px] ps-2 border-blue-800 text-gray-800 mb-10">
+            Sponsorship <span className="text-blue-500">Opportunity</span>
+          </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sponsorshipLevels.map((level, index) => {
             const stallCount = getStallCount(level.stalls);
@@ -161,5 +181,6 @@ export default function Sponsorship() {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

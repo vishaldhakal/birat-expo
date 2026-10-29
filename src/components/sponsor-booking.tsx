@@ -110,13 +110,21 @@ interface ConfirmedBooking {
   stalls: string[];
 }
 
+export interface SponsorBookingFormProps {
+  initialSponsorType?: string;
+  hideBackLink?: boolean;
+}
+
 // ─── Component ─────────────────────────────────────────────────────────────
 
-const SponsorBookingForm = () => {
+const SponsorBookingForm: React.FC<SponsorBookingFormProps> = ({
+  initialSponsorType,
+  hideBackLink = false,
+}) => {
   const searchParams = useSearchParams();
   const stallPickerRef = useRef<HTMLDivElement>(null);
 
-  const rawSponsorType = searchParams.get("sponsor_type");
+  const rawSponsorType = searchParams.get("sponsor_type") || initialSponsorType || null;
   const initialTier = useMemo(() => normalizeTier(rawSponsorType), [rawSponsorType]);
   const [selectedSponsorType, setSelectedSponsorType] = useState<string>(initialTier);
 
@@ -393,15 +401,8 @@ const SponsorBookingForm = () => {
   return (
     <div className="bg-gray-50 min-h-screen py-10 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* Back Link & Header */}
+        {/* Header */}
         <div>
-          <Link
-            href="/sponsorship"
-            className="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 font-medium transition mb-3"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Sponsorship Tiers
-          </Link>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             BIRAT EXPO-2026 Stall Booking
           </h1>
