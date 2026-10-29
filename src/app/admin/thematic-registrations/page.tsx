@@ -35,6 +35,12 @@ export default function ThematicRegistrationsPage() {
             >
               Stalls Admin
             </Link>
+            <Link
+              href="/admin/sponsors"
+              className="px-3.5 py-2 text-xs font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition shadow-sm"
+            >
+              Sponsors
+            </Link>
           </div>
         </div>
 

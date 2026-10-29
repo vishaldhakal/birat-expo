@@ -1,6 +1,7 @@
 "use client";
 
 import AdminTable from "@/components/admin-table";
+import Link from "next/link";
 
 export default function AdminPage() {
   // const { status } = useSession();
@@ -20,6 +21,12 @@ export default function AdminPage() {
         </div>
 
         <div className="flex items-center gap-3">
+          <Link
+            href="/admin/sponsors"
+            className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition shadow-sm"
+          >
+            Sponsors
+          </Link>
           <a
             href="/admin/thematic-registrations"
             className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
