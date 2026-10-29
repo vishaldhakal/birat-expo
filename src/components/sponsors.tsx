@@ -25,25 +25,7 @@ type SponsorsProps = {
   onAvailableStallClick: (stallId: string) => void;
 };
 
-const sponsorStallsData = [
-  { id: "S1", xPct: 0.1, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S2", xPct: 5.9824, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S3", xPct: 11.8647, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S4", xPct: 17.7471, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S5", xPct: 23.6294, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S6", xPct: 29.5118, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S7", xPct: 35.3941, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S8", xPct: 41.2765, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S9", xPct: 47.1588, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S10", xPct: 53.0412, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S11", xPct: 58.9235, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S12", xPct: 64.8059, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S13", xPct: 70.6882, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S14", xPct: 76.5706, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S15", xPct: 82.4529, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S16", xPct: 88.3353, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-  { id: "S17", xPct: 94.2176, yPct: 0, wPct: 5.6824, hPct: 99.3846 },
-];
+import { sponsorStallsData } from "./sponsor-booking";
 
 const Sponsors: React.FC<SponsorsProps> = ({
   sponsorStallProps,
@@ -72,11 +54,92 @@ const Sponsors: React.FC<SponsorsProps> = ({
         </p>
       </div>
 
-      <div className="w-full max-w-5xl overflow-x-auto p-1">
+      <div className="w-full flex justify-center p-2">
         <div
-          className="relative w-full min-w-[600px] bg-gray-200 border border-gray-400 rounded-lg overflow-hidden shadow-inner"
-          style={{ aspectRatio: "2373 / 202.5" }}
+          className="relative bg-white border border-gray-300 rounded-xl overflow-hidden shadow-sm"
+          style={{ width: "min(100%, 360px)", aspectRatio: "1 / 2" }}
         >
+          {/* Hall Right Boundary Line */}
+          <div
+            className="absolute border-r border-gray-300 pointer-events-none"
+            style={{ right: "7%", top: "1%", bottom: "1%" }}
+          />
+
+          {/* Top Boundary Line */}
+          <div
+            className="absolute border-t border-gray-400 pointer-events-none"
+            style={{ left: "8%", right: "7%", top: "0.8%" }}
+          />
+
+          {/* SPONSORS Vertical Text */}
+          <div
+            className="absolute flex flex-col items-center justify-center select-none pointer-events-none font-bold text-[#D93685] tracking-widest"
+            style={{
+              left: "2%",
+              top: "3%",
+              height: "17%",
+            }}
+            aria-hidden="true"
+          >
+            {"SPONSORS".split("").map((c, i) => (
+              <span key={i} className="text-[9px] leading-tight font-extrabold">{c}</span>
+            ))}
+          </div>
+
+          {/* Left Directional Arrows */}
+          <span
+            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
+            style={{ left: "48%", top: "9.2%" }}
+            aria-hidden="true"
+          >
+            ←
+          </span>
+          <span
+            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
+            style={{ left: "19%", top: "9.2%" }}
+            aria-hidden="true"
+          >
+            ←
+          </span>
+
+          {/* Upward Directional Arrows in Walkway Corridor */}
+          <span
+            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
+            style={{ left: "63%", top: "13.2%" }}
+            aria-hidden="true"
+          >
+            ↑
+          </span>
+          <span
+            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
+            style={{ left: "63%", top: "25.0%" }}
+            aria-hidden="true"
+          >
+            ↑
+          </span>
+          <span
+            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
+            style={{ left: "63%", top: "43.0%" }}
+            aria-hidden="true"
+          >
+            ↑
+          </span>
+          <span
+            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
+            style={{ left: "63%", top: "61.0%" }}
+            aria-hidden="true"
+          >
+            ↑
+          </span>
+          <span
+            className="absolute text-gray-400 pointer-events-none text-xs font-bold select-none"
+            style={{ left: "63%", top: "79.0%" }}
+            aria-hidden="true"
+          >
+            ↑
+          </span>
+
+          {/* Stalls */}
           {sponsorStallsData.map((stall) => {
             const booked = bookedStalls.find((b) => b.id === stall.id);
             const reserved = reservedStalls.find((r) => r.id === stall.id);
@@ -85,7 +148,7 @@ const Sponsors: React.FC<SponsorsProps> = ({
             );
             const isSelected = selectedStalls.includes(stall.id);
 
-            let color = sponsorType ? sponsorType.color : "#6fbe49";
+            let color = sponsorType ? sponsorType.color : "#D93685";
             let cursor: "pointer" | "not-allowed" = "pointer";
             let isClickable = true;
             let tooltipContent = sponsorType
@@ -93,17 +156,17 @@ const Sponsors: React.FC<SponsorsProps> = ({
               : `Stall ${stall.id}`;
 
             if (booked) {
-              color = "#fb2e01";
+              color = "#EF4444";
               cursor = "not-allowed";
               isClickable = false;
               tooltipContent = `Company: ${booked.companyName}`;
             } else if (reserved) {
-              color = "#ffff00";
+              color = "#EAB308";
               cursor = "not-allowed";
               isClickable = false;
               tooltipContent = `Company: ${reserved.companyName}`;
             } else if (isSelected) {
-              color = "#00ff00";
+              color = "#22C55E";
             }
 
             return (

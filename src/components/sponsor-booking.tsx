@@ -34,30 +34,28 @@ const schema: yup.ObjectSchema<SponsorBookingFormData> = yup.object().shape({
   contactNumber: yup.string().trim().required("Contact Number is required"),
 });
 
-// Canvas: 3:5 aspect ratio with 17 stalls
-const sponsorStallsData = [
-  // Row A (top): S17 · S16 · S15
-  { id: "S17", xPct: 17.5, yPct: 3, wPct: 15, hPct: 9 },
-  { id: "S16", xPct: 42.5, yPct: 3, wPct: 15, hPct: 9 },
-  { id: "S15", xPct: 67.5, yPct: 3, wPct: 15, hPct: 9 },
-  // Row B: S14 · S13 · S12
-  { id: "S14", xPct: 17.5, yPct: 13.5, wPct: 15, hPct: 9 },
-  { id: "S13", xPct: 42.5, yPct: 13.5, wPct: 15, hPct: 9 },
-  { id: "S12", xPct: 67.5, yPct: 13.5, wPct: 15, hPct: 9 },
-  // Row C: S9 · S10 · S11
-  { id: "S9", xPct: 17.5, yPct: 24, wPct: 15, hPct: 9 },
-  { id: "S10", xPct: 42.5, yPct: 24, wPct: 15, hPct: 9 },
-  { id: "S11", xPct: 67.5, yPct: 24, wPct: 15, hPct: 9 },
-  // Row D: S8 · S7 · S6
-  { id: "S8", xPct: 17.5, yPct: 34.5, wPct: 15, hPct: 9 },
-  { id: "S7", xPct: 42.5, yPct: 34.5, wPct: 15, hPct: 9 },
-  { id: "S6", xPct: 67.5, yPct: 34.5, wPct: 15, hPct: 9 },
-  // Column below S6: S5 → S1
-  { id: "S5", xPct: 67.5, yPct: 46.5, wPct: 15, hPct: 9 },
-  { id: "S4", xPct: 67.5, yPct: 57, wPct: 15, hPct: 9 },
-  { id: "S3", xPct: 67.5, yPct: 67.5, wPct: 15, hPct: 9 },
-  { id: "S2", xPct: 67.5, yPct: 78, wPct: 15, hPct: 9 },
-  { id: "S1", xPct: 67.5, yPct: 88.5, wPct: 15, hPct: 9 },
+// Sponsor stalls layout matching Birat Expo floor plan (S1-S10 column, side stalls S11-S12, top row S13-S15)
+export const sponsorStallsData = [
+  // Row 1 (top): S13 · S14 · S15
+  { id: "S13", xPct: 14, yPct: 2.0, wPct: 14, hPct: 6.8 },
+  { id: "S14", xPct: 43, yPct: 2.0, wPct: 14, hPct: 6.8 },
+  { id: "S15", xPct: 72, yPct: 2.0, wPct: 14, hPct: 6.8 },
+
+  // Row 2: S12 · S11 · S10
+  { id: "S12", xPct: 14, yPct: 12.4, wPct: 14, hPct: 6.8 },
+  { id: "S11", xPct: 43, yPct: 12.4, wPct: 14, hPct: 6.8 },
+  { id: "S10", xPct: 72, yPct: 12.4, wPct: 14, hPct: 6.8 },
+
+  // Right Column below S10: S9 down to S1
+  { id: "S9", xPct: 72, yPct: 21.3, wPct: 14, hPct: 6.8 },
+  { id: "S8", xPct: 72, yPct: 30.2, wPct: 14, hPct: 6.8 },
+  { id: "S7", xPct: 72, yPct: 39.1, wPct: 14, hPct: 6.8 },
+  { id: "S6", xPct: 72, yPct: 48.0, wPct: 14, hPct: 6.8 },
+  { id: "S5", xPct: 72, yPct: 56.9, wPct: 14, hPct: 6.8 },
+  { id: "S4", xPct: 72, yPct: 65.8, wPct: 14, hPct: 6.8 },
+  { id: "S3", xPct: 72, yPct: 74.7, wPct: 14, hPct: 6.8 },
+  { id: "S2", xPct: 72, yPct: 83.6, wPct: 14, hPct: 6.8 },
+  { id: "S1", xPct: 72, yPct: 92.5, wPct: 14, hPct: 6.8 },
 ];
 
 const legend = [
@@ -159,14 +157,26 @@ const SponsorBookingForm = () => {
         if (prev.includes(stallId)) {
           return prev.filter((id) => id !== stallId);
         }
+        if (prev.length >= maxStalls) {
+          setStallError(
+            `You can select up to ${maxStalls} stall${maxStalls > 1 ? "s" : ""} for the ${sponsorType || "selected"} tier. Click a selected stall to deselect it first.`,
+          );
+          return prev;
+        }
         return [...prev, stallId];
       });
     },
-    [bookedStallsMap],
+    [bookedStallsMap, maxStalls, sponsorType],
   );
 
   // Submit booking
   const onSubmit = async (data: SponsorBookingFormData) => {
+    if (selectedStalls.length === 0) {
+      setStallError("Please select at least one stall on the map before confirming.");
+      stallPickerRef.current?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
     setIsSubmitting(true);
     setError("");
 
@@ -396,7 +406,7 @@ const SponsorBookingForm = () => {
                 Stalls Selected
               </span>
               <span className="text-xl font-extrabold text-blue-600">
-                {selectedStalls.length}
+                {selectedStalls.length} <span className="text-sm font-normal text-gray-400">/ {maxStalls}</span>
               </span>
             </div>
           </div>
@@ -438,8 +448,9 @@ const SponsorBookingForm = () => {
             <div className="flex justify-center pt-2">
               <div
                 className="relative bg-gray-50 border border-gray-300 rounded-xl overflow-hidden shadow-inner"
-                style={{ width: "min(100%, 360px)", aspectRatio: "3 / 5" }}
+                style={{ width: "min(100%, 360px)", aspectRatio: "1 / 2" }}
               >
+                {/* Stalls */}
                 {sponsorStallsData.map((stall) => {
                   const booked = bookedStallsMap[stall.id];
                   const isSelected = selectedStalls.includes(stall.id);
