@@ -5,11 +5,8 @@ import {
   Wrench,
   Lightbulb,
   TrendingUp,
-  GraduationCap,
-  Briefcase,
-  Users,
   CheckCircle,
-  ArrowRight,
+  ChevronRight,
   BookOpen,
 } from "lucide-react";
 
@@ -28,7 +25,6 @@ export default function PavilionThreeRooms() {
       icon: Wrench,
       accentColor: "text-emerald-700",
       accentBg: "bg-emerald-600",
-      cardBorder: "hover:border-emerald-500",
       pillBg: "bg-emerald-50 text-emerald-800 border-emerald-200",
       allYear: [
         "Hands-on making: students build, test, and rebuild real mechanical & electronic objects",
@@ -43,7 +39,7 @@ export default function PavilionThreeRooms() {
       ],
       alreadyDone: {
         title: "Proven Model: Lilliput School, Biratnagar",
-        desc: "Reached 42 students of grades 7 & 8 in a 2-hour activity where every student designed and built a thoughtful gift for a classmate by first interviewing what their friend truly needed.",
+        desc: "Reached 42 students of grades 7 & 8 in a 2-hour activity where every student designed and built a gift for a classmate by first interviewing what their friend truly needed.",
       },
       ctaText: "Book a School Class Visit",
       ctaLink: "#takepart",
@@ -59,7 +55,6 @@ export default function PavilionThreeRooms() {
       icon: Lightbulb,
       accentColor: "text-teal-700",
       accentBg: "bg-teal-600",
-      cardBorder: "hover:border-teal-500",
       pillBg: "bg-teal-50 text-teal-800 border-teal-200",
       allYear: [
         "Problem cards drawn from real Koshi industrial bottlenecks in agriculture, manufacturing & logistics",
@@ -71,11 +66,11 @@ export default function PavilionThreeRooms() {
         "Live Sprint Teams — watch students take a raw problem into a tangible prototype in real time",
         "Be Interviewed! Students walk up and interview Expo visitors to validate real market assumptions",
         "The Crazy 8s Wall: hundreds of creative rapid-fire sketches posted for visitor feedback",
-        "Live Student Pitch Stage on Compete Days (21–22 December) with judges & cash awards",
+        "Live Student Pitch Stage on Compete Days (21–22 December) with judges & awards",
       ],
       alreadyDone: {
-        title: "Proven Model: Mahendra Morang College (Oct 2026)",
-        desc: "Seventeen rigorous sessions with 5 multidisciplinary student teams, field user interviews, an on-site industrial visit to Hulas Farm, prototyping at CIM, and final presentations to industry executives.",
+        title: "Proven Model: Mahendra Morang College",
+        desc: "Seventeen sessions with 5 student teams, field user interviews, an on-site visit to Hulas Farm, prototyping at CIM, and final presentations to industry executives.",
       },
       ctaText: "Join Next Design Thinking Workshop",
       ctaLink: "#takepart",
@@ -91,13 +86,12 @@ export default function PavilionThreeRooms() {
       icon: TrendingUp,
       accentColor: "text-amber-700",
       accentBg: "bg-amber-600",
-      cardBorder: "hover:border-amber-500",
       pillBg: "bg-amber-50 text-amber-800 border-amber-200",
       allYear: [
         "Standardized Business Health Check-up diagnosing operational, tax & financial gaps",
-        "High-impact masterclasses on compliance, book-keeping, unit economics & scaling operations",
+        "Masterclasses on compliance, book-keeping, unit economics & scaling operations",
         "1-on-1 clinics with certified chartered accountants, corporate lawyers & marketing experts",
-        "Formulation of robust 3-year business plans and investor-grade data rooms",
+        "Formulation of robust business plans and investor-grade data rooms",
       ],
       atPavilion: [
         "Business Stalls selling directly to real customers and retail buyers on Market Days",
@@ -107,7 +101,7 @@ export default function PavilionThreeRooms() {
       ],
       alreadyDone: {
         title: "Running Now: BIC SGB Accelerator 2026",
-        desc: "Two-month structured accelerator taking registered Koshi enterprises through financial audit, governance, and market expansion. Graduating founders will be exhibiting and pitching directly in Room 3.",
+        desc: "Two-month structured accelerator taking registered Koshi enterprises through financial audit, governance, and market expansion. Graduating founders will be exhibiting in Room 3.",
       },
       ctaText: "Get Free Business Health Check-up",
       ctaLink: "#takepart",
@@ -142,11 +136,10 @@ export default function PavilionThreeRooms() {
                 onClick={() => setActiveTab(idx)}
                 className={`bg-white rounded-2xl border p-6 flex flex-col justify-between transition-all cursor-pointer relative overflow-hidden ${
                   isSelected
-                    ? "border-blue-500 shadow-md ring-2 ring-blue-500/10"
+                    ? "border-blue-500 shadow-sm ring-1 ring-blue-500"
                     : "border-gray-200 hover:border-gray-300 hover:shadow-xs"
                 }`}
               >
-                {/* Top strip */}
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-extrabold text-gray-400 uppercase tracking-widest">
@@ -181,8 +174,8 @@ export default function PavilionThreeRooms() {
                 </div>
 
                 <div className="mt-6 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-blue-600">
-                  <span>{isSelected ? "Currently Viewing" : "Click to view full schedule"}</span>
-                  <ArrowRight className={`w-3.5 h-3.5 transition-transform ${isSelected ? "translate-x-1" : ""}`} />
+                  <span>{isSelected ? "Currently Viewing" : "View Room Plan"}</span>
+                  <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? "translate-x-1" : "text-gray-400"}`} />
                 </div>
               </div>
             );
@@ -195,7 +188,7 @@ export default function PavilionThreeRooms() {
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="text-xs font-bold uppercase tracking-wider text-gray-400">
-                  Detailed Room Plan · Room {rooms[activeTab].number}
+                  Room Plan · Room {rooms[activeTab].number}
                 </span>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${rooms[activeTab].pillBg}`}>
                   {rooms[activeTab].keyword}
@@ -211,10 +204,10 @@ export default function PavilionThreeRooms() {
 
             <a
               href={rooms[activeTab].ctaLink}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 transition-all shrink-0 self-start sm:self-auto"
+              className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 transition-all shrink-0 self-start sm:self-auto group"
             >
               <span>{rooms[activeTab].ctaText}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </a>
           </div>
 
@@ -223,7 +216,7 @@ export default function PavilionThreeRooms() {
             <div className="bg-gray-50/70 border border-gray-200/80 rounded-2xl p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-3.5">
                 <BookOpen className="w-4 h-4 text-blue-600" />
-                <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
+                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
                   What We Do All Year (Continuous Pipeline)
                 </h4>
               </div>
@@ -240,8 +233,8 @@ export default function PavilionThreeRooms() {
             {/* Right: At the Pavilion during 10 days */}
             <div className="bg-gray-50/70 border border-gray-200/80 rounded-2xl p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-3.5">
-                <SparklesIcon className="w-4 h-4 text-amber-600" />
-                <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide">
+                <CheckCircle className="w-4 h-4 text-blue-600" />
+                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
                   What You Can Experience At The Pavilion (17–26 Dec)
                 </h4>
               </div>
@@ -257,7 +250,7 @@ export default function PavilionThreeRooms() {
           </div>
 
           {/* Bottom Callout: Real Case History */}
-          <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-blue-50/60 border border-blue-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
+          <div className="mt-6 p-4 rounded-xl bg-blue-50/60 border border-blue-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
             <div>
               <span className="font-bold text-blue-900">
                 {rooms[activeTab].alreadyDone.title}:
@@ -270,23 +263,5 @@ export default function PavilionThreeRooms() {
         </div>
       </div>
     </section>
-  );
-}
-
-function SparklesIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.286L13 21l-2.286-6.857L5 12l5.714-2.286L13 3z"
-      />
-    </svg>
   );
 }

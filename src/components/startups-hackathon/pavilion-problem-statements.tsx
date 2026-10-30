@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sprout, Mountain, Smartphone, Building, Users2, ArrowUpRight } from "lucide-react";
+import { Sprout, Mountain, Smartphone, Building, Users2, ChevronRight } from "lucide-react";
 
 export default function PavilionProblemStatements() {
   const problems = [
@@ -71,10 +71,10 @@ export default function PavilionProblemStatements() {
 
           <a
             href="#takepart"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline shrink-0"
+            className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline shrink-0 group"
           >
-            <span>Submit Solution / Join Challenge</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <span>Join Challenge</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </a>
         </div>
 
@@ -133,9 +133,9 @@ export default function PavilionProblemStatements() {
             </div>
 
             <div className="mt-6 pt-3.5 border-t border-white/10 text-xs font-bold text-white">
-              <a href="#takepart" className="hover:underline flex items-center gap-1">
+              <a href="#takepart" className="hover:underline flex items-center gap-1 group">
                 <span>Talk to the incubation team</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </a>
             </div>
           </div>

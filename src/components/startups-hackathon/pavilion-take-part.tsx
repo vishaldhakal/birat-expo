@@ -2,16 +2,12 @@
 
 import React, { useState } from "react";
 import {
-  GraduationCap,
-  Sparkles,
-  Briefcase,
-  Users,
   CheckCircle,
   Phone,
   Mail,
   Send,
   Building2,
-  FileCheck,
+  ChevronRight,
 } from "lucide-react";
 
 export default function PavilionTakePart() {
@@ -142,8 +138,9 @@ export default function PavilionTakePart() {
                     <span className="text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100">
                       {trk.cost}
                     </span>
-                    <span className="text-blue-600">
-                      {isSelected ? "Selected Form ↓" : "Select →"}
+                    <span className="text-blue-600 inline-flex items-center gap-0.5">
+                      <span>{isSelected ? "Selected" : "Select"}</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
                 </div>

@@ -7,7 +7,6 @@ import PavilionTenDays from "@/components/startups-hackathon/pavilion-ten-days";
 import PavilionVisitorJourney from "@/components/startups-hackathon/pavilion-visitor-journey";
 import PavilionProblemStatements from "@/components/startups-hackathon/pavilion-problem-statements";
 import PavilionTakePart from "@/components/startups-hackathon/pavilion-take-part";
-import PavilionDownloadCta from "@/components/startups-hackathon/pavilion-download-cta";
 import ContactInformation from "@/components/contact-information";
 
 export const metadata = {
@@ -40,10 +39,7 @@ export default function StartupsHackathonPage() {
       {/* 7. Vision Koshi Innovation Challenge Problem Statements */}
       <PavilionProblemStatements />
 
-      {/* 8. Official Booklet Download CTA */}
-      <PavilionDownloadCta />
-
-      {/* 9. How to Take Part (Interactive Pre-Registration & Enquiries) */}
+      {/* 8. How to Take Part (Interactive Pre-Registration & Enquiries) */}
       <PavilionTakePart />
 
       {/* 10. Contact Information & Organizer Details */}

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Users, Building2, MapPin, Sparkles, CheckCircle2, TrendingUp } from "lucide-react";
+import { Users, Building2, MapPin, Layers, CheckCircle2, TrendingUp } from "lucide-react";
 
 export default function PavilionMetrics() {
   const metrics = [
@@ -23,7 +23,7 @@ export default function PavilionMetrics() {
       value: "3 Rooms",
       label: "One Connected Pipeline",
       desc: "Curiosity (7-10) → Capability (College) → Capital (SGBs)",
-      icon: Sparkles,
+      icon: Layers,
       badge: "Pipeline",
     },
     {

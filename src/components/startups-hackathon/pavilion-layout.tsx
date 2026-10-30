@@ -4,12 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   Compass,
-  Layers,
-  Sparkles,
-  ArrowRight,
   CheckCircle,
-  Building,
-  Target,
+  ChevronRight,
 } from "lucide-react";
 
 export default function PavilionLayout() {
@@ -22,7 +18,6 @@ export default function PavilionLayout() {
       name: "THINK: The Makerspace",
       keyword: "CURIOSITY",
       tag: "Grades 7–10 & Teachers",
-      color: "emerald",
       bgLight: "bg-emerald-50",
       border: "border-emerald-200",
       text: "text-emerald-700",
@@ -41,7 +36,6 @@ export default function PavilionLayout() {
       name: "BUILD: The Design Studio",
       keyword: "CAPABILITY",
       tag: "College Students & Innovators",
-      color: "teal",
       bgLight: "bg-teal-50",
       border: "border-teal-200",
       text: "text-teal-700",
@@ -60,7 +54,6 @@ export default function PavilionLayout() {
       name: "GROW & INVEST: The Growth Room",
       keyword: "CAPITAL",
       tag: "Small & Growing Businesses (SGBs)",
-      color: "amber",
       bgLight: "bg-amber-50",
       border: "border-amber-200",
       text: "text-amber-700",
@@ -78,7 +71,7 @@ export default function PavilionLayout() {
   const specs = [
     { label: "Structure", val: "Sustainable bamboo frame with open truss roof on a raised timber deck" },
     { label: "Arrangement", val: "Three zones in one continuous L-shaped run; open to the hall on visitor sides" },
-    { label: "Visitor Flow", val: "Directional floor route from Zone 1 to Zone 3 finishing at the Enquiry & Follow-up desk" },
+    { label: "Visitor Flow", val: "Directional floor route from Zone 1 to Zone 3 finishing at the Enquiry desk" },
     { label: "Equal Footing", val: "Matching overhead banners, deck finish, power, and high-speed data for all three rooms" },
   ];
 
@@ -93,14 +86,14 @@ export default function PavilionLayout() {
             One Bamboo Frame. <span className="text-blue-600">Three Continuous Zones.</span>
           </h2>
           <p className="mt-2 text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
-            &quot;The build does the argument for us.&quot; Designed as an open bamboo pavilion on a raised timber deck,
-            visitors walk in one single continuous path without doubling back or hitting a dead end.
+            Designed as an open bamboo pavilion on a raised timber deck, visitors walk in one continuous path
+            without doubling back or hitting a dead end.
           </p>
         </div>
 
         {/* 3D Render Image Showcase */}
-        <div className="relative rounded-3xl overflow-hidden border border-gray-200 shadow-md bg-stone-900 group">
-          <div className="relative w-full aspect-[16/9] max-h-[620px]">
+        <div className="relative rounded-3xl overflow-hidden border border-gray-200 shadow-sm bg-stone-900 group">
+          <div className="relative w-full aspect-[16/9] max-h-[600px]">
             <Image
               src="/startup-pavilion-render.jpeg"
               alt="Startup & Entrepreneurship Pavilion 3D Layout - Birat Expo 2026"
@@ -148,7 +141,7 @@ export default function PavilionLayout() {
                 onClick={() => setActiveZone(idx)}
                 className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
                   activeZone === idx
-                    ? `${zone.bgLight} ${zone.border} shadow-sm ring-1 ring-offset-1 ring-blue-500`
+                    ? `${zone.bgLight} ${zone.border} shadow-xs ring-1 ring-blue-500`
                     : "bg-gray-50/70 border-gray-200 hover:bg-gray-100/70"
                 }`}
               >
@@ -171,7 +164,7 @@ export default function PavilionLayout() {
 
                 <div className="mt-4 pt-3 border-t border-gray-200/80 flex items-center justify-between text-xs font-semibold text-gray-700">
                   <span>{zone.renderBanner}</span>
-                  <ArrowRight className={`w-3.5 h-3.5 transition-transform ${activeZone === idx ? "translate-x-1" : ""}`} />
+                  <ChevronRight className={`w-4 h-4 transition-transform ${activeZone === idx ? "translate-x-1 text-blue-600" : "text-gray-400"}`} />
                 </div>
               </div>
             ))}
@@ -182,7 +175,7 @@ export default function PavilionLayout() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-200">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
-                  Detailed Zone Specifications
+                  Zone Specifications
                 </span>
                 <h4 className="text-xl font-bold text-gray-900 mt-0.5">
                   {zones[activeZone].name} — {zones[activeZone].keyword}

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import {
-  Calendar,
   Clock,
   Compass,
   Wrench,
@@ -11,7 +10,7 @@ import {
   Handshake,
   TrendingUp,
   CheckCircle2,
-  Users,
+  ChevronRight,
 } from "lucide-react";
 
 export default function PavilionTenDays() {
@@ -27,7 +26,6 @@ export default function PavilionTenDays() {
       icon: Compass,
       tag: "School & College Cohorts",
       badgeBg: "bg-emerald-600",
-      lightBorder: "border-emerald-200",
       description: "Guided tours for school and college groups across all three rooms.",
       target: "Secondary schools, high school science clubs, and college batches by prior booking & walk-in.",
       agenda: [
@@ -47,7 +45,6 @@ export default function PavilionTenDays() {
       icon: Wrench,
       tag: "Maker & Tech Showcase",
       badgeBg: "bg-teal-600",
-      lightBorder: "border-teal-200",
       description: "Live prototyping, 3D printing demos, and hardware hacker sessions in Rooms 1 & 2.",
       target: "Expo visitors, young builders, engineers, polytechnic students, and tech enthusiasts.",
       agenda: [
@@ -67,7 +64,6 @@ export default function PavilionTenDays() {
       icon: Trophy,
       tag: "Pitch Stage & Finals",
       badgeBg: "bg-blue-600",
-      lightBorder: "border-blue-200",
       description: "Student pitch stage and the Vision Koshi Innovation Challenge finals.",
       target: "Innovation challenge finalists, university teams, hackathon winners, and startup aspirants.",
       agenda: [
@@ -87,7 +83,6 @@ export default function PavilionTenDays() {
       icon: ShoppingBag,
       tag: "B2B & Customer Sales",
       badgeBg: "bg-amber-600",
-      lightBorder: "border-amber-200",
       description: "Business stalls, real customer transactions, and structured B2B meetings in Room 3.",
       target: "Local retail consumers, commercial distributors, wholesalers, and retail buyers.",
       agenda: [
@@ -107,7 +102,6 @@ export default function PavilionTenDays() {
       icon: Handshake,
       tag: "MOU & Policy Roundtable",
       badgeBg: "bg-purple-600",
-      lightBorder: "border-purple-200",
       description: "MOU signings and the Koshi Entrepreneurship Ecosystem Roundtable.",
       target: "Government dignitaries, development partners, academic heads, and chamber leaders.",
       agenda: [
@@ -127,7 +121,6 @@ export default function PavilionTenDays() {
       icon: TrendingUp,
       tag: "Investor Day & Awards",
       badgeBg: "bg-rose-600",
-      lightBorder: "border-rose-200",
       description: "Investor day, formal business investment pitches, and the closing awards ceremony.",
       target: "Biratnagar Angels, venture capital funds, commercial banks, and graduating businesses.",
       agenda: [
@@ -186,8 +179,9 @@ export default function PavilionTenDays() {
                   </div>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gray-200/80 text-[10px] font-bold text-blue-600 uppercase tracking-tight">
-                  {isSelected ? "● Selected" : "View Details"}
+                <div className="mt-3 pt-2.5 border-t border-gray-200/80 text-[10px] font-bold text-blue-600 uppercase tracking-tight flex items-center justify-center gap-0.5">
+                  <span>{isSelected ? "Selected" : "Details"}</span>
+                  <ChevronRight className="w-3 h-3" />
                 </div>
               </div>
             );
@@ -249,8 +243,9 @@ export default function PavilionTenDays() {
             <span>
               <strong>Note:</strong> School visits and student pitch entries must be registered in advance at the enquiry desk.
             </span>
-            <a href="#takepart" className="font-bold text-blue-600 hover:underline">
-              Register or Participate →
+            <a href="#takepart" className="font-bold text-blue-600 hover:underline inline-flex items-center gap-1">
+              <span>Register or Participate</span>
+              <ChevronRight className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
