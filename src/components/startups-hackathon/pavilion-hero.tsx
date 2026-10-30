@@ -9,15 +9,69 @@ import {
   Clock,
 } from "lucide-react";
 
+// Target Opening Date: December 17, 2026, 09:00 AM Nepal Time (+05:45)
+const OPEN_TIME = new Date("2026-12-17T09:00:00+05:45").getTime();
+// Closing Date: December 26, 2026, 18:00 PM Nepal Time (+05:45)
+const CLOSE_TIME = new Date("2026-12-26T18:00:00+05:45").getTime();
+
+interface CountdownState {
+  status: "before" | "during" | "after";
+  days: number;
+  label: string;
+  sublabel: string;
+}
+
 export default function PavilionHero() {
-  const [daysRemaining, setDaysRemaining] = useState<number>(48);
+  const [countdown, setCountdown] = useState<CountdownState>({
+    status: "before",
+    days: 47,
+    label: "47 Days to Open",
+    sublabel: "Daily 10 AM – 6 PM",
+  });
 
   useEffect(() => {
-    // 17 Dec 2026 in UTC
-    const target = new Date("2026-12-17T00:00:00Z").getTime();
-    const now = new Date().getTime();
-    const diffDays = Math.max(0, Math.ceil((target - now) / (1000 * 60 * 60 * 24)));
-    setDaysRemaining(diffDays);
+    const updateCountdown = () => {
+      const now = Date.now();
+
+      if (now < OPEN_TIME) {
+        const diffMs = OPEN_TIME - now;
+        const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+        setCountdown({
+          status: "before",
+          days,
+          label: days === 1 ? "1 Day to Open" : `${days} Days to Open`,
+          sublabel: "Daily 10 AM – 6 PM",
+        });
+      } else if (now <= CLOSE_TIME) {
+        // Expo is live
+        const currentDayNumber = Math.min(
+          10,
+          Math.max(1, Math.floor((now - OPEN_TIME) / (1000 * 60 * 60 * 24)) + 1)
+        );
+        const remainingDays = Math.max(
+          0,
+          Math.ceil((CLOSE_TIME - now) / (1000 * 60 * 60 * 24))
+        );
+        setCountdown({
+          status: "during",
+          days: remainingDays,
+          label: `Open Now · Day ${currentDayNumber} of 10`,
+          sublabel: `${remainingDays} days left to visit`,
+        });
+      } else {
+        setCountdown({
+          status: "after",
+          days: 0,
+          label: "Pavilion Closed",
+          sublabel: "Ran 17–26 Dec 2026",
+        });
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000 * 60); // update every minute
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -139,9 +193,13 @@ export default function PavilionHero() {
               <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <div className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wide">Countdown</div>
-              <div className="text-xs sm:text-sm font-bold text-indigo-700">{daysRemaining} Days to Open</div>
-              <div className="text-[11px] text-gray-500">Daily 10 AM – 6 PM</div>
+              <div className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wide">
+                {countdown.status === "during" ? "Status" : "Countdown"}
+              </div>
+              <div className="text-xs sm:text-sm font-bold text-indigo-700 tabular-nums">
+                {countdown.label}
+              </div>
+              <div className="text-[11px] text-gray-500">{countdown.sublabel}</div>
             </div>
           </div>
         </div>

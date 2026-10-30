@@ -201,14 +201,6 @@ export default function PavilionThreeRooms() {
                 For {rooms[activeTab].audience}
               </p>
             </div>
-
-            <a
-              href={rooms[activeTab].ctaLink}
-              className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 transition-all shrink-0 self-start sm:self-auto group"
-            >
-              <span>{rooms[activeTab].ctaText}</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </a>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
