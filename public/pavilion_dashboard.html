@@ -1,0 +1,711 @@
+<title>Startup &amp; Entrepreneurship Pavilion</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;600;700&display=swap">
+
+<style id="bic-css">
+/* Layout: status board first, then today, the numbers, the three rooms, the ten days, take part. */
+:root{
+  --bg:#ffffff; --surface:#f4fafd; --surface2:#eaf2fa; --line:#cfdcee; --line-soft:#e3ecf7;
+  --ink:#16233a; --muted:#5b6b85; --faint:#8294ae;
+  --blue:#274ea3; --blue-deep:#1c3c7a; --gold:#e19f1f;
+  --r1:#0e7490; --r2:#5b3fa8; --r3:#b5651d;
+  /* chrome + caption fills stay dark in both themes so white text always reads on them */
+  --chrome:#1c3c7a; --on-chrome:#ffffff;
+  --r1s:#0e7490; --r2s:#5b3fa8; --r3s:#b5651d; --r4s:#1b4f9c; --r5s:#1e7a3e; --r6s:#c0202a;
+  --ok:#1e7a3e; --warn:#b5651d;
+  --g1:#02b7be; --g2:#2c7fb5; --g3:#3f63b5;
+  --onbrand:#ffffff; --brand-soft:rgba(255,255,255,.16); --brand-line:rgba(255,255,255,.34);
+  --shadow:0 1px 2px rgba(18,42,74,.05),0 8px 24px rgba(18,42,74,.06);
+  --serif:"Lora",Georgia,"Times New Roman",serif;
+  --sans:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1523; --surface:#16233a; --surface2:#1d2d49; --line:#2e4165; --line-soft:#243451;
+  --ink:#e9eff8; --muted:#9db0ca; --faint:#7389a7;
+  --blue:#84acec; --blue-deep:#b2caf4; --gold:#f0b94a;
+  --r1:#57bdd2; --r2:#ad90ec; --r3:#e2a367;
+  --chrome:#101d33; --on-chrome:#ffffff;
+  --r1s:#0d6377; --r2s:#4b3390; --r3s:#95511a; --r4s:#17407f; --r5s:#176133; --r6s:#a81a23;
+  --ok:#62c184; --warn:#e2a367;
+  --onbrand:#ffffff; --brand-soft:rgba(255,255,255,.14); --brand-line:rgba(255,255,255,.3);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1523; --surface:#16233a; --surface2:#1d2d49; --line:#2e4165; --line-soft:#243451;
+  --ink:#e9eff8; --muted:#9db0ca; --faint:#7389a7;
+  --blue:#84acec; --blue-deep:#b2caf4; --gold:#f0b94a;
+  --r1:#57bdd2; --r2:#ad90ec; --r3:#e2a367;
+  --chrome:#101d33; --on-chrome:#ffffff;
+  --r1s:#0d6377; --r2s:#4b3390; --r3s:#95511a; --r4s:#17407f; --r5s:#176133; --r6s:#a81a23;
+  --ok:#62c184; --warn:#e2a367;
+  --onbrand:#ffffff; --brand-soft:rgba(255,255,255,.14); --brand-line:rgba(255,255,255,.3);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.34);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;
+     -webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;
+             background:var(--chrome)}
+.wrap{max-width:1120px;margin:0 auto;
+      padding-left:max(16px,env(safe-area-inset-left,0px));
+      padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;text-wrap:balance;line-height:1.14}
+p{margin:0}
+a{color:inherit}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--chrome);
+        color:var(--on-chrome);border-bottom:1px solid rgba(255,255,255,.15)}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-block:9px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:9px;font-family:var(--serif);font-weight:700;
+       font-size:17px;letter-spacing:.2px;margin-right:auto}
+.brand span{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:2.2px;
+            text-transform:uppercase;opacity:.72}
+.navlinks{display:flex;gap:3px;flex-wrap:wrap}
+.navlinks a{font-size:13.5px;font-weight:600;text-decoration:none;opacity:.86;padding:5px 9px;
+            border-radius:6px}
+.navlinks a:hover{opacity:1;background:var(--brand-soft)}
+.navlinks a:focus-visible,.btn:focus-visible,button:focus-visible,input:focus-visible,
+select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(145deg,var(--g1) 0%,var(--g2) 44%,var(--g3) 100%);color:var(--onbrand);
+      position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-90px;top:-130px;width:360px;height:360px;
+            border-radius:50%;background:rgba(255,255,255,.07)}
+.hero .wrap{padding-block:38px 34px;position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.88}
+.hero h1{font-size:clamp(30px,5.4vw,50px);font-weight:700;letter-spacing:-.6px;margin-top:12px}
+.goldrule{width:68px;height:3px;background:var(--gold);border-radius:2px;margin-top:16px}
+.hero .lede{margin-top:16px;font-size:clamp(15px,2vw,18px);max-width:60ch;opacity:.95}
+.statusrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.statuspill{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--chrome);
+            border-radius:999px;padding:8px 18px;font-weight:700;font-size:15px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--ok);flex:none}
+.dot.off{background:#b9452f}
+.dot.soon{background:var(--gold)}
+.metapill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--brand-line);
+          border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:600}
+
+/* ---------- section scaffolding ---------- */
+section{scroll-margin-top:72px}
+.band{padding-block:40px}
+.band.alt{background:var(--surface)}
+.sechead{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.sechead h2{font-size:clamp(21px,3vw,27px);color:var(--blue);white-space:nowrap}
+.sechead .rule{flex:1;height:1px;background:var(--gold);min-width:0}
+.secsub{color:var(--muted);font-size:15px;margin-bottom:22px;max-width:70ch}
+
+/* ---------- today ---------- */
+.todaygrid{display:grid;grid-template-columns:1.55fr 1fr;gap:18px}
+.today{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);
+       box-shadow:var(--shadow)}
+.today .cap{padding:14px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between;
+            gap:12px;flex-wrap:wrap}
+.today .cap .dl{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.9}
+.today .cap .dn{font-family:var(--serif);font-size:24px;font-weight:700;line-height:1.1}
+.today .cap .dd{font-size:13px;font-weight:600;opacity:.92}
+.today .bd{padding:18px 20px 20px}
+.today .bd .what{font-size:17px;font-weight:600;color:var(--ink)}
+.today .bd .who{margin-top:8px;color:var(--muted);font-size:14.5px}
+.today .bd .rooms{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.minichip{font-size:11.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+          border-radius:999px;padding:4px 11px;border:1px solid currentColor}
+.sidecard{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:18px 20px;
+          display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow)}
+.sidecard .lab{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+               color:var(--faint)}
+.sidecard .big{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--blue);line-height:1}
+.sidecard .sm{font-size:14px;color:var(--muted)}
+.nextup{border-top:1px solid var(--line-soft);padding-top:13px}
+.nextup b{display:block;font-size:15px;color:var(--ink)}
+
+/* ---------- counters ---------- */
+.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ctr{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:16px 18px 15px;
+     display:flex;flex-direction:column;gap:9px}
+.ctr .k{font-size:12.5px;font-weight:700;letter-spacing:.4px;color:var(--muted);min-height:2.6em}
+.ctr .v{font-family:var(--serif);font-size:38px;font-weight:700;line-height:1;color:var(--ink)}
+.ctr .of{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--faint);margin-left:6px}
+.bar{height:6px;border-radius:999px;background:var(--surface2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:var(--blue);transition:width .5s ease}
+.ctr .note{font-size:12px;color:var(--faint)}
+.updated{margin-top:16px;font-size:13px;color:var(--faint);display:flex;gap:10px;align-items:center;
+         flex-wrap:wrap}
+
+/* ---------- rooms ---------- */
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.room{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);
+      display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.room .cap{padding:15px 18px;color:#fff}
+.room .cap .n{font-size:11px;font-weight:700;letter-spacing:2.2px;opacity:.92}
+.room .cap h3{font-size:20px;font-weight:700;margin-top:3px;color:#fff}
+.room .cap .w{font-size:11.5px;font-weight:700;letter-spacing:1.8px;margin-top:7px;opacity:.95}
+.room .bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
+.room .for{font-size:14.5px;font-weight:600}
+.room ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.room li{position:relative;padding-left:16px;font-size:14px;color:var(--muted);line-height:1.45}
+.room li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;
+                background:currentColor;color:inherit;opacity:.55}
+.room .foot{margin-top:auto;padding-top:12px;border-top:1px solid var(--line-soft);font-size:13.5px;
+            font-weight:600}
+
+/* ---------- ten days ---------- */
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.day{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);
+     display:flex;flex-direction:column}
+.day.now{box-shadow:0 0 0 2px var(--gold);border-color:var(--gold)}
+.day .dh{padding:9px 10px;color:#fff;text-align:center}
+.day .dh .dt{font-size:10.5px;font-weight:700;letter-spacing:.6px;opacity:.9}
+.day .dh .dn{font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.15;margin-top:1px}
+.day .db{padding:11px 11px 13px;font-size:12.5px;color:var(--muted);text-align:center;flex:1;
+         line-height:1.4}
+.day .tag{display:block;margin-top:8px;font-size:10px;font-weight:700;letter-spacing:1.2px;
+          text-transform:uppercase;color:var(--gold)}
+
+/* ---------- take part ---------- */
+.parts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.part{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:10px;
+      background:var(--bg);padding:17px 20px}
+.part .ey{font-size:11.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+.part h3{font-size:18px;margin-top:5px}
+.part p{margin-top:8px;color:var(--muted);font-size:14.5px}
+.part .act{margin-top:12px;font-size:14px;font-weight:700;color:var(--blue)}
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;border:1px solid var(--line);
+         border-radius:12px;background:var(--bg);padding:22px 24px}
+.contact h3{font-size:19px;color:var(--blue)}
+.contact .lab{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+              color:var(--faint);margin-bottom:6px}
+.contact .ln{font-size:14.5px;color:var(--muted);line-height:1.75}
+.contact .ln b{color:var(--ink)}
+.copyrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.btn{font-family:var(--sans);font-size:13px;font-weight:700;border-radius:7px;padding:6px 13px;
+     border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn:hover{background:var(--surface2)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+
+/* ---------- footer ---------- */
+footer{background:var(--chrome);color:#fff;margin-top:42px}
+footer .wrap{padding-block:26px 30px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+footer .f1{font-family:var(--serif);font-size:17px;font-weight:700}
+footer .f2{font-size:13.5px;opacity:.78;margin-top:5px;line-height:1.7}
+footer .fr{font-size:13px;opacity:.72;text-align:right}
+
+/* ---------- staff panel ---------- */
+.staffbar{background:var(--surface2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.staffbar .wrap{padding-block:11px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.staffbar .t{font-size:13.5px;font-weight:700;color:var(--ink);margin-right:auto}
+.staffbar .t span{font-weight:400;color:var(--muted)}
+.editor{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:20px 22px;
+        margin-top:16px}
+.editor h3{font-size:18px;color:var(--blue)}
+.editor .hint{font-size:13.5px;color:var(--muted);margin-top:6px;max-width:72ch}
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:12px;font-weight:700;color:var(--muted)}
+.field .pair{display:flex;gap:7px;align-items:center}
+input[type=number],input[type=text],select{font-family:var(--sans);font-size:14px;padding:7px 9px;
+  border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);width:100%;
+  min-width:0}
+.field .pair span{font-size:12.5px;color:var(--faint);flex:none}
+.editrow{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:18px}
+.editrow .field{flex:1;min-width:190px}
+.editactions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:20px;
+             padding-top:16px;border-top:1px solid var(--line-soft)}
+.msg{font-size:13.5px;font-weight:600}
+.msg.ok{color:var(--ok)} .msg.err{color:#c0392b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .msg.err{color:#f09080}}
+:root[data-theme="dark"] .msg.err{color:#f09080}
+
+@media (max-width:900px){
+  .todaygrid{grid-template-columns:1fr}
+  .counters{grid-template-columns:repeat(2,1fr)}
+  .rooms{grid-template-columns:1fr}
+  .days{grid-template-columns:repeat(3,1fr)}
+  .contact{grid-template-columns:1fr}
+  .fields{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .counters{grid-template-columns:1fr}
+  .days{grid-template-columns:repeat(2,1fr)}
+  .parts{grid-template-columns:1fr}
+  .fields{grid-template-columns:1fr}
+  .navlinks{display:none}
+  footer .fr{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<script type="application/json" id="bic-state">{"updated":"","updatedBy":"","statusNote":"","counters":{"visitors":{"v":0,"t":10000},"enquiries":{"v":0,"t":0},"groups":{"v":0,"t":0},"checkups":{"v":0,"t":0},"pitches":{"v":0,"t":0},"mous":{"v":0,"t":0}}}</script>
+
+<div id="app">
+
+<div class="topbar"><div class="wrap">
+  <div class="brand">BIC <span>Chamber of Industries Morang</span></div>
+  <nav class="navlinks">
+    <a href="#today">Today</a><a href="#numbers">Numbers</a><a href="#rooms">The rooms</a>
+    <a href="#programme">Ten days</a><a href="#takepart">Take part</a>
+  </nav>
+</div></div>
+
+<div class="hero"><div class="wrap">
+  <div class="eyebrow">Birat Expo 2026 &nbsp;·&nbsp; Biratnagar Incubation Center</div>
+  <h1>Startup &amp; Entrepreneurship Pavilion</h1>
+  <div class="goldrule"></div>
+  <p class="lede">Three rooms, open to everyone. Walk in at fourteen with a problem you have noticed,
+    and walk out of the third room as a business that is ready for investment.</p>
+  <div class="statusrow">
+    <span class="statuspill"><i class="dot soon" id="st-dot"></i><span id="st-text">Opens 17 December 2026</span></span>
+    <span class="metapill" id="st-count">49 days to opening</span>
+    <span class="metapill">17–26 December 2026 · 2–11 Poush 2083</span>
+    <span class="metapill">Free with an Expo pass</span>
+  </div>
+</div></div>
+
+<div class="staffbar" id="staffbar" hidden><div class="wrap">
+  <div class="t">Pavilion team <span>— you can update the live figures on this page.</span></div>
+  <button class="btn" id="toggle-editor" type="button" aria-expanded="false" aria-controls="editor">Update figures</button>
+</div></div>
+
+<section class="band" id="today"><div class="wrap">
+  <div class="sechead"><h2>Today at the pavilion</h2><div class="rule"></div></div>
+  <p class="secsub">All three rooms are open and staffed for all ten days. Only the scheduled programme
+    changes from day to day.</p>
+  <div class="todaygrid">
+    <div class="today">
+      <div class="cap" id="t-cap" style="background:var(--chrome)">
+        <div><div class="dl" id="t-when">Before the Expo</div>
+          <div class="dn" id="t-name">Not yet open</div></div>
+        <div class="dd" id="t-dates">17–26 December 2026</div>
+      </div>
+      <div class="bd">
+        <p class="what" id="t-what">The pavilion opens on 17 December with Discover days — guided tours for
+          school and college groups.</p>
+        <p class="who" id="t-who">Until then, you can book a class visit, register for the next Design
+          Thinking workshop, or apply for the SGB Accelerator. Details below.</p>
+        <div class="rooms" id="t-rooms">
+          <span class="minichip" style="color:var(--r1)">Room 1 open</span>
+          <span class="minichip" style="color:var(--r2)">Room 2 open</span>
+          <span class="minichip" style="color:var(--r3)">Room 3 open</span>
+        </div>
+      </div>
+    </div>
+    <div class="sidecard">
+      <div><div class="lab">Countdown</div>
+        <div class="big tnum" id="cd-big">49</div>
+        <div class="sm" id="cd-sm">days until the pavilion opens</div></div>
+      <div class="nextup"><div class="lab">Opening day</div>
+        <b>Discover · 17–18 December</b>
+        <div class="sm">Guided tours for school and college groups, in all three rooms.</div></div>
+      <div class="nextup"><div class="lab">Where</div>
+        <b>Birat Expo, Biratnagar</b>
+        <div class="sm">Learn for the Future zone. Open daily with the Expo.</div></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band alt" id="numbers"><div class="wrap">
+  <div class="sechead"><h2>The numbers so far</h2><div class="rule"></div></div>
+  <p class="secsub">Updated by the pavilion team from the enquiry desk in each room. Figures reset to zero
+    until the doors open on 17 December.</p>
+  <div class="counters">
+    <div class="ctr"><div class="k">Visitors welcomed into the pavilion</div>
+      <div><span class="v tnum" id="c-visitors">0</span><span class="of" id="o-visitors">of 10,000</span></div>
+      <div class="bar"><i id="b-visitors" style="width:0%"></i></div>
+      <div class="note" id="n-visitors">Target for the ten days</div></div>
+    <div class="ctr"><div class="k">Enquiries recorded at the three desks</div>
+      <div><span class="v tnum" id="c-enquiries">0</span><span class="of" id="o-enquiries"></span></div>
+      <div class="bar"><i id="b-enquiries" style="width:0%"></i></div>
+      <div class="note">Every one is followed up after the Expo</div></div>
+    <div class="ctr"><div class="k">School and college groups hosted</div>
+      <div><span class="v tnum" id="c-groups">0</span><span class="of" id="o-groups"></span></div>
+      <div class="bar"><i id="b-groups" style="width:0%"></i></div>
+      <div class="note">Guided tours, mostly on the Discover days</div></div>
+    <div class="ctr"><div class="k">Business Health Check-ups given</div>
+      <div><span class="v tnum" id="c-checkups">0</span><span class="of" id="o-checkups"></span></div>
+      <div class="bar"><i id="b-checkups" style="width:0%"></i></div>
+      <div class="note">Free, in Room 3, any day of the Expo</div></div>
+    <div class="ctr"><div class="k">Student pitches delivered on stage</div>
+      <div><span class="v tnum" id="c-pitches">0</span><span class="of" id="o-pitches"></span></div>
+      <div class="bar"><i id="b-pitches" style="width:0%"></i></div>
+      <div class="note">Compete days, 21–22 December</div></div>
+    <div class="ctr"><div class="k">MOUs and partnerships signed</div>
+      <div><span class="v tnum" id="c-mous">0</span><span class="of" id="o-mous"></span></div>
+      <div class="bar"><i id="b-mous" style="width:0%"></i></div>
+      <div class="note">Partner day, 25 December</div></div>
+  </div>
+  <div class="updated"><span id="upd-text">Not yet updated — the pavilion opens on 17 December 2026.</span></div>
+  <div id="editor" class="editor" hidden>
+    <h3>Update the live figures</h3>
+    <p class="hint">Type the running totals for the pavilion so far, then publish. Everyone looking at this
+      page — including visitors on the CIM website — sees the new figures. Leave a target at 0 to hide the
+      "of …" line for that figure.</p>
+    <div class="fields">
+      <div class="field"><label for="f-visitors">Visitors welcomed</label>
+        <div class="pair"><input type="number" id="f-visitors" min="0" step="1" value="0">
+        <span>of</span><input type="number" id="g-visitors" min="0" step="1" value="10000"></div></div>
+      <div class="field"><label for="f-enquiries">Enquiries recorded</label>
+        <div class="pair"><input type="number" id="f-enquiries" min="0" step="1" value="0">
+        <span>of</span><input type="number" id="g-enquiries" min="0" step="1" value="0"></div></div>
+      <div class="field"><label for="f-groups">School &amp; college groups</label>
+        <div class="pair"><input type="number" id="f-groups" min="0" step="1" value="0">
+        <span>of</span><input type="number" id="g-groups" min="0" step="1" value="0"></div></div>
+      <div class="field"><label for="f-checkups">Health Check-ups given</label>
+        <div class="pair"><input type="number" id="f-checkups" min="0" step="1" value="0">
+        <span>of</span><input type="number" id="g-checkups" min="0" step="1" value="0"></div></div>
+      <div class="field"><label for="f-pitches">Student pitches</label>
+        <div class="pair"><input type="number" id="f-pitches" min="0" step="1" value="0">
+        <span>of</span><input type="number" id="g-pitches" min="0" step="1" value="0"></div></div>
+      <div class="field"><label for="f-mous">MOUs signed</label>
+        <div class="pair"><input type="number" id="f-mous" min="0" step="1" value="0">
+        <span>of</span><input type="number" id="g-mous" min="0" step="1" value="0"></div></div>
+    </div>
+    <div class="editrow">
+      <div class="field"><label for="f-note">Notice shown under "Today" (optional)</label>
+        <input type="text" id="f-note" maxlength="140" placeholder="e.g. Investor Day pitches start at 2 pm in Room 3"></div>
+      <div class="field" style="max-width:220px"><label for="f-by">Updated by</label>
+        <input type="text" id="f-by" maxlength="40" placeholder="e.g. Room 2 desk"></div>
+    </div>
+    <div class="editactions">
+      <button class="btn primary" id="save" type="button">Publish figures</button>
+      <button class="btn" id="cancel" type="button">Cancel</button>
+      <span class="msg" id="save-msg" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" id="rooms"><div class="wrap">
+  <div class="sechead"><h2>The three rooms</h2><div class="rule"></div></div>
+  <p class="secsub">Each room hands something to the next. A student who makes a prototype in Room 1 arrives
+    in Room 2 already knowing how to look for a problem. A team that validates an idea in Room 2 arrives in
+    Room 3 with something a bank or an investor can read.</p>
+  <div class="rooms">
+    <div class="room">
+      <div class="cap" style="background:var(--r1s)"><div class="n">ROOM 1 · THINK</div>
+        <h3>The Makerspace</h3><div class="w">CURIOSITY</div></div>
+      <div class="bd">
+        <p class="for">School students, grades 7–10</p>
+        <ul><li>A live maker bench — build something in thirty minutes</li>
+          <li>The student project wall: what children in Koshi chose to solve</li>
+          <li>Guided tours for school groups, with young founders on hand</li></ul>
+        <div class="foot" style="color:var(--r1)">Teachers: book a class visit →</div></div>
+    </div>
+    <div class="room">
+      <div class="cap" style="background:var(--r2s)"><div class="n">ROOM 2 · BUILD</div>
+        <h3>The Design Studio</h3><div class="w">CAPABILITY</div></div>
+      <div class="bd">
+        <p class="for">College students and young adults</p>
+        <ul><li>Teams working live — watch a problem turn into a prototype</li>
+          <li>Be interviewed: students will ask you about a problem you face</li>
+          <li>The Crazy 8s wall, and live student pitches on the Compete days</li></ul>
+        <div class="foot" style="color:var(--r2)">Students: join the next workshop →</div></div>
+    </div>
+    <div class="room">
+      <div class="cap" style="background:var(--r3s)"><div class="n">ROOM 3 · GROW &amp; INVEST</div>
+        <h3>The Growth Room</h3><div class="w">CAPITAL</div></div>
+      <div class="bd">
+        <p class="for">Small and Growing Businesses of Koshi</p>
+        <ul><li>Business stalls selling to real customers on the Market days</li>
+          <li>Live pitches to investors and financiers of the CIM network</li>
+          <li>Free clinics: meet the accountants, lawyers and bankers yourself</li></ul>
+        <div class="foot" style="color:var(--r3)">Owners: get a free Health Check-up →</div></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band alt" id="programme"><div class="wrap">
+  <div class="sechead"><h2>The ten days</h2><div class="rule"></div></div>
+  <p class="secsub">Six scheduled programmes across ten days. The rooms stay open throughout — only the
+    audience changes.</p>
+  <div class="days" id="daygrid">
+    <div class="day" data-day="0"><div class="dh" style="background:var(--r1s)">
+      <div class="dt">17–18 DEC</div><div class="dn">Discover</div></div>
+      <div class="db">Guided tours for school and college groups<span class="tag" hidden>Today</span></div></div>
+    <div class="day" data-day="1"><div class="dh" style="background:var(--r2s)">
+      <div class="dt">19–20 DEC</div><div class="dn">Build</div></div>
+      <div class="db">Live prototyping and maker demonstrations<span class="tag" hidden>Today</span></div></div>
+    <div class="day" data-day="2"><div class="dh" style="background:var(--r4s)">
+      <div class="dt">21–22 DEC</div><div class="dn">Compete</div></div>
+      <div class="db">Student pitch stage and the innovation challenge finals<span class="tag" hidden>Today</span></div></div>
+    <div class="day" data-day="3"><div class="dh" style="background:var(--r3s)">
+      <div class="dt">23–24 DEC</div><div class="dn">Market</div></div>
+      <div class="db">Business stalls, real customers, B2B meetings<span class="tag" hidden>Today</span></div></div>
+    <div class="day" data-day="4"><div class="dh" style="background:var(--r5s)">
+      <div class="dt">25 DEC</div><div class="dn">Partner</div></div>
+      <div class="db">MOU signings and the Koshi entrepreneurship roundtable<span class="tag" hidden>Today</span></div></div>
+    <div class="day" data-day="5"><div class="dh" style="background:var(--r6s)">
+      <div class="dt">26 DEC</div><div class="dn">Invest</div></div>
+      <div class="db">Investor day, business pitches and closing awards<span class="tag" hidden>Today</span></div></div>
+  </div>
+</div></section>
+
+<section class="band" id="takepart"><div class="wrap">
+  <div class="sechead"><h2>How to take part</h2><div class="rule"></div></div>
+  <p class="secsub">Everything below is free of cost. Come to the room that is yours, any day of the Expo.</p>
+  <div class="parts">
+    <div class="part" style="border-left-color:var(--r1)">
+      <div class="ey" style="color:var(--r1)">Schools &amp; teachers</div>
+      <h3>Book a class visit, or a session at your school</h3>
+      <p>Bring grades 7–10 on a guided tour of Room 1 during the Discover days, or ask us to run a maker
+        session at your own school in the new year.</p>
+      <div class="act" style="color:var(--r1)">Call the Incubation Center to fix a date</div></div>
+    <div class="part" style="border-left-color:var(--r2)">
+      <div class="ey" style="color:var(--r2)">College students</div>
+      <h3>Join the next Design Thinking workshop</h3>
+      <p>No business idea needed, and no fee. Leave your name at Room 2 and we will tell you when the next
+        workshop opens in your college.</p>
+      <div class="act" style="color:var(--r2)">Leave your name at the Room 2 desk</div></div>
+    <div class="part" style="border-left-color:var(--r3)">
+      <div class="ey" style="color:var(--r3)">Business owners</div>
+      <h3>Apply for the next SGB Accelerator</h3>
+      <p>For registered businesses of Koshi Province trading for a year or more. Start with a free Business
+        Health Check-up in Room 3 — any day of the Expo.</p>
+      <div class="act" style="color:var(--r3)">Walk in to Room 3, no appointment needed</div></div>
+    <div class="part">
+      <div class="ey" style="color:var(--blue)">Industry, investors &amp; partners</div>
+      <h3>Mentor, sponsor a booth, or back a founder</h3>
+      <p>CIM members can give a few hours a month as a mentor, sponsor a stall for a young business, or meet
+        investment-ready businesses on Invest day.</p>
+      <div class="act">Ask at any room, or at the Incubation Center desk</div></div>
+  </div>
+
+  <div class="contact" style="margin-top:22px">
+    <div><h3>Biratnagar Incubation Center</h3>
+      <div class="ln" style="margin-top:6px">Entrepreneurship Academy &amp; Innovation Unit,<br>
+        Chamber of Industries Morang</div></div>
+    <div><div class="lab">Chamber of Industries Morang</div>
+      <div class="ln">021-515712, 577646<br>cim.biratnagar@gmail.com<br>
+        Shahid Marga, Tinpaini, Biratnagar-2</div></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div><div class="f1">Startup &amp; Entrepreneurship Pavilion</div>
+    <div class="f2">Birat Expo 2026 · 17–26 December · Biratnagar, Koshi Province<br>
+      Three rooms. One pipeline. Curiosity · Capability · Capital</div></div>
+  <div class="fr">An initiative of the Chamber of Industries Morang</div>
+</div></footer>
+
+</div>
+
+<script id="bic-js">
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var KEYS = ["visitors","enquiries","groups","checkups","pitches","mous"];
+
+  /* ---------- state ---------- */
+  var state;
+  try { state = JSON.parse($("bic-state").textContent); }
+  catch (e) { state = {updated:"",updatedBy:"",statusNote:"",counters:{}}; }
+  if (!state.counters) state.counters = {};
+  KEYS.forEach(function(k){
+    var c = state.counters[k];
+    if (!c || typeof c !== "object") state.counters[k] = {v:0, t:0};
+    else { c.v = Math.max(0, parseInt(c.v,10) || 0); c.t = Math.max(0, parseInt(c.t,10) || 0); }
+  });
+
+  /* ---------- programme ---------- */
+  var DAYS = [
+    {name:"Discover", from:17, to:18, what:"Guided tours of all three rooms for school and college groups.",
+     who:"Who it is for: secondary schools and colleges, by booking and as walk-ins.", colour:"var(--r1s)"},
+    {name:"Build", from:19, to:20, what:"Live prototyping and maker demonstrations in Rooms 1 and 2.",
+     who:"Who it is for: the general Expo public, makers, and technical visitors.", colour:"var(--r2s)"},
+    {name:"Compete", from:21, to:22, what:"The student pitch stage and the innovation challenge finals.",
+     who:"Who it is for: challenge finalists, with college students returning as the audience.", colour:"var(--r4s)"},
+    {name:"Market", from:23, to:24, what:"Business stalls selling to real customers, and B2B meetings.",
+     who:"Who it is for: buyers, retailers and the paying public.", colour:"var(--r3s)"},
+    {name:"Partner", from:25, to:25, what:"MOU signings and the Koshi entrepreneurship policy roundtable.",
+     who:"Who it is for: government, development partners and business development institutions.", colour:"var(--r5s)"},
+    {name:"Invest", from:26, to:26, what:"Investor day, business pitches and the closing awards.",
+     who:"Who it is for: Biratnagar Angels, banks and institutional investors.", colour:"var(--r6s)"}
+  ];
+  var OPEN = Date.UTC(2026,11,17), CLOSE = Date.UTC(2026,11,26);
+
+  function todayUTC(){ var d = new Date();
+    return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()); }
+
+  function phase(){
+    var t = todayUTC();
+    if (t < OPEN)  return {p:"before", days: Math.round((OPEN - t)/86400000)};
+    if (t > CLOSE) return {p:"after",  days: Math.round((t - CLOSE)/86400000)};
+    var dom = new Date(t).getUTCDate(), idx = -1;
+    for (var i=0;i<DAYS.length;i++){ if (dom >= DAYS[i].from && dom <= DAYS[i].to){ idx = i; break; } }
+    return {p:"during", idx:idx, dom:dom, dayNo: dom - 16};
+  }
+
+  function fmt(n){ return (n||0).toLocaleString("en-US"); }
+
+  /* ---------- render ---------- */
+  function renderStatus(){
+    var ph = phase(), dot = $("st-dot"), txt = $("st-text"), cnt = $("st-count");
+    var cap = $("t-cap"), when = $("t-when"), name = $("t-name"), dates = $("t-dates");
+    var what = $("t-what"), who = $("t-who"), big = $("cd-big"), sm = $("cd-sm");
+
+    if (ph.p === "before"){
+      dot.className = "dot soon"; txt.textContent = "Opens 17 December 2026";
+      cnt.textContent = ph.days === 1 ? "1 day to opening" : ph.days + " days to opening";
+      cap.style.background = "var(--chrome)";
+      when.textContent = "Before the Expo"; name.textContent = "Not yet open";
+      dates.textContent = "17–26 December 2026";
+      what.textContent = "The pavilion opens on 17 December with Discover days — guided tours for school and college groups.";
+      who.textContent = "Until then you can book a class visit, register for the next Design Thinking workshop, or apply for the SGB Accelerator. Details below.";
+      big.textContent = fmt(ph.days); sm.textContent = ph.days === 1 ? "day until the pavilion opens" : "days until the pavilion opens";
+    } else if (ph.p === "after"){
+      dot.className = "dot off"; txt.textContent = "Closed — thank you for visiting";
+      cnt.textContent = "Ran 17–26 December 2026";
+      cap.style.background = "var(--chrome)";
+      when.textContent = "After the Expo"; name.textContent = "Closed";
+      dates.textContent = "Ran 17–26 December 2026";
+      what.textContent = "The pavilion has closed. Every enquiry taken at the three desks is being followed up.";
+      who.textContent = "Schools are offered a session date, students are told when the next workshop opens in their college, and businesses are booked for a Business Health Check-up.";
+      big.textContent = fmt(ph.days); sm.textContent = ph.days === 1 ? "day since the pavilion closed" : "days since the pavilion closed";
+    } else {
+      var d = DAYS[ph.idx] || DAYS[0];
+      dot.className = "dot"; txt.textContent = "Open now — Day " + ph.dayNo + " of 10";
+      cnt.textContent = d.name + " · " + (d.from === d.to ? d.from : d.from + "–" + d.to) + " December";
+      cap.style.background = d.colour;
+      when.textContent = "Day " + ph.dayNo + " of 10 · " + (d.from === d.to ? d.from : d.from + "–" + d.to) + " December";
+      name.textContent = d.name;
+      dates.textContent = "All three rooms open";
+      what.textContent = d.what; who.textContent = d.who;
+      var left = Math.round((CLOSE - todayUTC())/86400000);
+      big.textContent = fmt(left); sm.textContent = left === 1 ? "day left to visit" : "days left to visit";
+    }
+
+    var note = (state.statusNote || "").trim();
+    if (note){ who.textContent = note; }
+
+    var cells = document.querySelectorAll("#daygrid .day");
+    for (var i=0;i<cells.length;i++){
+      var on = (ph.p === "during" && i === ph.idx);
+      cells[i].classList.toggle("now", on);
+      cells[i].querySelector(".tag").hidden = !on;
+    }
+  }
+
+  function renderCounters(){
+    KEYS.forEach(function(k){
+      var c = state.counters[k], v = c.v, t = c.t;
+      $("c-"+k).textContent = fmt(v);
+      var of = $("o-"+k); if (of) of.textContent = t > 0 ? "of " + fmt(t) : "";
+      var bar = $("b-"+k);
+      if (bar){
+        bar.style.width = (t > 0 ? Math.max(0, Math.min(100, (v/t)*100)) : 0) + "%";
+        bar.parentNode.hidden = !(t > 0);
+      }
+    });
+    var nv = $("n-visitors");
+    if (nv) nv.textContent = state.counters.visitors.t > 0 ? "Target for the ten days" : "Counted at the entrance";
+
+    var u = $("upd-text");
+    if (state.updated){
+      var when = state.updated, d = new Date(state.updated);
+      if (!isNaN(d.getTime())){
+        when = d.toLocaleString(undefined,{day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"});
+      }
+      u.textContent = "Last updated " + when + (state.updatedBy ? " by " + state.updatedBy : "") + ".";
+    } else {
+      u.textContent = "Not yet updated — the pavilion opens on 17 December 2026.";
+    }
+  }
+
+  function renderAll(){ renderStatus(); renderCounters(); }
+  renderAll();
+  setInterval(renderStatus, 60*60*1000);
+
+  /* ---------- staff editing ---------- */
+  var artifactNs = null;
+
+  function fillForm(){
+    KEYS.forEach(function(k){
+      $("f-"+k).value = state.counters[k].v;
+      $("g-"+k).value = state.counters[k].t;
+    });
+    $("f-note").value = state.statusNote || "";
+    $("f-by").value = state.updatedBy || "";
+  }
+
+  function readForm(){
+    var next = {updated:new Date().toISOString(), updatedBy:"", statusNote:"", counters:{}};
+    KEYS.forEach(function(k){
+      next.counters[k] = {
+        v: Math.max(0, parseInt($("f-"+k).value,10) || 0),
+        t: Math.max(0, parseInt($("g-"+k).value,10) || 0)
+      };
+    });
+    next.statusNote = ($("f-note").value || "").trim().slice(0,140);
+    next.updatedBy  = ($("f-by").value   || "").trim().slice(0,40);
+    return next;
+  }
+
+  function buildDoc(src, nextState){
+    var re = /(<script type="application\/json" id="bic-state">)([\s\S]*?)(<\/script>)/;
+    if (!re.test(src)) return null;
+    return src.replace(re, function(_, a, _b, c){ return a + JSON.stringify(nextState) + c; });
+  }
+
+  function openEditor(open){
+    $("editor").hidden = !open;
+    $("toggle-editor").setAttribute("aria-expanded", open ? "true" : "false");
+    $("toggle-editor").textContent = open ? "Close" : "Update figures";
+    if (open){ fillForm(); $("f-visitors").focus(); }
+  }
+
+  var te = $("toggle-editor");
+  if (te) te.addEventListener("click", function(){ openEditor($("editor").hidden); });
+  var cn = $("cancel");
+  if (cn) cn.addEventListener("click", function(){ $("save-msg").textContent = ""; openEditor(false); });
+
+  var sv = $("save");
+  if (sv) sv.addEventListener("click", function(){
+    var msg = $("save-msg");
+    if (!artifactNs){ msg.className = "msg err"; msg.textContent = "Publishing is not available in this view."; return; }
+    var next = readForm();
+    sv.disabled = true; msg.className = "msg"; msg.textContent = "Publishing…";
+
+    fetch(location.href.split("#")[0], {cache:"no-store"})
+      .then(function(r){ if (!r.ok) throw new Error("fetch"); return r.text(); })
+      .then(function(src){
+        var doc = buildDoc(src, next);
+        if (!doc) throw new Error("shape");
+        return artifactNs.publish(doc);
+      })
+      .then(function(){
+        state = next; $("bic-state").textContent = JSON.stringify(next);
+        renderAll();
+        msg.className = "msg ok"; msg.textContent = "Published. Everyone viewing this page now sees the new figures.";
+        sv.disabled = false;
+      })
+      .catch(function(err){
+        sv.disabled = false; msg.className = "msg err";
+        var code = err && (err.code || err.message) || "";
+        if (code === "conflict") msg.textContent = "Someone else published first. Reopen and enter your figures again.";
+        else if (code === "not_writer" || code === "not_granted") msg.textContent = "You do not have permission to publish changes to this page.";
+        else msg.textContent = "Could not publish. Check your connection and try again.";
+      });
+  });
+
+  /* capability resolves after first paint; show the staff bar only to people who can publish */
+  if (window.claude && typeof window.claude.use === "function"){
+    window.claude.use("artifact").then(function(ns){
+      if (!ns) return;
+      artifactNs = ns;
+      return (window.claude.use("user") || Promise.resolve(null)).then(function(u){
+        var may = true;
+        try { may = u && typeof u.canEdit === "function" ? !!u.canEdit() : true; } catch (e) { may = true; }
+        if (may) $("staffbar").hidden = false;
+      }, function(){ $("staffbar").hidden = false; });
+    }).catch(function(){});
+  }
+})();
+</script>
