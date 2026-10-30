@@ -243,9 +243,9 @@ export default function PavilionTenDays() {
             <span>
               <strong>Note:</strong> School visits and student pitch entries must be registered in advance at the enquiry desk.
             </span>
-            <a href="#takepart" className="font-bold text-blue-600 hover:underline inline-flex items-center gap-1">
-              <span>Register or Participate</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+            <a href="#takepart" className="font-bold text-blue-600 hover:underline inline-flex items-center gap-1 group">
+              <span>How to Take Part</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </a>
           </div>
         </div>

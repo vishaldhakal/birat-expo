@@ -94,7 +94,7 @@ export default function PavilionHero() {
             href="#takepart"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 transition-all group"
           >
-            <span>Register &amp; Take Part</span>
+            <span>How to Take Part</span>
             <ChevronRight className="w-4 h-4 text-blue-600 group-hover:translate-x-0.5 transition-transform" />
           </a>
         </div>
