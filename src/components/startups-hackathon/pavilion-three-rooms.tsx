@@ -6,7 +6,6 @@ import {
   Lightbulb,
   TrendingUp,
   CheckCircle,
-  ChevronRight,
   BookOpen,
 } from "lucide-react";
 
@@ -173,9 +172,8 @@ export default function PavilionThreeRooms() {
                   </p>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-blue-600">
+                <div className="mt-6 pt-3 border-t border-gray-100 text-xs font-bold text-blue-600">
                   <span>{isSelected ? "Currently Viewing" : "View Room Plan"}</span>
-                  <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? "translate-x-1" : "text-gray-400"}`} />
                 </div>
               </div>
             );

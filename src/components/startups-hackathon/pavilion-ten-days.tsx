@@ -179,9 +179,8 @@ export default function PavilionTenDays() {
                   </div>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gray-200/80 text-[10px] font-bold text-blue-600 uppercase tracking-tight flex items-center justify-center gap-0.5">
+                <div className="mt-3 pt-2.5 border-t border-gray-200/80 text-[10px] font-bold text-blue-600 uppercase tracking-tight text-center">
                   <span>{isSelected ? "Selected" : "Details"}</span>
-                  <ChevronRight className="w-3 h-3" />
                 </div>
               </div>
             );

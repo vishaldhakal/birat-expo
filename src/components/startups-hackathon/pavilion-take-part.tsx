@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Phone, Mail, MapPin, ChevronRight, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, CheckCircle2 } from "lucide-react";
 
 export default function PavilionTakePart() {
   const parts = [
@@ -89,9 +89,8 @@ export default function PavilionTakePart() {
                 </p>
               </div>
 
-              <div className="mt-5 pt-3.5 border-t border-gray-100 flex items-center justify-between text-xs sm:text-sm font-bold">
+              <div className="mt-5 pt-3.5 border-t border-gray-100 text-xs sm:text-sm font-bold">
                 <span className={p.actColor}>{p.act}</span>
-                <ChevronRight className={`w-4 h-4 ${p.actColor} shrink-0`} />
               </div>
             </div>
           ))}

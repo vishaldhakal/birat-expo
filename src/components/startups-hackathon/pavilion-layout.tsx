@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   Compass,
   CheckCircle,
-  ChevronRight,
 } from "lucide-react";
 
 export default function PavilionLayout() {
@@ -162,9 +161,8 @@ export default function PavilionLayout() {
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-gray-200/80 flex items-center justify-between text-xs font-semibold text-gray-700">
+                <div className="mt-4 pt-3 border-t border-gray-200/80 text-xs font-semibold text-gray-700">
                   <span>{zone.renderBanner}</span>
-                  <ChevronRight className={`w-4 h-4 transition-transform ${activeZone === idx ? "translate-x-1 text-blue-600" : "text-gray-400"}`} />
                 </div>
               </div>
             ))}
