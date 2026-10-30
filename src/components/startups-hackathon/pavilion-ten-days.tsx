@@ -168,13 +168,10 @@ export default function PavilionTenDays() {
                   <div className="text-[11px] font-black text-gray-500 uppercase tracking-wider">
                     {item.dates}
                   </div>
-                  <div className="text-[10px] text-gray-600 mt-0.5">
+                  <div className="text-[10px] text-gray-500 mt-0.5">
                     {item.daysRange}
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-white border border-gray-200 mx-auto my-3 flex items-center justify-center text-gray-700 shadow-2xs">
-                    <Icon className="w-4 h-4 text-blue-600" />
-                  </div>
-                  <div className="text-base font-extrabold text-gray-900 leading-tight">
+                  <div className="text-base sm:text-lg font-extrabold text-gray-900 leading-tight mt-3 mb-1">
                     {item.name}
                   </div>
                 </div>
