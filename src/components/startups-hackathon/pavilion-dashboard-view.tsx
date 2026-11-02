@@ -147,6 +147,148 @@ export default function PavilionDashboardView() {
     },
   ];
 
+  // The 4 Incubation Pillars (from Booklet Section 2)
+  const pillars = [
+    {
+      number: "01",
+      title: "Ideas exist. Pathways do not.",
+      desc: "Koshi has no shortage of young people with ideas or of families running small businesses. What is missing is somewhere to take an idea next. Without a pathway, an idea stays a conversation.",
+      tag: "The Bottleneck",
+    },
+    {
+      number: "02",
+      title: "The first gap is readiness, not money.",
+      desc: "Finance exists — bank credit, State Startup Enterprise Loans, local angel investors. Most enterprises cannot reach it because the books, the plan and compliance are not in order. Readiness is the bottleneck.",
+      tag: "Capital Readiness",
+    },
+    {
+      number: "03",
+      title: "Industry & academia sit side by side and never meet.",
+      desc: "Colleges teach business; industries need problems solved. Chamber of Industries Morang is the one institution that can put a student in front of a real industrial problem, and a mentor in front of a student.",
+      tag: "The CIM Bridge",
+    },
+    {
+      number: "04",
+      title: "One-off events do not compound.",
+      desc: "A workshop that ends on the last day leaves nothing behind. BIC is built so that every activity hands something to the next one — and so that each year starts further ahead than the last.",
+      tag: "Compounding Ecosystem",
+    },
+  ];
+
+  // The 5-Year Track Record (from Booklet Section 3)
+  const milestones = [
+    {
+      year: "2021",
+      period: "January 2021",
+      phase: "Laying the Foundation",
+      focus: "Mentorship framework & first incubation cohort",
+      what: "Cohort 1 — an 18-month incubation pilot delivered with Antarprerana Pvt Ltd.",
+      output: "Adopted Mentorship Guidebook; working 4-phase model (Orientation, Shape, Strengthen, Sustain).",
+    },
+    {
+      year: "2022",
+      period: "2022–2023",
+      phase: "Becoming Institutional",
+      focus: "Written curriculum & manager guidebook",
+      what: "Cohort 2 — redesigned to 12 months, sector-agnostic with 20–25 participants.",
+      output: "Published Incubation Curriculum; introduced standard Business Health Check-up instrument.",
+    },
+    {
+      year: "2025",
+      period: "January 2025",
+      phase: "Going Public",
+      focus: "Hackathon at Birat Expo & first school maker session",
+      what: "Startup Hackathon 'Innovate for Koshi' with King's College & school mindset at Lilliput School.",
+      output: "30 ideas registered, 10 teams selected, 3 winning ventures, 42 school makers engaged.",
+    },
+    {
+      year: "2026",
+      period: "October–December 2026",
+      phase: "Three Rooms, One Pipeline",
+      focus: "BIC formalised, design studio & SGB accelerator",
+      what: "Empathy to Enterprise with Mahendra Morang College & BIC SGB Accelerator 2026.",
+      output: "Full 3-zone bamboo pavilion live at Birat Expo 2026 connecting Curiosity, Capability, and Capital.",
+    },
+  ];
+
+  // The 5-Step Single Route Visitor Journey (from Booklet Section 3)
+  const journeySteps = [
+    {
+      step: "01",
+      title: "Information Desk",
+      where: "Pavilion Entry",
+      action: "Get the pavilion map & answer one question: Which room is yours?",
+      takeaway: "A purposeful journey through the ecosystem rather than an aimless walk",
+    },
+    {
+      step: "02",
+      title: "Room 1 · Makerspace",
+      where: "Zone 1 (Think)",
+      action: "Try the maker bench & build a prototype in thirty minutes; view the student project wall",
+      takeaway: "Direct physical proof that a real problem can be solved with your own hands",
+    },
+    {
+      step: "03",
+      title: "Room 2 · Design Studio",
+      where: "Zone 2 (Build)",
+      action: "Watch sprint teams work live; let students interview you about a bottleneck you face",
+      takeaway: "Clear understanding of how real consumer assumptions get tested before building",
+    },
+    {
+      step: "04",
+      title: "Room 3 · Growth Room",
+      where: "Zone 3 (Grow & Invest)",
+      action: "Meet trading local businesses; sit a free 20-minute Business Health Check-up",
+      takeaway: "An objective diagnostic on whether your own business is genuinely investment-ready",
+    },
+    {
+      step: "05",
+      title: "Enquiry Desk",
+      where: "Pavilion Exit",
+      action: "Register as a school, student, enterprise founder, mentor, or angel investor",
+      takeaway: "A guaranteed follow-up call from the Incubation Center after the Expo closes",
+    },
+  ];
+
+  // Vision Koshi Problem Statements
+  const problems = [
+    {
+      number: "01",
+      title: "Agro-Value Addition & Export Linkage",
+      desc: "Transforming raw agricultural produce in Koshi Province into high-value packaged goods for regional and global markets.",
+      category: "Agri-Tech & Food Systems",
+      badgeColor: "#0e7490",
+    },
+    {
+      number: "02",
+      title: "Tourism & Eco-Hospitality Innovation",
+      desc: "Creating digital, sustainable, and cultural trails that retain international and domestic travelers across Eastern Nepal.",
+      category: "Tourism & Hospitality",
+      badgeColor: "#274ea3",
+    },
+    {
+      number: "03",
+      title: "Civic & Essential Services Delivery",
+      desc: "Using mobile and web tech to streamline municipal licenses, healthcare access, and public utility grievance resolutions.",
+      category: "Digital Governance & Health",
+      badgeColor: "#5b3fa8",
+    },
+    {
+      number: "04",
+      title: "Smart Urban & Industrial Infrastructure",
+      desc: "Solutions for waste management, clean energy adoption, smart parking, and logistics for industrial belts like Biratnagar-Itahari.",
+      category: "Urban Tech & Sustainability",
+      badgeColor: "#b5651d",
+    },
+    {
+      number: "05",
+      title: "Youth in Enterprise & Modern Farming",
+      desc: "Demystifying tech-driven modern farming, micro-manufacturing, and creative crafts for young generations returning to Koshi.",
+      category: "Youth Entrepreneurship",
+      badgeColor: "#1e7a3e",
+    },
+  ];
+
   useEffect(() => {
     const calcPhase = () => {
       const now = Date.now();
@@ -252,14 +394,26 @@ export default function PavilionDashboardView() {
             <a href="#numbers" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
               Numbers
             </a>
+            <a href="#why" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+              Why We Are Doing This
+            </a>
             <a href="#rooms" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
               The Rooms
             </a>
             <a href="#layout" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
               Pavilion Layout
             </a>
+            <a href="#timeline" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+              The Work So Far
+            </a>
             <a href="#programme" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
               Ten Days
+            </a>
+            <a href="#journey" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+              Visitor Journey
+            </a>
+            <a href="#challenges" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+              Challenges
             </a>
             <a href="#takepart" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
               Take Part
@@ -453,8 +607,52 @@ export default function PavilionDashboardView() {
         </div>
       </section>
 
-      {/* 4. THE THREE ROOMS */}
-      <section id="rooms" className="py-12 sm:py-16 bg-white border-b border-[#cfdcee]/60">
+      {/* 4. WHY WE ARE DOING THIS - THE 4 PILLARS (from Booklet) */}
+      <section id="why" className="py-12 sm:py-16 bg-white border-b border-[#cfdcee]/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-4 mb-2">
+            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#274ea3] whitespace-nowrap">
+              Why we are doing this
+            </h2>
+            <div className="flex-1 h-px bg-[#e19f1f]" />
+          </div>
+          <p className="text-[#5b6b85] text-sm sm:text-base mb-8 max-w-3xl">
+            Why Koshi Province needs a place where an idea can be taken seriously. The three rooms are the Chamber&apos;s existing work on entrepreneurship put in order so that each part feeds the next.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {pillars.map((item, i) => (
+              <div
+                key={i}
+                className="border border-[#cfdcee] rounded-2xl p-6 bg-[#f4fafd] flex flex-col justify-between shadow-2xs"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-[#274ea3]">
+                      PILLAR #{item.number}
+                    </span>
+                    <span className="text-[11px] font-semibold text-[#8294ae] bg-white border border-[#cfdcee] px-2.5 py-0.5 rounded-md">
+                      {item.tag}
+                    </span>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold font-serif text-[#16233a] mt-1">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-[#5b6b85] leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-[#e3ecf7] text-[11px] font-bold text-[#8294ae] uppercase tracking-wider">
+                  Biratnagar Incubation Center · Guidebook for Managers
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. THE THREE ROOMS */}
+      <section id="rooms" className="py-12 sm:py-16 bg-[#f4fafd] border-b border-[#cfdcee]/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-4 mb-2">
             <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#274ea3] whitespace-nowrap">
@@ -593,8 +791,8 @@ export default function PavilionDashboardView() {
         </div>
       </section>
 
-      {/* 5. 3D BAMBOO LAYOUT */}
-      <section id="layout" className="py-12 sm:py-16 bg-[#f4fafd] border-b border-[#cfdcee]/60">
+      {/* 6. 3D BAMBOO LAYOUT */}
+      <section id="layout" className="py-12 sm:py-16 bg-white border-b border-[#cfdcee]/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-4 mb-2">
             <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#274ea3] whitespace-nowrap">
@@ -628,7 +826,60 @@ export default function PavilionDashboardView() {
         </div>
       </section>
 
-      {/* 6. TEN DAYS */}
+      {/* 7. THE WORK SO FAR - 5 YEARS TRACK RECORD (from Booklet) */}
+      <section id="timeline" className="py-12 sm:py-16 bg-[#f4fafd] border-b border-[#cfdcee]/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-4 mb-2">
+            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#274ea3] whitespace-nowrap">
+              The work so far
+            </h2>
+            <div className="flex-1 h-px bg-[#e19f1f]" />
+          </div>
+          <p className="text-[#5b6b85] text-sm sm:text-base mb-8 max-w-3xl">
+            Five years of continuous incubation delivery at the Chamber of Industries Morang, 2021 to 2026.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {milestones.map((m, idx) => (
+              <div
+                key={idx}
+                className="border border-[#cfdcee] rounded-2xl bg-white p-5 flex flex-col justify-between shadow-2xs"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-2xl font-bold font-serif text-[#274ea3]">
+                      {m.year}
+                    </span>
+                    <span className="text-[10px] font-bold text-[#8294ae] uppercase tracking-wider bg-[#f4fafd] px-2 py-0.5 rounded">
+                      {m.period}
+                    </span>
+                  </div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#8294ae]">
+                    {m.phase}
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-[#16233a] mt-1 leading-snug">
+                    {m.focus}
+                  </h3>
+                  <p className="mt-2 text-xs text-[#5b6b85] leading-relaxed">
+                    {m.what}
+                  </p>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-[#e3ecf7]">
+                  <div className="text-[10px] font-bold text-[#8294ae] uppercase tracking-wider mb-1">
+                    Milestone Output
+                  </div>
+                  <div className="text-xs font-semibold text-[#1e7a3e] bg-[#f4fafd] p-2 rounded-lg border border-[#cfdcee] leading-snug">
+                    {m.output}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. TEN DAYS */}
       <section id="programme" className="py-12 sm:py-16 bg-white border-b border-[#cfdcee]/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-4 mb-2">
@@ -679,7 +930,102 @@ export default function PavilionDashboardView() {
         </div>
       </section>
 
-      {/* 7. HOW TO TAKE PART */}
+      {/* 9. VISITOR JOURNEY (from Booklet) */}
+      <section id="journey" className="py-12 sm:py-16 bg-[#f4fafd] border-b border-[#cfdcee]/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-4 mb-2">
+            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#274ea3] whitespace-nowrap">
+              The visitor journey
+            </h2>
+            <div className="flex-1 h-px bg-[#e19f1f]" />
+          </div>
+          <p className="text-[#5b6b85] text-sm sm:text-base mb-8 max-w-3xl">
+            Every visitor leaves with something tangible. The single L-shaped path guides you naturally from an initial problem to an enterprise ready for investment.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {journeySteps.map((st, i) => (
+              <div
+                key={i}
+                className="border border-[#cfdcee] rounded-2xl bg-white p-5 flex flex-col justify-between shadow-2xs"
+              >
+                <div>
+                  <span className="text-xs font-bold text-[#274ea3] bg-[#f4fafd] border border-[#cfdcee] px-2 py-0.5 rounded-md inline-block mb-2">
+                    STEP {st.step}
+                  </span>
+                  <h3 className="text-sm sm:text-base font-bold font-serif text-[#16233a] leading-snug">
+                    {st.title}
+                  </h3>
+                  <div className="text-[10px] font-bold text-[#8294ae] uppercase tracking-wider mt-0.5 mb-2">
+                    {st.where}
+                  </div>
+                  <p className="text-xs text-[#5b6b85] leading-relaxed">
+                    {st.action}
+                  </p>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-[#e3ecf7]">
+                  <div className="text-[10px] font-bold text-[#8294ae] uppercase tracking-wider mb-1">
+                    What You Leave With
+                  </div>
+                  <div className="text-xs font-semibold text-[#0e7490] leading-snug">
+                    {st.takeaway}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 10. VISION KOSHI CHALLENGES */}
+      <section id="challenges" className="py-12 sm:py-16 bg-white border-b border-[#cfdcee]/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-4 mb-2">
+            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#274ea3] whitespace-nowrap">
+              Vision Koshi Innovation Challenges
+            </h2>
+            <div className="flex-1 h-px bg-[#e19f1f]" />
+          </div>
+          <p className="text-[#5b6b85] text-sm sm:text-base mb-8 max-w-3xl">
+            Key challenges facing Koshi Province addressed by student teams and makers in Room 2 (The Design Studio).
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {problems.map((p) => (
+              <div
+                key={p.number}
+                className="border border-[#cfdcee] rounded-2xl bg-[#f4fafd] p-5 flex flex-col justify-between shadow-2xs"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-[#274ea3]">
+                      CHALLENGE #{p.number}
+                    </span>
+                    <span
+                      className="text-[10px] font-bold text-white px-2 py-0.5 rounded-full"
+                      style={{ backgroundColor: p.badgeColor }}
+                    >
+                      {p.category}
+                    </span>
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold font-serif text-[#16233a] leading-snug">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-xs text-[#5b6b85] leading-relaxed">
+                    {p.desc}
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-[#e3ecf7] text-[11px] font-bold text-[#8294ae]">
+                  Room 2: Live Prototype Stage · 21–22 Dec
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 11. HOW TO TAKE PART */}
       <section id="takepart" className="py-12 sm:py-16 bg-[#f4fafd] border-b border-[#cfdcee]/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-4 mb-2">
