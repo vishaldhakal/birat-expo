@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Opening: 17 Dec 2026, 09:00 AM Nepal Time (+05:45)
 const OPEN_TIME = new Date("2026-12-17T09:00:00+05:45").getTime();
@@ -349,20 +350,19 @@ export default function PavilionDashboardView() {
           <div className="mt-7 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs sm:text-sm">
             <span className="inline-flex items-center gap-2 bg-white text-[#1c3c7a] rounded-full px-4 py-2 font-bold shadow-xs">
               <span
-                className={`w-2.5 h-2.5 rounded-full ${
-                  phase.p === "during"
+                className={`w-2.5 h-2.5 rounded-full ${phase.p === "during"
                     ? "bg-[#1e7a3e]"
                     : phase.p === "before"
-                    ? "bg-[#e19f1f]"
-                    : "bg-[#b9452f]"
-                }`}
+                      ? "bg-[#e19f1f]"
+                      : "bg-[#b9452f]"
+                  }`}
               />
               <span>
                 {phase.p === "before"
                   ? "Opens 17 December 2026"
                   : phase.p === "during"
-                  ? `Open now · Day ${phase.dayNo} of 10`
-                  : "Closed — thank you for visiting"}
+                    ? `Open now · Day ${phase.dayNo} of 10`
+                    : "Closed — thank you for visiting"}
               </span>
             </span>
 
@@ -370,8 +370,8 @@ export default function PavilionDashboardView() {
               {phase.p === "before"
                 ? `${phase.days} days to opening`
                 : phase.p === "during"
-                ? `${phase.days} days left to visit`
-                : "Ran 17–26 December 2026"}
+                  ? `${phase.days} days left to visit`
+                  : "Ran 17–26 December 2026"}
             </span>
 
             <span className="inline-flex items-center gap-1.5 border border-white/35 rounded-full px-3.5 py-1.5 font-semibold text-white/95 backdrop-blur-xs">
@@ -381,6 +381,14 @@ export default function PavilionDashboardView() {
             <span className="inline-flex items-center gap-1.5 border border-white/35 rounded-full px-3.5 py-1.5 font-semibold text-white/95 backdrop-blur-xs">
               Free with an Expo pass
             </span>
+
+            <Link
+              href="/startups-hackathon/enquiry"
+              className="inline-flex items-center gap-2 bg-[#e19f1f] hover:bg-[#c98c17] text-white rounded-full px-4 py-2 font-bold shadow-xs transition"
+            >
+              <span>Enquiry &amp; Booking Form</span>
+              <span>&rarr;</span>
+            </Link>
           </div>
 
           {/* Sub-nav Jump Links */}
@@ -418,6 +426,12 @@ export default function PavilionDashboardView() {
             <a href="#takepart" className="px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
               Take Part
             </a>
+            <Link
+              href="/startups-hackathon/enquiry"
+              className="px-3 py-1 rounded-md bg-[#e19f1f] text-white hover:bg-[#c98c17] transition-colors font-bold ml-auto"
+            >
+              Enquiry Form &rarr;
+            </Link>
           </div>
         </div>
       </section>
@@ -453,15 +467,15 @@ export default function PavilionDashboardView() {
                       {phase.p === "before"
                         ? "Before the Expo"
                         : phase.p === "during"
-                        ? `Day ${phase.dayNo} of 10`
-                        : "After the Expo"}
+                          ? `Day ${phase.dayNo} of 10`
+                          : "After the Expo"}
                     </div>
                     <div className="text-xl sm:text-2xl font-bold font-serif leading-tight mt-0.5">
                       {phase.p === "before"
                         ? "Not yet open"
                         : phase.p === "during"
-                        ? PROGRAMME_DAYS[phase.idx]?.name || "Programme Active"
-                        : "Closed"}
+                          ? PROGRAMME_DAYS[phase.idx]?.name || "Programme Active"
+                          : "Closed"}
                     </div>
                   </div>
                   <div className="text-xs sm:text-sm font-semibold opacity-95">
@@ -474,15 +488,15 @@ export default function PavilionDashboardView() {
                     {phase.p === "before"
                       ? "The pavilion opens on 17 December with Discover days — guided tours for school and college groups."
                       : phase.p === "during"
-                      ? PROGRAMME_DAYS[phase.idx]?.what || "All three rooms open."
-                      : "The pavilion has closed. Every enquiry taken at the three desks is being followed up."}
+                        ? PROGRAMME_DAYS[phase.idx]?.what || "All three rooms open."
+                        : "The pavilion has closed. Every enquiry taken at the three desks is being followed up."}
                   </p>
                   <p className="text-xs sm:text-sm text-[#5b6b85] leading-relaxed">
                     {phase.p === "before"
                       ? "Until then, you can book a class visit, register for the next Design Thinking workshop, or apply for the SGB Accelerator. Details below."
                       : phase.p === "during"
-                      ? PROGRAMME_DAYS[phase.idx]?.who || "All rooms staffed daily."
-                      : "Schools are offered a session date, students are informed of upcoming workshops, and businesses receive follow-up diagnostics."}
+                        ? PROGRAMME_DAYS[phase.idx]?.who || "All rooms staffed daily."
+                        : "Schools are offered a session date, students are informed of upcoming workshops, and businesses receive follow-up diagnostics."}
                   </p>
                 </div>
               </div>
@@ -513,8 +527,8 @@ export default function PavilionDashboardView() {
                   {phase.p === "before"
                     ? "days until the pavilion opens"
                     : phase.p === "during"
-                    ? "days left to visit"
-                    : "days since the pavilion closed"}
+                      ? "days left to visit"
+                      : "days since the pavilion closed"}
                 </div>
               </div>
 
@@ -701,9 +715,13 @@ export default function PavilionDashboardView() {
                 </div>
               </div>
 
-              <div className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#0e7490]">
-                Teachers: book a class visit at the desk
-              </div>
+              <Link
+                href="/startups-hackathon/enquiry?track=school"
+                className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#0e7490] hover:bg-[#e6f4f7] transition-colors flex items-center justify-between group cursor-pointer"
+              >
+                <span>Teachers: book a class visit</span>
+                <span className="transform group-hover:translate-x-1 transition-transform">Book online &rarr;</span>
+              </Link>
             </div>
 
             {/* Room 2 */}
@@ -742,9 +760,13 @@ export default function PavilionDashboardView() {
                 </div>
               </div>
 
-              <div className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#5b3fa8]">
-                Students: join the next workshop
-              </div>
+              <Link
+                href="/startups-hackathon/enquiry?track=college"
+                className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#5b3fa8] hover:bg-[#efebfa] transition-colors flex items-center justify-between group cursor-pointer"
+              >
+                <span>Students: join the next workshop</span>
+                <span className="transform group-hover:translate-x-1 transition-transform">Register &rarr;</span>
+              </Link>
             </div>
 
             {/* Room 3 */}
@@ -783,9 +805,13 @@ export default function PavilionDashboardView() {
                 </div>
               </div>
 
-              <div className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#b5651d]">
-                Owners: get a free Health Check-up
-              </div>
+              <Link
+                href="/startups-hackathon/enquiry?track=business"
+                className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#b5651d] hover:bg-[#fbf0e6] transition-colors flex items-center justify-between group cursor-pointer"
+              >
+                <span>Owners: get a free Health Check-up</span>
+                <span className="transform group-hover:translate-x-1 transition-transform">Book clinic &rarr;</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -898,11 +924,10 @@ export default function PavilionDashboardView() {
               return (
                 <div
                   key={idx}
-                  className={`border rounded-xl overflow-hidden bg-white flex flex-col transition-all ${
-                    isCurrent
+                  className={`border rounded-xl overflow-hidden bg-white flex flex-col transition-all ${isCurrent
                       ? "ring-2 ring-[#e19f1f] border-[#e19f1f] shadow-xs"
                       : "border-[#cfdcee]"
-                  }`}
+                    }`}
                 >
                   <div
                     className="p-2.5 text-white text-center"
@@ -1040,7 +1065,7 @@ export default function PavilionDashboardView() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
             {/* School */}
-            <div className="border border-[#cfdcee] border-l-4 border-l-[#0e7490] rounded-xl bg-white p-5 sm:p-6 flex flex-col justify-between">
+            <div className="border border-[#cfdcee] border-l-4 border-l-[#0e7490] rounded-xl bg-white p-5 sm:p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
               <div>
                 <div className="text-xs font-bold uppercase tracking-[1.8px] text-[#0e7490]">
                   Schools &amp; teachers
@@ -1052,13 +1077,20 @@ export default function PavilionDashboardView() {
                   Bring grades 7–10 on a guided tour of Room 1 during the Discover days, or ask us to run a maker session at your own school in the new year.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#0e7490]">
-                Call the Incubation Center to fix a date
+              <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
+                <Link
+                  href="/startups-hackathon/enquiry?track=school"
+                  className="text-xs font-bold text-[#0e7490] hover:underline flex items-center gap-1.5"
+                >
+                  <span>Book class visit or school session</span>
+                  <span>&rarr;</span>
+                </Link>
+                <span className="text-[11px] text-[#8294ae]">Free of cost</span>
               </div>
             </div>
 
             {/* College */}
-            <div className="border border-[#cfdcee] border-l-4 border-l-[#5b3fa8] rounded-xl bg-white p-5 sm:p-6 flex flex-col justify-between">
+            <div className="border border-[#cfdcee] border-l-4 border-l-[#5b3fa8] rounded-xl bg-white p-5 sm:p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
               <div>
                 <div className="text-xs font-bold uppercase tracking-[1.8px] text-[#5b3fa8]">
                   College students
@@ -1070,13 +1102,20 @@ export default function PavilionDashboardView() {
                   No business idea needed, and no fee. Leave your name at Room 2 and we will tell you when the next workshop opens in your college.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#5b3fa8]">
-                Leave your name at the Room 2 desk
+              <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
+                <Link
+                  href="/startups-hackathon/enquiry?track=college"
+                  className="text-xs font-bold text-[#5b3fa8] hover:underline flex items-center gap-1.5"
+                >
+                  <span>Register for next workshop</span>
+                  <span>&rarr;</span>
+                </Link>
+                <span className="text-[11px] text-[#8294ae]">Free of cost</span>
               </div>
             </div>
 
             {/* Business */}
-            <div className="border border-[#cfdcee] border-l-4 border-l-[#b5651d] rounded-xl bg-white p-5 sm:p-6 flex flex-col justify-between">
+            <div className="border border-[#cfdcee] border-l-4 border-l-[#b5651d] rounded-xl bg-white p-5 sm:p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
               <div>
                 <div className="text-xs font-bold uppercase tracking-[1.8px] text-[#b5651d]">
                   Business owners
@@ -1088,8 +1127,15 @@ export default function PavilionDashboardView() {
                   For registered businesses of Koshi Province trading for a year or more. Start with a free Business Health Check-up in Room 3 — any day of the Expo.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#b5651d]">
-                Walk in to Room 3, no appointment needed
+              <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
+                <Link
+                  href="/startups-hackathon/enquiry?track=business"
+                  className="text-xs font-bold text-[#b5651d] hover:underline flex items-center gap-1.5"
+                >
+                  <span>Book Health Check-up / Apply</span>
+                  <span>&rarr;</span>
+                </Link>
+                <span className="text-[11px] text-[#8294ae]">Free clinic &amp; Walk-in</span>
               </div>
             </div>
 
