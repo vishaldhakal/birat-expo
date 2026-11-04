@@ -3,10 +3,7 @@ import {
   StartupRegistrationResponse,
 } from "@/types/startupRegistration";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_STARTUP_API_URL ||
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://evidence-proved-flickr-rent.trycloudflare.com";
+const API_BASE_URL = "https://cim.baliyoventures.com";
 
 export async function createStartupRegistration(
   payload: StartupRegistrationPayload
