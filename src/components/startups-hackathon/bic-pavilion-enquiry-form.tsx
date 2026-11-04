@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useTransition } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCreateStartupRegistration } from "@/hooks/useCreateStartupRegistration";
@@ -10,7 +10,7 @@ import {
   StartupRegistrationPayload,
   StartupRegistrationResponse,
 } from "@/types/startupRegistration";
-import { CheckCircle2, ArrowLeft, Send, Sparkles, Building2, GraduationCap, Briefcase } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Send, Building2, GraduationCap, Briefcase } from "lucide-react";
 
 // Expo days: 17–26 Dec 2026 = 2–11 Poush 2083
 const EXPO_DAYS: string[] = [
@@ -46,7 +46,7 @@ const KOSHI_DISTRICTS = [
 
 export default function BicPavilionEnquiryForm() {
   const searchParams = useSearchParams();
-  const [, startTransition] = useTransition();
+  const userInteractedRef = useRef(false);
 
   // Active track state
   const [selectedTrack, setSelectedTrack] = useState<TrackType>("Makerspace");
@@ -105,21 +105,41 @@ export default function BicPavilionEnquiryForm() {
 
   // Sync track with URL search params or hash
   useEffect(() => {
-    const rawTrack =
-      searchParams.get("track") ||
-      searchParams.get("room") ||
-      (typeof window !== "undefined" ? window.location.hash.replace("#", "") : "");
+    const syncFromUrl = () => {
+      if (typeof window === "undefined") return;
+      const url = new URL(window.location.href);
+      // Hash takes precedence over searchParams if conflicting (e.g. ?track=school#business)
+      const h = url.hash.replace("#", "").toLowerCase();
+      const q = (url.searchParams.get("track") || url.searchParams.get("room") || "").toLowerCase();
+      const rawTrack = h || q;
 
-    if (!rawTrack) return;
+      if (!rawTrack) return;
 
-    const t = rawTrack.toLowerCase();
-    if (t === "school" || t === "room1" || t === "1" || t === "makerspace") {
-      setSelectedTrack("Makerspace");
-    } else if (t === "college" || t === "room2" || t === "2" || t === "design studio" || t === "designstudio") {
-      setSelectedTrack("Design Studio");
-    } else if (t === "business" || t === "room3" || t === "3" || t === "growth room" || t === "growthroom" || t === "sgb") {
-      setSelectedTrack("Growth Room");
+      const t = rawTrack.toLowerCase();
+      if (t === "school" || t === "room1" || t === "1" || t === "makerspace") {
+        setSelectedTrack("Makerspace");
+      } else if (t === "college" || t === "room2" || t === "2" || t === "design studio" || t === "designstudio") {
+        setSelectedTrack("Design Studio");
+      } else if (t === "business" || t === "room3" || t === "3" || t === "growth room" || t === "growthroom" || t === "sgb") {
+        setSelectedTrack("Growth Room");
+      }
+    };
+
+    if (!userInteractedRef.current) {
+      syncFromUrl();
     }
+
+    const onPopOrHash = () => {
+      userInteractedRef.current = false;
+      syncFromUrl();
+    };
+
+    window.addEventListener("popstate", onPopOrHash);
+    window.addEventListener("hashchange", onPopOrHash);
+    return () => {
+      window.removeEventListener("popstate", onPopOrHash);
+      window.removeEventListener("hashchange", onPopOrHash);
+    };
   }, [searchParams]);
 
   // Mutation hook
@@ -170,18 +190,26 @@ export default function BicPavilionEnquiryForm() {
   };
 
   const handleTrackChange = (track: TrackType) => {
+    userInteractedRef.current = true;
     setSelectedTrack(track);
     setValidationError(null);
-    startTransition(() => {
-      if (typeof window !== "undefined") {
-        const hash = track === "Makerspace" ? "school" : track === "Design Studio" ? "college" : "business";
-        try {
-          window.history.replaceState(null, "", `#${hash}`);
-        } catch {
-          // ignore
-        }
+
+    if (typeof window !== "undefined") {
+      const trackKey =
+        track === "Makerspace"
+          ? "school"
+          : track === "Design Studio"
+          ? "college"
+          : "business";
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set("track", trackKey);
+        url.hash = trackKey;
+        window.history.replaceState(null, "", url.toString());
+      } catch {
+        // ignore
       }
-    });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -418,7 +446,6 @@ export default function BicPavilionEnquiryForm() {
         {/* Header Banner */}
         <div className="p-6 sm:p-8 bg-gradient-to-r from-[#16264f] via-[#1f3c7a] to-[#274ea3] text-white">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/90 text-xs font-semibold backdrop-blur-xs mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#e19f1f]" />
             Biratnagar Incubation Center (CIM)
           </div>
           <h1 className="text-2xl sm:text-4xl font-bold font-serif leading-tight">
