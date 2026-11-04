@@ -319,7 +319,7 @@ export default function BicPavilionEnquiryForm() {
 
     return (
       <div className="max-w-3xl mx-auto px-4 py-12">
-        <div className="bg-white border border-[#cfdcee] rounded-3xl p-6 sm:p-10 shadow-xl text-center">
+        <div className="bg-white border border-[#cfdcee] rounded-3xl p-6 sm:p-10 text-center">
           <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle2 className="w-10 h-10" />
           </div>
@@ -377,7 +377,7 @@ export default function BicPavilionEnquiryForm() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={handleResetForm}
-              className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#274ea3] hover:bg-[#1b3a82] text-white font-semibold text-sm transition shadow-sm"
+              className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#274ea3] hover:bg-[#1b3a82] text-white font-semibold text-sm transition cursor-pointer"
             >
               Submit another enquiry
             </button>
@@ -442,7 +442,7 @@ export default function BicPavilionEnquiryForm() {
       </div>
 
       {/* Main Card */}
-      <div className="bg-white border border-[#cfdcee] rounded-3xl overflow-hidden shadow-xl">
+      <div className="bg-white border border-[#cfdcee] rounded-3xl overflow-hidden">
         {/* Header Banner */}
         <div className="p-6 sm:p-8 bg-gradient-to-r from-[#16264f] via-[#1f3c7a] to-[#274ea3] text-white">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/90 text-xs font-semibold backdrop-blur-xs mb-3">
@@ -475,9 +475,9 @@ export default function BicPavilionEnquiryForm() {
               <button
                 type="button"
                 onClick={() => handleTrackChange("Makerspace")}
-                className={`p-4 rounded-2xl border-2 text-left transition relative flex flex-col justify-between ${
+                className={`cursor-pointer p-4 rounded-2xl border-2 text-left transition relative flex flex-col justify-between ${
                   selectedTrack === "Makerspace"
-                    ? "border-[#0e7490] bg-[#e6f4f7] shadow-sm"
+                    ? "border-[#0e7490] bg-[#e6f4f7]"
                     : "border-slate-200 hover:border-slate-300 bg-white"
                 }`}
               >
@@ -504,9 +504,9 @@ export default function BicPavilionEnquiryForm() {
               <button
                 type="button"
                 onClick={() => handleTrackChange("Design Studio")}
-                className={`p-4 rounded-2xl border-2 text-left transition relative flex flex-col justify-between ${
+                className={`cursor-pointer p-4 rounded-2xl border-2 text-left transition relative flex flex-col justify-between ${
                   selectedTrack === "Design Studio"
-                    ? "border-[#5b3fa8] bg-[#efebfa] shadow-sm"
+                    ? "border-[#5b3fa8] bg-[#efebfa]"
                     : "border-slate-200 hover:border-slate-300 bg-white"
                 }`}
               >
@@ -533,9 +533,9 @@ export default function BicPavilionEnquiryForm() {
               <button
                 type="button"
                 onClick={() => handleTrackChange("Growth Room")}
-                className={`p-4 rounded-2xl border-2 text-left transition relative flex flex-col justify-between ${
+                className={`cursor-pointer p-4 rounded-2xl border-2 text-left transition relative flex flex-col justify-between ${
                   selectedTrack === "Growth Room"
-                    ? "border-[#b5651d] bg-[#fbf0e6] shadow-sm"
+                    ? "border-[#b5651d] bg-[#fbf0e6]"
                     : "border-slate-200 hover:border-slate-300 bg-white"
                 }`}
               >
@@ -600,7 +600,7 @@ export default function BicPavilionEnquiryForm() {
                         value="Class visit to Room 1 at Birat Expo"
                         checked={schoolRequest.startsWith("Class visit")}
                         onChange={(e) => setSchoolRequest(e.target.value)}
-                        className="mt-1"
+                        className="mt-1 cursor-pointer"
                       />
                       <div>
                         <div className="text-sm font-bold text-slate-900">
@@ -625,7 +625,7 @@ export default function BicPavilionEnquiryForm() {
                         value="Maker session at our school (new year)"
                         checked={!schoolRequest.startsWith("Class visit")}
                         onChange={(e) => setSchoolRequest(e.target.value)}
-                        className="mt-1"
+                        className="mt-1 cursor-pointer"
                       />
                       <div>
                         <div className="text-sm font-bold text-slate-900">
@@ -661,7 +661,7 @@ export default function BicPavilionEnquiryForm() {
                     <select
                       value={schoolType}
                       onChange={(e) => setSchoolType(e.target.value)}
-                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                     >
                       <option value="">Choose…</option>
                       <option value="Community (government)">Community (government)</option>
@@ -707,7 +707,7 @@ export default function BicPavilionEnquiryForm() {
                       required
                       value={role}
                       onChange={(e) => setRole(e.target.value)}
-                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                     >
                       <option value="">Choose…</option>
                       <option value="Principal">Principal</option>
@@ -756,7 +756,7 @@ export default function BicPavilionEnquiryForm() {
                           key={g}
                           type="button"
                           onClick={() => toggleGrade(g)}
-                          className={`px-4 py-2 rounded-xl text-xs font-bold border transition ${
+                          className={`cursor-pointer px-4 py-2 rounded-xl text-xs font-bold border transition ${
                             schoolGrades.includes(g)
                               ? "bg-[#0e7490] text-white border-[#0e7490]"
                               : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
@@ -780,7 +780,7 @@ export default function BicPavilionEnquiryForm() {
                         required
                         value={schoolStudentsCount}
                         onChange={(e) => setSchoolStudentsCount(Number(e.target.value))}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                       />
                       {schoolStudentsCount > 25 && (
                         <p className="mt-1.5 text-xs text-[#0e7490] font-semibold bg-[#e6f4f7] p-2 rounded-lg">
@@ -802,7 +802,7 @@ export default function BicPavilionEnquiryForm() {
                           setSchoolTeachersCount(e.target.value === "" ? "" : Number(e.target.value))
                         }
                         placeholder="e.g. 2"
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                       />
                     </div>
                   </div>
@@ -823,7 +823,7 @@ export default function BicPavilionEnquiryForm() {
                           required
                           value={schoolDate1}
                           onChange={(e) => setSchoolDate1(e.target.value)}
-                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                         >
                           {EXPO_DAYS.map((d) => (
                             <option key={d} value={d}>
@@ -839,7 +839,7 @@ export default function BicPavilionEnquiryForm() {
                         <select
                           value={schoolDate2}
                           onChange={(e) => setSchoolDate2(e.target.value)}
-                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                         >
                           <option value="">Optional fallback date</option>
                           {EXPO_DAYS.map((d) => (
@@ -863,6 +863,7 @@ export default function BicPavilionEnquiryForm() {
                               value={slot}
                               checked={schoolSlot === slot}
                               onChange={(e) => setSchoolSlot(e.target.value)}
+                              className="cursor-pointer"
                             />
                             <span>{slot}</span>
                           </label>
@@ -884,7 +885,7 @@ export default function BicPavilionEnquiryForm() {
                           required
                           value={schoolMonth}
                           onChange={(e) => setSchoolMonth(e.target.value)}
-                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                         >
                           <option value="Magh 2083 (mid-Jan – mid-Feb 2027)">
                             Magh 2083 (mid-Jan – mid-Feb 2027)
@@ -905,7 +906,7 @@ export default function BicPavilionEnquiryForm() {
                         <select
                           value={schoolSpace}
                           onChange={(e) => setSchoolSpace(e.target.value)}
-                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white"
+                          className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0e7490] bg-white cursor-pointer"
                         >
                           <option value="Classroom">Classroom</option>
                           <option value="Hall / multipurpose room">Hall / multipurpose room</option>
@@ -978,7 +979,7 @@ export default function BicPavilionEnquiryForm() {
                     <select
                       value={gender}
                       onChange={(e) => setGender(e.target.value)}
-                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white"
+                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white cursor-pointer"
                     >
                       <option value="">Prefer not to say</option>
                       <option value="Female">Female</option>
@@ -993,7 +994,7 @@ export default function BicPavilionEnquiryForm() {
                     <select
                       value={ageGroup}
                       onChange={(e) => setAgeGroup(e.target.value)}
-                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white"
+                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white cursor-pointer"
                     >
                       <option value="Under 18">Under 18</option>
                       <option value="18–21">18–21</option>
@@ -1032,7 +1033,7 @@ export default function BicPavilionEnquiryForm() {
                         value={organizationName}
                         onChange={(e) => setOrganizationName(e.target.value)}
                         placeholder="e.g. Mahendra Morang Adarsha Multiple Campus"
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white cursor-pointer"
                       />
                     </div>
                     <div className="sm:col-span-2">
@@ -1045,7 +1046,7 @@ export default function BicPavilionEnquiryForm() {
                         value={collegeProgramme}
                         onChange={(e) => setCollegeProgramme(e.target.value)}
                         placeholder="e.g. BBS, BBA, BSc CSIT, BE"
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white cursor-pointer"
                       />
                     </div>
                     <div>
@@ -1055,7 +1056,7 @@ export default function BicPavilionEnquiryForm() {
                       <select
                         value={collegeYear}
                         onChange={(e) => setCollegeYear(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#5b3fa8] bg-white cursor-pointer"
                       >
                         <option value="1st year">1st year</option>
                         <option value="2nd year">2nd year</option>
@@ -1094,6 +1095,7 @@ export default function BicPavilionEnquiryForm() {
                             value={stage}
                             checked={ideaStage === stage}
                             onChange={(e) => setIdeaStage(e.target.value)}
+                            className="cursor-pointer"
                           />
                           <span>{stage}</span>
                         </label>
@@ -1120,7 +1122,7 @@ export default function BicPavilionEnquiryForm() {
                           key={topic}
                           type="button"
                           onClick={() => toggleTopic(topic)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition ${
+                          className={`cursor-pointer px-3 py-1.5 rounded-xl text-xs font-medium border transition ${
                             collegeTopics.includes(topic)
                               ? "bg-[#5b3fa8] text-white border-[#5b3fa8]"
                               : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
@@ -1166,7 +1168,7 @@ export default function BicPavilionEnquiryForm() {
                       type="checkbox"
                       checked={willingToHostWorkshop}
                       onChange={(e) => setWillingToHostWorkshop(e.target.checked)}
-                      className="mt-0.5 rounded text-[#5b3fa8]"
+                      className="mt-0.5 rounded text-[#5b3fa8] cursor-pointer"
                     />
                     <span>
                       I&apos;d like to help bring the workshop to my college (e.g. through a student club or committee).
@@ -1212,7 +1214,7 @@ export default function BicPavilionEnquiryForm() {
                       required
                       value={role}
                       onChange={(e) => setRole(e.target.value)}
-                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                      className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                     >
                       <option value="Owner / founder">Owner / founder</option>
                       <option value="Co-founder / partner">Co-founder / partner</option>
@@ -1266,7 +1268,7 @@ export default function BicPavilionEnquiryForm() {
                         value={organizationName}
                         onChange={(e) => setOrganizationName(e.target.value)}
                         placeholder="e.g. Koshi Packaging Industries Pvt. Ltd."
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       />
                     </div>
                     <div>
@@ -1277,7 +1279,7 @@ export default function BicPavilionEnquiryForm() {
                         required
                         value={district}
                         onChange={(e) => setDistrict(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       >
                         {KOSHI_DISTRICTS.map((d) => (
                           <option key={d} value={d}>
@@ -1295,7 +1297,7 @@ export default function BicPavilionEnquiryForm() {
                         required
                         value={businessReg}
                         onChange={(e) => setBusinessReg(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       >
                         <option value="Company (OCR)">Company (OCR)</option>
                         <option value="Cottage & Small Industries (DoCSI)">
@@ -1316,7 +1318,7 @@ export default function BicPavilionEnquiryForm() {
                         required
                         value={tradingDuration}
                         onChange={(e) => setTradingDuration(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       >
                         <option value="Less than 1 year">Less than 1 year</option>
                         <option value="1–3 years">1–3 years</option>
@@ -1334,7 +1336,7 @@ export default function BicPavilionEnquiryForm() {
                         required
                         value={businessSector}
                         onChange={(e) => setBusinessSector(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       >
                         <option value="Agriculture & agro-processing">
                           Agriculture &amp; agro-processing
@@ -1371,7 +1373,7 @@ export default function BicPavilionEnquiryForm() {
                       <select
                         value={employeesCount}
                         onChange={(e) => setEmployeesCount(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       >
                         <option value="1–4">1–4</option>
                         <option value="5–9">5–9</option>
@@ -1387,7 +1389,7 @@ export default function BicPavilionEnquiryForm() {
                       <select
                         value={annualTurnover}
                         onChange={(e) => setAnnualTurnover(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       >
                         <option value="">Prefer not to say</option>
                         <option value="Below NPR 10 lakh">Below NPR 10 lakh</option>
@@ -1410,7 +1412,7 @@ export default function BicPavilionEnquiryForm() {
                             type="checkbox"
                             checked={ownershipDiversity.includes(tag)}
                             onChange={() => toggleOwnership(tag)}
-                            className="rounded text-[#b5651d]"
+                            className="rounded text-[#b5651d] cursor-pointer"
                           />
                           <span>{tag}</span>
                         </label>
@@ -1445,6 +1447,7 @@ export default function BicPavilionEnquiryForm() {
                             value={interest}
                             checked={areaOfInterest === interest}
                             onChange={(e) => setAreaOfInterest(e.target.value)}
+                            className="cursor-pointer"
                           />
                           <span>{interest}</span>
                         </label>
@@ -1460,7 +1463,7 @@ export default function BicPavilionEnquiryForm() {
                       <select
                         value={expoVisitDay}
                         onChange={(e) => setExpoVisitDay(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white"
+                        className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#b5651d] bg-white cursor-pointer"
                       >
                         <option value="">Not sure yet / Walk-in anytime</option>
                         {EXPO_DAYS.map((d) => (
@@ -1496,7 +1499,7 @@ export default function BicPavilionEnquiryForm() {
                           key={need}
                           type="button"
                           onClick={() => toggleSupportNeed(need)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition ${
+                          className={`cursor-pointer px-3 py-1.5 rounded-xl text-xs font-medium border transition ${
                             supportNeeds.includes(need)
                               ? "bg-[#b5651d] text-white border-[#b5651d]"
                               : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
@@ -1548,7 +1551,7 @@ export default function BicPavilionEnquiryForm() {
               <select
                 value={heardAboutUs}
                 onChange={(e) => setHeardAboutUs(e.target.value)}
-                className="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white"
+                className="w-full sm:w-1/2 px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white cursor-pointer"
               >
                 <option value="At Birat Expo">At Birat Expo</option>
                 <option value="CIM website">CIM website</option>
@@ -1568,7 +1571,7 @@ export default function BicPavilionEnquiryForm() {
                   required
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-0.5 rounded text-[#274ea3]"
+                  className="mt-0.5 rounded text-[#274ea3] cursor-pointer"
                 />
                 <span>
                   I agree that Biratnagar Incubation Center and CIM may contact me regarding this
@@ -1582,7 +1585,7 @@ export default function BicPavilionEnquiryForm() {
                   type="checkbox"
                   checked={keepUpdated}
                   onChange={(e) => setKeepUpdated(e.target.checked)}
-                  className="mt-0.5 rounded text-[#274ea3]"
+                  className="mt-0.5 rounded text-[#274ea3] cursor-pointer"
                 />
                 <span>Keep me updated about other CIM entrepreneurship initiatives.</span>
               </label>
@@ -1599,7 +1602,7 @@ export default function BicPavilionEnquiryForm() {
             <button
               type="submit"
               disabled={isPending}
-              className={`w-full py-4 rounded-xl text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition shadow-md disabled:opacity-50 ${accent.button}`}
+              className={`w-full py-4 rounded-xl text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ${accent.button}`}
             >
               {isPending ? (
                 <>

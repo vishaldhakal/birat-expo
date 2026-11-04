@@ -384,7 +384,7 @@ export default function PavilionDashboardView() {
 
             <Link
               href="/startups-hackathon/enquiry"
-              className="inline-flex items-center gap-2 bg-[#e19f1f] hover:bg-[#c98c17] text-white rounded-full px-4 py-2 font-bold shadow-xs transition"
+              className="inline-flex items-center gap-2 bg-[#e19f1f] hover:bg-[#c98c17] text-white rounded-full px-4 py-2 font-bold shadow-xs transition cursor-pointer"
             >
               <span>Enquiry &amp; Booking Form</span>
               <span>&rarr;</span>
@@ -428,7 +428,7 @@ export default function PavilionDashboardView() {
             </a>
             <Link
               href="/startups-hackathon/enquiry"
-              className="px-3 py-1 rounded-md bg-[#e19f1f] text-white hover:bg-[#c98c17] transition-colors font-bold ml-auto"
+              className="px-3 py-1 rounded-md bg-[#e19f1f] text-white hover:bg-[#c98c17] transition-colors font-bold ml-auto cursor-pointer"
             >
               Enquiry Form &rarr;
             </Link>
@@ -1080,7 +1080,7 @@ export default function PavilionDashboardView() {
               <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
                 <Link
                   href="/startups-hackathon/enquiry?track=school"
-                  className="text-xs font-bold text-[#0e7490] hover:underline flex items-center gap-1.5"
+                  className="text-xs font-bold text-[#0e7490] hover:underline flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Book class visit or school session</span>
                   <span>&rarr;</span>
@@ -1105,7 +1105,7 @@ export default function PavilionDashboardView() {
               <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
                 <Link
                   href="/startups-hackathon/enquiry?track=college"
-                  className="text-xs font-bold text-[#5b3fa8] hover:underline flex items-center gap-1.5"
+                  className="text-xs font-bold text-[#5b3fa8] hover:underline flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Register for next workshop</span>
                   <span>&rarr;</span>
@@ -1130,7 +1130,7 @@ export default function PavilionDashboardView() {
               <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
                 <Link
                   href="/startups-hackathon/enquiry?track=business"
-                  className="text-xs font-bold text-[#b5651d] hover:underline flex items-center gap-1.5"
+                  className="text-xs font-bold text-[#b5651d] hover:underline flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Book Health Check-up / Apply</span>
                   <span>&rarr;</span>
