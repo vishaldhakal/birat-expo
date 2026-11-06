@@ -206,20 +206,6 @@ export default function BdsPavilionView() {
     }
   };
 
-  // Generate fallback ref in case of offline/queue
-  const generateLocalRef = (t: "business" | "provider") => {
-    const d = new Date();
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let s = "";
-    for (let i = 0; i < 4; i++) {
-      s += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    const prefix = t === "provider" ? "BDS-P-" : "BDS-B-";
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    return `${prefix}${mm}${dd}-${s}`;
-  };
-
   // Validate Business Form
   const validateBusinessForm = () => {
     const newErrors: { [key: string]: string } = {};
@@ -335,25 +321,9 @@ export default function BdsPavilionView() {
         doneRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     } catch (err: any) {
-      // Offline fallback: save to localStorage queue
-      const fallbackRef = generateLocalRef("business");
-      try {
-        const queue = JSON.parse(localStorage.getItem("bdsQueue") || "[]");
-        queue.push({ ...payload, fallbackRef, submittedAt: new Date().toISOString() });
-        localStorage.setItem("bdsQueue", JSON.stringify(queue));
-      } catch (storageErr) {
-        console.warn("Storage error", storageErr);
-      }
-
-      if (err.message && err.message.includes("|")) {
-        setServerError(`Submission notice: ${err.message}`);
-      } else {
-        // If server was temporarily unreachable, give user confidence with fallback ref
-        setSubmittedRef(fallbackRef);
-        setSubmittedDetail(
-          "Your registration has been recorded. It is queued and our team will follow up directly."
-        );
-      }
+      setServerError(
+        err.message || "Failed to submit registration. Please check your details and try again."
+      );
     }
   };
 
@@ -393,23 +363,9 @@ export default function BdsPavilionView() {
         doneRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     } catch (err: any) {
-      const fallbackRef = generateLocalRef("provider");
-      try {
-        const queue = JSON.parse(localStorage.getItem("bdsQueue") || "[]");
-        queue.push({ ...payload, fallbackRef, submittedAt: new Date().toISOString() });
-        localStorage.setItem("bdsQueue", JSON.stringify(queue));
-      } catch (storageErr) {
-        console.warn("Storage error", storageErr);
-      }
-
-      if (err.message && err.message.includes("|")) {
-        setServerError(`Submission notice: ${err.message}`);
-      } else {
-        setSubmittedRef(fallbackRef);
-        setSubmittedDetail(
-          "Your provider details have been recorded. Our team will contact you about joining the BDS directory."
-        );
-      }
+      setServerError(
+        err.message || "Failed to submit provider registration. Please check your details and try again."
+      );
     }
   };
 

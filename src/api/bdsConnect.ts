@@ -1,9 +1,6 @@
 import axios from "axios";
 
-// Cloudflare tunnel URL configured as base URL, can also be overridden by NEXT_PUBLIC_BDS_API_URL
-export const BDS_API_BASE_URL =
-  process.env.NEXT_PUBLIC_BDS_API_URL ||
-  "https://brunette-representative-frame-light.trycloudflare.com";
+export const BDS_API_BASE_URL = "https://cim.baliyoventures.com";
 
 export interface BDSConnectPayload {
   track: "business" | "provider";
@@ -41,7 +38,7 @@ export interface BDSConnectResponse {
 export const submitBDSConnect = async (
   payload: BDSConnectPayload
 ): Promise<BDSConnectResponse> => {
-  const url = `${BDS_API_BASE_URL.replace(/\/+$/, "")}/api/bds/connect/register/`;
+  const url = `${BDS_API_BASE_URL}/api/bds/connect/register/`;
 
   try {
     const { data } = await axios.post<BDSConnectResponse>(url, payload, {
@@ -71,4 +68,3 @@ export const submitBDSConnect = async (
     throw error;
   }
 };
-
