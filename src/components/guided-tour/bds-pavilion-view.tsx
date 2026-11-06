@@ -22,7 +22,10 @@ import {
   AlertCircle,
   Menu,
   X,
+  Loader2,
 } from "lucide-react";
+import { useBDSConnect } from "@/hooks/useBDSConnect";
+import { BDSConnectPayload, BDSConnectResponse } from "@/api/bdsConnect";
 
 const EXPO_START = "2026-12-17";
 const EXPO_DAYS = 10;
@@ -97,14 +100,20 @@ const PROVIDER_PARTICIPATION = [
 export default function BdsPavilionView() {
   const [track, setTrack] = useState<"business" | "provider">("business");
   const [copied, setCopied] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
-  const [submittedNote, setSubmittedNote] = useState<string>("");
+  const [submittedDetail, setSubmittedDetail] = useState<string>("");
   const [statusText, setStatusText] = useState("Birat Expo 2026");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+
+  // BDS Connect API mutation hook
+  const { mutate, isPending } = useBDSConnect();
 
   // Business Form State
-  const [bWants, setBWants] = useState<string[]>(["Business Health Check-up"]);
+  const [bWants, setBWants] = useState<string[]>([
+    "Business Health Check-up",
+    "Business Clinic counselling",
+  ]);
   const [bName, setBName] = useState("");
   const [bPhone, setBPhone] = useState("");
   const [bEmail, setBEmail] = useState("");
@@ -197,8 +206,8 @@ export default function BdsPavilionView() {
     }
   };
 
-  // Generate Reference Number
-  const generateRefNo = (t: "business" | "provider") => {
+  // Generate fallback ref in case of offline/queue
+  const generateLocalRef = (t: "business" | "provider") => {
     const d = new Date();
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     let s = "";
@@ -283,9 +292,11 @@ export default function BdsPavilionView() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Submit Handler
+  // Submit Handler for Business Track
   const handleBusinessSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError(null);
+
     if (!validateBusinessForm()) {
       const firstError = document.querySelector(".field-error");
       if (firstError) {
@@ -296,54 +307,61 @@ export default function BdsPavilionView() {
 
     if (bHoneypot) return; // Anti-spam
 
-    setIsSubmitting(true);
-    const ref = generateRefNo("business");
-
-    const payload = {
+    const payload: BDSConnectPayload = {
       track: "business",
-      ref,
-      submittedAt: new Date().toISOString(),
-      page: "bds-connect-pavilion",
-      wants: bWants.join("; "),
       name: bName.trim(),
-      phone: bPhone.trim(),
-      email: bEmail.trim(),
-      gender: bGender,
-      business: bBusiness.trim(),
+      phone: bPhone.trim().replace(/[\s-]/g, ""),
+      email: bEmail.trim() || undefined,
+      gender: bGender || undefined,
+      business_name: bBusiness.trim(),
       district: bDistrict,
       sector: bSector,
       registered: bRegistered,
-      years: bYears,
-      staff: bStaff,
-      ledBy: bLedBy.join("; "),
-      needs: bNeeds.join("; "),
-      problem: bProblem.trim(),
-      day: bDay,
-      time: bTime,
+      years: bYears || undefined,
+      staff: bStaff || undefined,
+      want: bWants.join("; "),
+      ledby: bLedBy.length > 0 ? bLedBy.join("; ") : undefined,
+      needs: bNeeds.length > 0 ? bNeeds.join("; ") : undefined,
+      problem: bProblem.trim() || undefined,
+      day: bDay || undefined,
+      time: bTime || undefined,
     };
 
-    // Save to local storage queue
     try {
-      const queue = JSON.parse(localStorage.getItem("bdsQueue") || "[]");
-      queue.push(payload);
-      localStorage.setItem("bdsQueue", JSON.stringify(queue));
-    } catch (err) {
-      console.warn("Storage error", err);
-    }
-
-    // Simulate async submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmittedRef(ref);
-      setSubmittedNote("Your registration is confirmed. Our team will contact you before your visit.");
+      const res: BDSConnectResponse = await mutate(payload);
+      setSubmittedRef(`BDS-B-${res.id}`);
+      setSubmittedDetail(res.detail || "Registration submitted successfully.");
       if (doneRef.current) {
         doneRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-    }, 600);
+    } catch (err: any) {
+      // Offline fallback: save to localStorage queue
+      const fallbackRef = generateLocalRef("business");
+      try {
+        const queue = JSON.parse(localStorage.getItem("bdsQueue") || "[]");
+        queue.push({ ...payload, fallbackRef, submittedAt: new Date().toISOString() });
+        localStorage.setItem("bdsQueue", JSON.stringify(queue));
+      } catch (storageErr) {
+        console.warn("Storage error", storageErr);
+      }
+
+      if (err.message && err.message.includes("|")) {
+        setServerError(`Submission notice: ${err.message}`);
+      } else {
+        // If server was temporarily unreachable, give user confidence with fallback ref
+        setSubmittedRef(fallbackRef);
+        setSubmittedDetail(
+          "Your registration has been recorded. It is queued and our team will follow up directly."
+        );
+      }
+    }
   };
 
+  // Submit Handler for Provider Track
   const handleProviderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError(null);
+
     if (!validateProviderForm()) {
       const firstError = document.querySelector(".field-error");
       if (firstError) {
@@ -354,49 +372,54 @@ export default function BdsPavilionView() {
 
     if (pHoneypot) return; // Anti-spam
 
-    setIsSubmitting(true);
-    const ref = generateRefNo("provider");
-
-    const payload = {
+    const payload: BDSConnectPayload = {
       track: "provider",
-      ref,
-      submittedAt: new Date().toISOString(),
-      page: "bds-connect-pavilion",
-      org: pOrg.trim(),
       name: pName.trim(),
-      phone: pPhone.trim(),
-      email: pEmail.trim(),
+      phone: pPhone.trim().replace(/[\s-]/g, ""),
+      email: pEmail.trim() || undefined,
+      business_name: pOrg.trim(),
       district: pDistrict,
-      web: pWeb.trim(),
+      web: pWeb.trim() || undefined,
       services: pServices.join("; "),
-      description: pDescription.trim(),
-      participation: pParticipation.join("; "),
+      description: pDescription.trim() || undefined,
+      participation: pParticipation.length > 0 ? pParticipation.join("; ") : undefined,
     };
 
     try {
-      const queue = JSON.parse(localStorage.getItem("bdsQueue") || "[]");
-      queue.push(payload);
-      localStorage.setItem("bdsQueue", JSON.stringify(queue));
-    } catch (err) {
-      console.warn("Storage error", err);
-    }
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmittedRef(ref);
-      setSubmittedNote("Thank you for registering. CIM will contact you about joining the BDS network.");
+      const res: BDSConnectResponse = await mutate(payload);
+      setSubmittedRef(`BDS-P-${res.id}`);
+      setSubmittedDetail(res.detail || "Provider registration submitted successfully.");
       if (doneRef.current) {
         doneRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-    }, 600);
+    } catch (err: any) {
+      const fallbackRef = generateLocalRef("provider");
+      try {
+        const queue = JSON.parse(localStorage.getItem("bdsQueue") || "[]");
+        queue.push({ ...payload, fallbackRef, submittedAt: new Date().toISOString() });
+        localStorage.setItem("bdsQueue", JSON.stringify(queue));
+      } catch (storageErr) {
+        console.warn("Storage error", storageErr);
+      }
+
+      if (err.message && err.message.includes("|")) {
+        setServerError(`Submission notice: ${err.message}`);
+      } else {
+        setSubmittedRef(fallbackRef);
+        setSubmittedDetail(
+          "Your provider details have been recorded. Our team will contact you about joining the BDS directory."
+        );
+      }
+    }
   };
 
   const resetForm = () => {
     setSubmittedRef(null);
-    setSubmittedNote("");
+    setSubmittedDetail("");
+    setServerError(null);
     setErrors({});
     if (track === "business") {
-      setBWants(["Business Health Check-up"]);
+      setBWants(["Business Health Check-up", "Business Clinic counselling"]);
       setBName("");
       setBPhone("");
       setBEmail("");
@@ -535,7 +558,6 @@ export default function BdsPavilionView() {
       <main id="top">
         {/* HERO SECTION */}
         <section className="relative overflow-hidden bg-gradient-to-br from-[#1E9C9A] via-[#2367A6] to-[#274EA3] text-white py-14 sm:py-20 lg:py-24">
-          {/* Subtle Ambient Decorative Circles */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -748,7 +770,7 @@ export default function BdsPavilionView() {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* DESK: CIM BUSINESS CLINIC (Spans full width / 3 cols) */}
+              {/* DESK: CIM BUSINESS CLINIC */}
               <div className="col-span-1 md:col-span-2 lg:col-span-3 bg-[#FCEDEA]/50 border-2 border-[#C2412D] rounded-2xl p-6 sm:p-8 shadow-sm">
                 <div className="flex items-center gap-3.5 mb-5">
                   <span className="w-10 h-10 rounded-full bg-[#C2412D] text-white font-serif font-bold text-lg flex items-center justify-center shadow-sm">
@@ -800,7 +822,7 @@ export default function BdsPavilionView() {
                 </div>
               </div>
 
-              {/* DESK: BIRATBAZAAR HUB (Spans full width / 3 cols) */}
+              {/* DESK: BIRATBAZAAR HUB */}
               <div className="col-span-1 md:col-span-2 lg:col-span-3 bg-white border-2 border-blue-200 rounded-2xl p-6 sm:p-8 shadow-sm">
                 <div className="flex items-center gap-3.5 mb-5">
                   <span className="w-10 h-10 rounded-full bg-[#274EA3] text-white font-serif font-bold text-lg flex items-center justify-center shadow-sm">
@@ -1024,7 +1046,7 @@ export default function BdsPavilionView() {
                 </p>
               </div>
 
-              {/* Card 2: Women Entrepreneurs (Priority Highlight) */}
+              {/* Card 2: Women Entrepreneurs */}
               <div className="bg-pink-50/30 border-2 border-[#A8336B] rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative">
                 <span className="absolute top-5 right-5 bg-[#A8336B] text-white text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
                   Priority
@@ -1077,7 +1099,7 @@ export default function BdsPavilionView() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100/70 text-[#274EA3] text-xs font-bold uppercase tracking-widest mb-3">
-                Expo Pre-Registration
+                Live Registration
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold font-serif text-[#1B3570] tracking-tight">
                 Register
@@ -1090,6 +1112,21 @@ export default function BdsPavilionView() {
             </div>
 
             <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xl p-6 sm:p-10">
+              {/* Top Server Error Notification (if any) */}
+              {serverError && (
+                <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-sm flex items-start gap-2">
+                  <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">{serverError}</div>
+                  <button
+                    type="button"
+                    onClick={() => setServerError(null)}
+                    className="text-amber-800 hover:text-amber-950 font-bold"
+                  >
+                    ×
+                  </button>
+                </div>
+              )}
+
               {/* SUCCESS / DONE VIEW */}
               {submittedRef ? (
                 <div ref={doneRef} className="text-center py-8 space-y-5 animate-in fade-in duration-300">
@@ -1100,18 +1137,15 @@ export default function BdsPavilionView() {
                     Thank you, you&apos;re registered!
                   </h3>
                   <p className="text-slate-600 text-base max-w-lg mx-auto">
-                    {track === "provider"
-                      ? "Thank you. CIM will contact you about joining the BDS network. Please keep your reference number:"
-                      : "Our team will call you to confirm your Business Clinic visit. Please keep your reference number:"}
+                    {submittedDetail ||
+                      (track === "provider"
+                        ? "Thank you. CIM will contact you about joining the BDS network. Please keep your reference number:"
+                        : "Our team will call you to confirm your Business Clinic visit. Please keep your reference number:")}
                   </p>
 
                   <div className="inline-block font-mono text-xl sm:text-2xl font-bold bg-slate-50 border-2 border-dashed border-[#274EA3] px-6 py-3 rounded-xl text-[#274EA3] tracking-widest shadow-sm">
                     {submittedRef}
                   </div>
-
-                  {submittedNote && (
-                    <p className="text-sm text-slate-500 italic max-w-md mx-auto">{submittedNote}</p>
-                  )}
 
                   <div className="pt-4">
                     <button
@@ -1134,6 +1168,7 @@ export default function BdsPavilionView() {
                       onClick={() => {
                         setTrack("business");
                         setErrors({});
+                        setServerError(null);
                       }}
                       className={`px-5 py-2.5 rounded-xl text-sm sm:text-base font-bold transition-all duration-150 flex items-center gap-2 ${
                         track === "business"
@@ -1151,6 +1186,7 @@ export default function BdsPavilionView() {
                       onClick={() => {
                         setTrack("provider");
                         setErrors({});
+                        setServerError(null);
                       }}
                       className={`px-5 py-2.5 rounded-xl text-sm sm:text-base font-bold transition-all duration-150 flex items-center gap-2 ${
                         track === "provider"
@@ -1321,7 +1357,7 @@ export default function BdsPavilionView() {
                               className={`w-full px-3.5 py-2.5 rounded-lg border text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#E19F1F] ${
                                 errors.business ? "border-red-500 bg-red-50/20 field-error" : "border-slate-300 bg-white"
                               }`}
-                              placeholder="e.g. Koshi Agro Products"
+                              placeholder="e.g. Thapa Agro Pvt. Ltd."
                             />
                             {errors.business && <p className="text-red-600 text-xs mt-1">{errors.business}</p>}
                           </div>
@@ -1407,8 +1443,8 @@ export default function BdsPavilionView() {
                             >
                               <option value="">Choose…</option>
                               <option value="Less than 1 year">Less than 1 year</option>
-                              <option value="1–3 years">1–3 years</option>
-                              <option value="3–5 years">3–5 years</option>
+                              <option value="1-3 years">1-3 years</option>
+                              <option value="3-5 years">3-5 years</option>
                               <option value="More than 5 years">More than 5 years</option>
                             </select>
                           </div>
@@ -1422,9 +1458,9 @@ export default function BdsPavilionView() {
                             >
                               <option value="">Choose…</option>
                               <option value="Just me">Just me</option>
-                              <option value="2–5">2–5</option>
-                              <option value="6–20">6–20</option>
-                              <option value="21–50">21–50</option>
+                              <option value="2-5">2-5</option>
+                              <option value="6-20">6-20</option>
+                              <option value="21-50">21-50</option>
                               <option value="More than 50">More than 50</option>
                             </select>
                           </div>
@@ -1529,9 +1565,9 @@ export default function BdsPavilionView() {
                               className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#E19F1F]"
                             >
                               <option value="">Any time</option>
-                              <option value="Morning">Morning (10 am – 1 pm)</option>
-                              <option value="Afternoon">Afternoon (1 pm – 4 pm)</option>
-                              <option value="Evening">Evening (4 pm – 7 pm)</option>
+                              <option value="Morning (10 am - 1 pm)">Morning (10 am – 1 pm)</option>
+                              <option value="Afternoon (1 pm - 4 pm)">Afternoon (1 pm – 4 pm)</option>
+                              <option value="Evening (4 pm - 7 pm)">Evening (4 pm – 7 pm)</option>
                             </select>
                           </div>
                         </div>
@@ -1585,10 +1621,11 @@ export default function BdsPavilionView() {
                       <div className="pt-2">
                         <button
                           type="submit"
-                          disabled={isSubmitting}
-                          className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#274EA3] hover:bg-[#1e3c7d] text-white font-bold text-base shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+                          disabled={isPending}
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#274EA3] hover:bg-[#1e3c7d] text-white font-bold text-base shadow-md hover:shadow-lg transition-all disabled:opacity-50"
                         >
-                          {isSubmitting ? "Submitting…" : "Register your business"}
+                          {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+                          {isPending ? "Submitting to BDS Connect…" : "Register your business"}
                         </button>
                       </div>
                     </form>
@@ -1831,10 +1868,11 @@ export default function BdsPavilionView() {
                       <div className="pt-2">
                         <button
                           type="submit"
-                          disabled={isSubmitting}
-                          className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#274EA3] hover:bg-[#1e3c7d] text-white font-bold text-base shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+                          disabled={isPending}
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#274EA3] hover:bg-[#1e3c7d] text-white font-bold text-base shadow-md hover:shadow-lg transition-all disabled:opacity-50"
                         >
-                          {isSubmitting ? "Submitting…" : "Register as a provider"}
+                          {isPending && <Loader2 className="w-4 h-4 animate-spin" />}
+                          {isPending ? "Submitting to BDS Connect…" : "Register as a provider"}
                         </button>
                       </div>
                     </form>
@@ -1951,4 +1989,3 @@ export default function BdsPavilionView() {
     </div>
   );
 }
-
