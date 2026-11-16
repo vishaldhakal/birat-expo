@@ -3,7 +3,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export const navItems = [
+export type NavItem =
+  | {
+      title: string;
+      items: Array<{ title: string; href: string }>;
+      href?: undefined;
+      className?: string;
+      rel?: string;
+      subtitle?: string;
+      subtitleClass?: string;
+    }
+  | {
+      title: string;
+      href: string;
+      items?: undefined;
+      className?: string;
+      rel?: string;
+      subtitle?: string;
+      subtitleClass?: string;
+    };
+
+export const navItems: NavItem[] = [
   {
     title: "Book Stalls",
     items: [
@@ -38,10 +58,9 @@ export const navItems = [
     href: "/sponsorship",
   },
   {
-    title: "Live Training",
-    href: "/live-training",
-    className: "",
-    rel: "",
+    title: "Learn & Work",
+    href: "/learn-and-work",
+    subtitle: "Platform",
     subtitleClass: "text-green-700",
   },
   {
