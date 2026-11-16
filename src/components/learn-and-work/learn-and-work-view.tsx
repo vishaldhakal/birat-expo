@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { createBooking } from "@/api/learnAndWork";
+import { DAYS as API_DAYS, generateRef } from "@/constants/learnAndWork";
 import {
   Compass,
   HeartPulse,
@@ -233,9 +235,12 @@ export default function LearnAndWorkView() {
 
   // Validation errors
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Submission state
   const [submittedBooking, setSubmittedBooking] = useState<{
+    id?: number;
     ref: string;
     zone: string;
     date: string;
@@ -248,6 +253,7 @@ export default function LearnAndWorkView() {
     email: string;
     students: string;
     note: string;
+    detail?: string;
   } | null>(null);
 
   const [copied, setCopied] = useState(false);
@@ -312,8 +318,8 @@ export default function LearnAndWorkView() {
 
   // Generate Reference Code
   const getReferenceCode = (zoneIdx: number, dayIdx: number, slotId: string) => {
-    const dateNum = EXPO_DAYS[dayIdx]?.dateNum || 17;
-    return `LWP-Z${zoneIdx + 1}-${dateNum}${slotId}`;
+    const dayCode = API_DAYS[dayIdx]?.d || "1217";
+    return generateRef(zoneIdx, dayCode, slotId);
   };
 
   // Validate form
@@ -359,10 +365,11 @@ export default function LearnAndWorkView() {
   };
 
   // Handle Booking Submit
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    setSubmitError(null);
 
+    if (!validateForm()) return;
     if (selectedZoneIndex === null || selectedDayIndex === null || !selectedSlotId) return;
 
     const zone = ZONES[selectedZoneIndex];
@@ -370,37 +377,83 @@ export default function LearnAndWorkView() {
     const slot = TIME_SLOTS.find((s) => s.id === selectedSlotId);
     const refCode = getReferenceCode(selectedZoneIndex, selectedDayIndex, selectedSlotId);
 
-    const booking = {
-      ref: refCode,
+    const payload = {
       zone: zone.title,
       date: day.fullDate,
-      poush: day.poush,
       time: slot?.time || "",
+      ref: refCode,
       school: formData.school.trim(),
       grade: formData.grade.trim(),
       teacher: formData.teacher.trim(),
       phone: formData.phone.trim(),
-      email: formData.email.trim(),
+      email: formData.email.trim() || undefined,
       students: formData.count,
-      note: formData.note.trim(),
+      note: formData.note.trim() || undefined,
     };
 
-    setSubmittedBooking(booking);
-
-    // Save to local storage for user's persistent record
+    setIsSubmitting(true);
     try {
-      const existing = JSON.parse(localStorage.getItem("birat_lwp_bookings") || "[]");
-      existing.unshift({ ...booking, submittedAt: new Date().toISOString() });
-      localStorage.setItem("birat_lwp_bookings", JSON.stringify(existing.slice(0, 10)));
-    } catch {}
+      const response = await createBooking(payload);
 
-    // Scroll to results
-    setTimeout(() => {
-      const resultEl = document.getElementById("booking-result");
-      if (resultEl) {
-        resultEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      const booking = {
+        id: response.id,
+        ref: response.ref || refCode,
+        zone: response.zone || zone.title,
+        date: response.date || day.fullDate,
+        poush: day.poush,
+        time: response.time || slot?.time || "",
+        school: response.school || formData.school.trim(),
+        grade: formData.grade.trim(),
+        teacher: formData.teacher.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+        students: formData.count,
+        note: formData.note.trim(),
+        detail: response.detail,
+      };
+
+      setSubmittedBooking(booking);
+
+      // Save to local storage for user's persistent record
+      try {
+        const existing = JSON.parse(localStorage.getItem("birat_lwp_bookings") || "[]");
+        existing.unshift({ ...booking, submittedAt: new Date().toISOString() });
+        localStorage.setItem("birat_lwp_bookings", JSON.stringify(existing.slice(0, 10)));
+      } catch {}
+
+      // Scroll to results
+      setTimeout(() => {
+        const resultEl = document.getElementById("booking-result");
+        if (resultEl) {
+          resultEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 100);
+    } catch (err: any) {
+      const fieldErrors = err?.fieldErrors || err?.response?.data;
+      if (fieldErrors && typeof fieldErrors === "object") {
+        const newErrors: Record<string, string> = {};
+        for (const [key, val] of Object.entries(fieldErrors)) {
+          const msg = Array.isArray(val) ? val.join(" ") : String(val);
+          if (key === "ref") {
+            newErrors.slot = "This slot is already booked. Please choose another date or session.";
+          } else if (key === "students") {
+            newErrors.count = msg;
+          } else {
+            newErrors[key] = msg;
+          }
+        }
+        setErrors((prev) => ({ ...prev, ...newErrors }));
+        setSubmitError(
+          newErrors.slot
+            ? "Selected slot is already reserved. Please select another time or zone."
+            : err.message || "Failed to submit booking request. Please check the fields below."
+        );
+      } else {
+        setSubmitError(err?.message || "Failed to submit booking request. Please try again.");
       }
-    }, 100);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Generate mailto and WhatsApp strings
@@ -1254,6 +1307,17 @@ export default function LearnAndWorkView() {
               </div>
             </div>
 
+            {/* Global API Error Alert */}
+            {submitError && (
+              <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3">
+                <Info className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="font-semibold">Unable to submit booking</p>
+                  <p className="text-xs text-red-600">{submitError}</p>
+                </div>
+              </div>
+            )}
+
             {/* Submission Button */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-xs text-slate-500">
@@ -1261,9 +1325,14 @@ export default function LearnAndWorkView() {
               </p>
               <button
                 type="submit"
-                className="w-full sm:w-auto px-10 py-4 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-base shadow-xl shadow-blue-600/25 transition-all flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className={`w-full sm:w-auto px-10 py-4 rounded-full font-bold text-base shadow-xl transition-all flex items-center justify-center gap-2 ${
+                  isSubmitting
+                    ? "bg-slate-400 text-white cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700 active:scale-95 text-white shadow-blue-600/25"
+                }`}
               >
-                <span>Submit Booking Request</span>
+                <span>{isSubmitting ? "Submitting Request..." : "Submit Booking Request"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

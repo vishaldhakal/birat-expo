@@ -22,17 +22,23 @@ export default function AdminPage() {
 
         <div className="flex items-center gap-3">
           <Link
+            href="/admin/learn-and-work"
+            className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition shadow-sm"
+          >
+            Learn & Work
+          </Link>
+          <Link
             href="/admin/sponsors"
             className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition shadow-sm"
           >
             Sponsors
           </Link>
-          <a
+          <Link
             href="/admin/thematic-registrations"
             className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
           >
             Business Summit
-          </a>
+          </Link>
           <a
             href="https://cim.baliyoventures.com/api/export"
             className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
