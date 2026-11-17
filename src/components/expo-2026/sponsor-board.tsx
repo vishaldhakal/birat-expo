@@ -75,105 +75,90 @@ export default function SponsorBoard2026() {
           {/* ── ROW 1: Organizer, Title, Powered By, Diamond, Gold ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
             {/* ORGANIZER (1.png) */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Organizer
               </div>
-              <div className="w-full h-28 sm:h-32 flex items-center justify-center p-2">
+              <div className="w-full h-28 sm:h-36 flex items-center justify-center p-2">
                 <img
                   src="/birat-expo-2026/images/partners/1.png"
-                  alt="Chamber of Industries, Morang (उद्योग संगठन मोरङ - CIM)"
+                  alt="Chamber of Industries, Morang (उद्योग संगठन मोरङ)"
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
-              </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                उद्योग संगठन मोरङ (CIM)
               </div>
             </div>
 
             {/* TITLE SPONSOR */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Title Sponsor
               </div>
-              <div className="w-full h-28 sm:h-32 flex items-center justify-center p-2">
+              <div className="w-full h-28 sm:h-36 flex items-center justify-center p-2">
                 <img
                   src="/birat-expo-2026/images/partners/xtream.png"
                   alt="Xtreme Energy Drink"
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Xtreme Energy Drink
-              </div>
             </div>
 
             {/* POWERED BY */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Powered By
               </div>
-              <div className="w-full h-28 sm:h-32 flex items-center justify-center p-2">
+              <div className="w-full h-28 sm:h-36 flex items-center justify-center p-2">
                 <img
                   src="/birat-expo-2026/images/partners/century-logo.png"
                   alt="Century Spices and Snacks"
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Century Spices &amp; Snacks
-              </div>
             </div>
 
             {/* DIAMOND SPONSORS */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Diamond Sponsors
               </div>
-              <div className="w-full h-28 sm:h-32 grid grid-cols-2 gap-3 items-center justify-center p-2">
+              <div className="w-full h-28 sm:h-36 grid grid-cols-2 gap-3 items-center justify-center p-2">
                 <div className="h-full flex items-center justify-center">
                   <img
                     src="/birat-expo-2026/images/partners/magic-logo.png"
                     alt="Magic Footwear"
-                    className="max-h-16 sm:max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                    className="max-h-20 sm:max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                   />
                 </div>
                 <div className="h-full flex items-center justify-center">
                   <img
                     src="/birat-expo-2026/images/partners/shikhar-insurance-logo.png"
                     alt="Shikhar Insurance"
-                    className="max-h-16 sm:max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                    className="max-h-20 sm:max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                   />
                 </div>
-              </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Magic · Shikhar
               </div>
             </div>
 
             {/* GOLD SPONSORS */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Gold Sponsors
               </div>
-              <div className="w-full h-28 sm:h-32 grid grid-cols-2 gap-3 items-center justify-center p-2">
+              <div className="w-full h-28 sm:h-36 grid grid-cols-2 gap-3 items-center justify-center p-2">
                 <div className="h-full flex items-center justify-center">
                   <img
                     src="/birat-expo-2026/images/partners/nabil-bank-logo.png"
                     alt="Nabil Bank"
-                    className="max-h-16 sm:max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                    className="max-h-20 sm:max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                   />
                 </div>
                 <div className="h-full flex items-center justify-center">
                   <img
                     src="/birat-expo-2026/images/partners/NLG.png"
                     alt="NLG Insurance"
-                    className="max-h-16 sm:max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
+                    className="max-h-20 sm:max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                   />
                 </div>
-              </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Nabil Bank · NLG
               </div>
             </div>
           </div>
@@ -210,23 +195,27 @@ export default function SponsorBoard2026() {
 
           {/* ── ROW 3: Promoter & Supported By ── */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
-            {/* PROMOTER (5 cols) */}
+            {/* PROMOTER (Names shown only here like in the image) */}
             <div className="lg:col-span-5 bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
               <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 text-center mb-4">
                 Promoter
               </div>
               <div className="grid grid-cols-3 gap-3 sm:gap-4 items-center">
-                {/* Promoter 1: Koshi Province */}
+                {/* Promoter 1: Koshi Province Government */}
                 <div className="flex flex-col items-center text-center group">
                   <div className="w-full h-20 sm:h-24 flex items-center justify-center p-1.5">
                     <img
                       src="/birat-expo-2026/images/partners/koshi-province-logo.png"
-                      alt="Koshi Province Government (कोशी प्रदेश सरकार)"
+                      alt="Koshi Province Government"
                       className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-200"
                     />
                   </div>
-                  <span className="text-[11px] font-bold text-gray-700 mt-1.5">Koshi Province</span>
-                  <span className="text-[9px] text-gray-500">Government</span>
+                  <span className="text-[10px] sm:text-[11px] font-bold text-gray-700 mt-1.5 leading-tight">
+                    Koshi Province
+                  </span>
+                  <span className="text-[9px] text-gray-500 leading-tight">
+                    Government
+                  </span>
                 </div>
 
                 {/* Promoter 2: Biratnagar Metropolitan City */}
@@ -234,12 +223,16 @@ export default function SponsorBoard2026() {
                   <div className="w-full h-20 sm:h-24 flex items-center justify-center p-1.5">
                     <img
                       src="/birat-expo-2026/images/partners/biratnagar-metropolitan-logo.png"
-                      alt="Biratnagar Metropolitan City (विराटनगर महानगरपालिका)"
+                      alt="Biratnagar Metropolitan City"
                       className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-200"
                     />
                   </div>
-                  <span className="text-[11px] font-bold text-gray-700 mt-1.5">Biratnagar</span>
-                  <span className="text-[9px] text-gray-500">Metropolitan</span>
+                  <span className="text-[10px] sm:text-[11px] font-bold text-gray-700 mt-1.5 leading-tight">
+                    Biratnagar
+                  </span>
+                  <span className="text-[9px] text-gray-500 leading-tight">
+                    Metropolitan
+                  </span>
                 </div>
 
                 {/* Promoter 3: Morang Udyog Byapar Sangh */}
@@ -247,17 +240,15 @@ export default function SponsorBoard2026() {
                   <div className="w-full h-20 sm:h-24 flex items-center justify-center p-1.5">
                     <img
                       src="/birat-expo-2026/images/partners/morang-udhyog-byapar-logo.png"
-                      alt="Morang Udyog Byapar Sangh (मोरङ उद्योग व्यापार संघ)"
+                      alt="Morang Udyog Byapar Sangh"
                       className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-200"
                     />
                   </div>
-                  <span className="text-[11px] font-bold text-gray-700 mt-1.5">मोरङ उद्योग</span>
-                  <span className="text-[9px] text-gray-500">व्यापार संघ</span>
                 </div>
               </div>
             </div>
 
-            {/* SUPPORTED BY (7 cols) */}
+            {/* SUPPORTED BY (Logos only without extra bottom names) */}
             <div className="lg:col-span-7 bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
               <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 text-center mb-4">
                 Supported By
@@ -265,50 +256,36 @@ export default function SponsorBoard2026() {
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 items-center">
                 {[
                   {
-                    name: "Morang Udyog Byapar Sangh",
-                    src: "/birat-expo-2026/images/partners/morang-udhyog-byapar-logo.png",
-                    title: "मोरङ उद्योग",
-                    sub: "व्यापार संघ",
+                    name: "FNCCI Koshi Province",
+                    src: "/birat-expo-2026/images/partners/fncci-koshi-logo.png",
                   },
                   {
                     name: "Degree Campus T.U.",
                     src: "/birat-expo-2026/images/partners/degree-campus-logo.png",
-                    title: "Degree Campus",
-                    sub: "T.U. Biratnagar",
                   },
                   {
                     name: "NYEF Biratnagar",
                     src: "/birat-expo-2026/images/partners/NYEF-brt-logo.png",
-                    title: "NYEF",
-                    sub: "Biratnagar",
                   },
                   {
                     name: "Birat Byapar Sangh",
                     src: "/birat-expo-2026/images/partners/Birat-byapar-sangh-logo.png",
-                    title: "विराट व्यापार संघ",
-                    sub: "Biratnagar",
                   },
                   {
                     name: "Morang Automobile Dealers",
                     src: "/birat-expo-2026/images/partners/morang-automobile-dealers-association-logo.png",
-                    title: "Auto Dealers",
-                    sub: "Association",
                   },
                 ].map((item) => (
-                  <div key={item.name} className="flex flex-col items-center text-center group">
-                    <div className="w-full h-20 sm:h-24 flex items-center justify-center p-1.5">
-                      <img
-                        src={item.src}
-                        alt={item.name}
-                        className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-200"
-                      />
-                    </div>
-                    <span className="text-[11px] font-bold text-gray-700 mt-1.5 truncate max-w-full">
-                      {item.title}
-                    </span>
-                    <span className="text-[9px] text-gray-500 truncate max-w-full">
-                      {item.sub}
-                    </span>
+                  <div
+                    key={item.name}
+                    className="w-full h-20 sm:h-24 flex items-center justify-center p-1.5 rounded-xl hover:bg-gray-50 transition-colors group"
+                    title={item.name}
+                  >
+                    <img
+                      src={item.src}
+                      alt={item.name}
+                      className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-200"
+                    />
                   </div>
                 ))}
               </div>
@@ -353,8 +330,8 @@ export default function SponsorBoard2026() {
           {/* ── ROW 5: Special Category Partners ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {/* ICE CREAM PARTNER */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Ice Cream Partner
               </div>
               <div className="w-full h-24 sm:h-28 flex items-center justify-center p-2">
@@ -364,14 +341,11 @@ export default function SponsorBoard2026() {
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Marvelous Ice Cream
-              </div>
             </div>
 
             {/* ENERGY PARTNER */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Energy Partner
               </div>
               <div className="w-full h-24 sm:h-28 flex items-center justify-center p-2">
@@ -381,14 +355,11 @@ export default function SponsorBoard2026() {
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Max Tiger Energy Drink
-              </div>
             </div>
 
             {/* HYDRATION PARTNER */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Hydration Partner
               </div>
               <div className="w-full h-24 sm:h-28 flex items-center justify-center p-2">
@@ -398,14 +369,11 @@ export default function SponsorBoard2026() {
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Bam Bam!
-              </div>
             </div>
 
             {/* SOUND SYSTEM PARTNER */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Sound System Partner
               </div>
               <div className="w-full h-24 sm:h-28 flex items-center justify-center p-2">
@@ -415,17 +383,14 @@ export default function SponsorBoard2026() {
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Royal Planners
-              </div>
             </div>
           </div>
 
           {/* ── ROW 6: Media & Digital Partners ── */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
             {/* OUTDOOR ADVERTISING PARTNER */}
-            <div className="w-full sm:w-80 bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="w-full sm:w-80 bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Outdoor Advertising Partner
               </div>
               <div className="w-full h-24 sm:h-28 flex items-center justify-center p-2">
@@ -435,14 +400,11 @@ export default function SponsorBoard2026() {
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                Akriti Advertising
-              </div>
             </div>
 
             {/* DIGITAL PARTNER */}
-            <div className="w-full sm:w-80 bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-2">
+            <div className="w-full sm:w-80 bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col justify-between items-center text-center group hover:shadow-md transition-all duration-200">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-gray-500 mb-3">
                 Digital Partner
               </div>
               <div className="w-full h-24 sm:h-28 flex items-center justify-center p-2">
@@ -451,9 +413,6 @@ export default function SponsorBoard2026() {
                   alt="SPARKTech"
                   className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
-              </div>
-              <div className="mt-2 text-xs font-bold text-gray-800 leading-tight">
-                SPARKTech
               </div>
             </div>
           </div>
