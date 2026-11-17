@@ -1,4 +1,5 @@
 import React from "react";
+import SponsorBoard2026 from "./sponsor-board";
 
 const partners = [
   {
@@ -56,7 +57,7 @@ export default function Partners2026() {
           {partners.map((partner) => (
             <div
               key={partner.name}
-              className="group relative bg-white border border-gray-200/80 rounded-2xl overflow-hidden flex flex-col justify-between -xs hover:-md transition-all duration-200"
+              className="group relative bg-white border border-gray-200/80 rounded-2xl overflow-hidden flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-200"
             >
               {/* Image box */}
               <div className="relative w-full h-56 sm:h-64 bg-gray-50/60 border-b border-gray-100 shrink-0 flex items-center justify-center p-6">
@@ -90,6 +91,9 @@ export default function Partners2026() {
             </div>
           ))}
         </div>
+
+        {/* ── Official Sponsor & Partner Board ── */}
+        <SponsorBoard2026 />
       </div>
     </section>
   );
