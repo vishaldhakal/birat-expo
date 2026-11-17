@@ -146,7 +146,7 @@ export default function FloorPlan2026() {
                 </div>
 
                 <a
-                  href="/birat-expo-2026/Birat20Expo20Floor20plan202026-04.pdf"
+                  href="/birat-expo-2026/floorplan1.jpeg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition border border-gray-200 hidden sm:flex"
@@ -171,9 +171,8 @@ export default function FloorPlan2026() {
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
-              className={`flex-1 relative w-full overflow-hidden bg-gray-100 flex items-center justify-center select-none ${
-                isDragging ? "cursor-grabbing" : "cursor-grab"
-              }`}
+              className={`flex-1 relative w-full overflow-hidden bg-gray-100 flex items-center justify-center select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"
+                }`}
             >
               <div
                 className="transition-transform duration-75 ease-out origin-center"
@@ -182,7 +181,7 @@ export default function FloorPlan2026() {
                 }}
               >
                 <img
-                  src="/birat-expo-2026/floorplan.jpg"
+                  src="/birat-expo-2026/floorplan1.jpeg"
                   alt="Birat Expo 2026 Interactive Floor Plan"
                   className="max-h-[80vh] w-auto object-contain rounded border border-gray-200 shadow-xl bg-white"
                   draggable={false}
