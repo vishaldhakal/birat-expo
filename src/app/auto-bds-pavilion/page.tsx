@@ -82,8 +82,14 @@ const AutoPage = () => {
     }
 
     const type = hasAutoStalls ? "Automobiles" : "BDS Providers Stall";
+    const sortedStalls = [...selectedStalls].sort((a, b) => {
+      const numA = parseInt(a.replace(/\D/g, ""), 10);
+      const numB = parseInt(b.replace(/\D/g, ""), 10);
+      return numA - numB;
+    });
+
     router.push(
-      `/book-stalls?stalls=${selectedStalls.join(
+      `/book-stalls?stalls=${sortedStalls.join(
         ",",
       )}&total=${totalPrice}&type=${type}`,
     );
@@ -119,7 +125,15 @@ const AutoPage = () => {
       {selectedStalls.length > 0 && (
         <div className="fixed gap-4 bottom-8 left-1/2 transform -translate-x-1/2 flex justify-center z-50 bg-white px-10 py-10 rounded-md shadow-lg">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 text-lg rounded-full shadow-lg transition duration-300">
-            Selected ({selectedStalls.join(",")})
+            Selected (
+            {[...selectedStalls]
+              .sort(
+                (a, b) =>
+                  parseInt(a.replace(/\D/g, ""), 10) -
+                  parseInt(b.replace(/\D/g, ""), 10),
+              )
+              .join(", ")}
+            )
           </button>
           <button
             onClick={handleProceed}
