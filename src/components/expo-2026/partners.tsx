@@ -60,12 +60,12 @@ export default function Partners2026() {
               className="group relative bg-white border border-gray-200/80 rounded-2xl overflow-hidden flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-200"
             >
               {/* Image box */}
-              <div className="relative w-full h-56 sm:h-64 bg-gray-50/60 border-b border-gray-100 shrink-0 flex items-center justify-center p-6">
+              <div className="relative w-full h-64 sm:h-72 bg-gray-50/60 border-b border-gray-100 shrink-0 flex items-center justify-center p-4">
                 <img
                   src={partner.image}
                   alt={partner.alt}
                   loading="lazy"
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
 
