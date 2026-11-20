@@ -8,7 +8,7 @@ export const metadata = {
     "One visit, a full check-up for your business and the right expert for every problem. BIRATBAZAAR BDS Connect Pavilion at Birat Expo 2026, Biratnagar. By Chamber of Industries Morang.",
 };
 
-export default function GuidedTourPage() {
+export default function BdsConnectPage() {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* BIRATBAZAAR BDS Connect Pavilion Interactive Experience */}
@@ -19,3 +19,4 @@ export default function GuidedTourPage() {
     </div>
   );
 }
+

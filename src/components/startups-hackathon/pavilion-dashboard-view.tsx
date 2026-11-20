@@ -383,7 +383,7 @@ export default function PavilionDashboardView() {
             </span>
 
             <Link
-              href="/startups-hackathon/enquiry"
+              href="/startup-and-entrepreneurship/enquiry"
               className="inline-flex items-center gap-2 bg-[#e19f1f] hover:bg-[#c98c17] text-white rounded-full px-4 py-2 font-bold shadow-xs transition cursor-pointer"
             >
               <span>Enquiry &amp; Booking Form</span>
@@ -427,7 +427,7 @@ export default function PavilionDashboardView() {
               Take Part
             </a>
             <Link
-              href="/startups-hackathon/enquiry"
+              href="/startup-and-entrepreneurship/enquiry"
               className="px-3 py-1 rounded-md bg-[#e19f1f] text-white hover:bg-[#c98c17] transition-colors font-bold ml-auto cursor-pointer"
             >
               Enquiry Form &rarr;
@@ -716,7 +716,7 @@ export default function PavilionDashboardView() {
               </div>
 
               <Link
-                href="/startups-hackathon/enquiry?track=school"
+                href="/startup-and-entrepreneurship/enquiry?track=school"
                 className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#0e7490] hover:bg-[#e6f4f7] transition-colors flex items-center justify-between group cursor-pointer"
               >
                 <span>Teachers: book a class visit</span>
@@ -761,7 +761,7 @@ export default function PavilionDashboardView() {
               </div>
 
               <Link
-                href="/startups-hackathon/enquiry?track=college"
+                href="/startup-and-entrepreneurship/enquiry?track=college"
                 className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#5b3fa8] hover:bg-[#efebfa] transition-colors flex items-center justify-between group cursor-pointer"
               >
                 <span>Students: join the next workshop</span>
@@ -806,7 +806,7 @@ export default function PavilionDashboardView() {
               </div>
 
               <Link
-                href="/startups-hackathon/enquiry?track=business"
+                href="/startup-and-entrepreneurship/enquiry?track=business"
                 className="px-5 pb-5 pt-3 border-t border-[#e3ecf7] text-xs font-bold text-[#b5651d] hover:bg-[#fbf0e6] transition-colors flex items-center justify-between group cursor-pointer"
               >
                 <span>Owners: get a free Health Check-up</span>
@@ -1079,7 +1079,7 @@ export default function PavilionDashboardView() {
               </div>
               <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
                 <Link
-                  href="/startups-hackathon/enquiry?track=school"
+                  href="/startup-and-entrepreneurship/enquiry?track=school"
                   className="text-xs font-bold text-[#0e7490] hover:underline flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Book class visit or school session</span>
@@ -1104,7 +1104,7 @@ export default function PavilionDashboardView() {
               </div>
               <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
                 <Link
-                  href="/startups-hackathon/enquiry?track=college"
+                  href="/startup-and-entrepreneurship/enquiry?track=college"
                   className="text-xs font-bold text-[#5b3fa8] hover:underline flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Register for next workshop</span>
@@ -1129,7 +1129,7 @@ export default function PavilionDashboardView() {
               </div>
               <div className="mt-4 pt-3 border-t border-[#e3ecf7] flex items-center justify-between gap-2">
                 <Link
-                  href="/startups-hackathon/enquiry?track=business"
+                  href="/startup-and-entrepreneurship/enquiry?track=business"
                   className="text-xs font-bold text-[#b5651d] hover:underline flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Book Health Check-up / Apply</span>

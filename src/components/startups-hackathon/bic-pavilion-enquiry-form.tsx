@@ -382,7 +382,7 @@ export default function BicPavilionEnquiryForm() {
               Submit another enquiry
             </button>
             <Link
-              href="/startups-hackathon"
+              href="/startup-and-entrepreneurship"
               className="w-full sm:w-auto px-6 py-3 rounded-full border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-sm transition text-center"
             >
               Back to Pavilion Overview
@@ -430,7 +430,7 @@ export default function BicPavilionEnquiryForm() {
       {/* Top Breadcrumb */}
       <div className="mb-6 flex items-center justify-between">
         <Link
-          href="/startups-hackathon"
+          href="/startup-and-entrepreneurship"
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#274ea3] hover:underline"
         >
           <ArrowLeft className="w-4 h-4" />

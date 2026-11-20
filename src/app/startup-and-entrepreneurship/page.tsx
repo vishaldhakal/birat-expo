@@ -8,7 +8,7 @@ export const metadata = {
     "Biratnagar Incubation Center (BIC) Startup & Entrepreneurship Pavilion at Birat Expo 2026. Three rooms, open to everyone. Walk in at fourteen with a problem you have noticed, and walk out of the third room as a business ready for investment.",
 };
 
-export default function StartupsHackathonPage() {
+export default function StartupAndEntrepreneurshipPage() {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* Complete Startup & Entrepreneurship Pavilion Dashboard View */}
@@ -19,3 +19,4 @@ export default function StartupsHackathonPage() {
     </div>
   );
 }
+

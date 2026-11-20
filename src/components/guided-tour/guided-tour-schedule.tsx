@@ -45,7 +45,7 @@ export default function GuidedTourSchedule() {
   const router = useRouter();
 
   const handleDateClick = (date: string) => {
-    router.push(`/guided-tour/register?date=${date}`);
+    router.push(`/bds-connect/register?date=${date}`);
   };
 
   return (

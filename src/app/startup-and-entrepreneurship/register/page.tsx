@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function RegisterPage() {
   const [iframeLoaded, setIframeLoaded] = useState(false);
@@ -12,10 +12,10 @@ export default function RegisterPage() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white mb-4">
-            Register for Startups Hackathon
+            Register for Startup &amp; Entrepreneurship Pavilion
           </h1>
           <p className="text-gray-300">
-            Complete the registration form below to participate in the hackathon
+            Complete the registration form below to participate in the pavilion
           </p>
         </div>
 
@@ -48,3 +48,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+
