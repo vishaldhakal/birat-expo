@@ -64,9 +64,9 @@ export const navItems: NavItem[] = [
     subtitleClass: "text-green-700",
   },
   {
-    title: "Guided Tour",
+    title: "BDS Connect",
     href: "/guided-tour",
-    subtitle: "Register Now",
+    subtitle: "Platform",
     subtitleClass: "text-green-700",
   },
   {
@@ -76,7 +76,7 @@ export const navItems: NavItem[] = [
     subtitleClass: "text-green-700",
   },
   {
-    title: "Startup & Hackathon",
+    title: "Startup & Entrepreneurship",
     href: "/startups-hackathon",
     subtitle: "Join Now",
     subtitleClass: "text-green-700",
