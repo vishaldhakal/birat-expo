@@ -16,7 +16,7 @@ import {
   Calendar,
   Clock,
   MapPin,
-  Sparkles,
+  ChevronRight,
   Info,
   Briefcase,
   AlertCircle,
@@ -503,9 +503,10 @@ export default function BdsPavilionView() {
             <a
               href="#register"
               onClick={() => setMobileNavOpen(false)}
-              className="block py-2 text-amber-300 font-bold"
+              className="flex items-center justify-between py-2 text-amber-300 font-bold hover:text-amber-200 transition-colors"
             >
-              Register Now →
+              <span>Register Now</span>
+              <ChevronRight className="w-4 h-4" />
             </a>
           </div>
         )}
@@ -521,8 +522,8 @@ export default function BdsPavilionView() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
               {/* Left Column: Heading, Details, CTAs */}
               <div className="lg:col-span-7 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-bold tracking-wider uppercase text-amber-200">
-                  <Sparkles className="w-4 h-4 text-amber-300" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-bold tracking-wider uppercase text-amber-200 shadow-sm">
+                  <span className="w-2 h-2 rounded-full bg-amber-300 animate-pulse" />
                   Birat Expo 2026 · Chamber of Industries Morang
                 </div>
 
@@ -564,16 +565,17 @@ export default function BdsPavilionView() {
                 <div className="flex flex-wrap gap-4 pt-4">
                   <a
                     href="#register"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-base font-bold text-[#1B1B1B] bg-[#E19F1F] hover:bg-[#d49215] shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-base font-bold text-[#1B1B1B] bg-[#E19F1F] hover:bg-[#d49215] shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 group"
                   >
-                    Register your business
-                    <ArrowRight className="w-4 h-4" />
+                    <span>Register your business</span>
+                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </a>
                   <a
                     href="#how"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-base font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-sm transition-all duration-200"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-base font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-sm transition-all duration-200 group"
                   >
-                    How it works
+                    <span>How it works</span>
+                    <ChevronRight className="w-4 h-4 text-white/70 transition-transform group-hover:translate-x-0.5" />
                   </a>
                 </div>
               </div>
@@ -1923,10 +1925,10 @@ export default function BdsPavilionView() {
                     href="https://cim.org.np"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#274EA3] hover:text-blue-800 font-semibold text-sm inline-flex items-center gap-1.5 hover:underline"
+                    className="text-[#274EA3] hover:text-blue-800 font-semibold text-sm inline-flex items-center gap-1.5 hover:underline group"
                   >
                     <span>Visit CIM Official Website (cim.org.np)</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </a>
                 </div>
               </div>

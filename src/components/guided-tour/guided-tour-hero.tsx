@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ChevronRight } from "lucide-react";
 
 export default function GuidedTourHero() {
   return (
@@ -64,28 +65,17 @@ export default function GuidedTourHero() {
                 className="inline-flex items-center px-8 py-4 text-lg rounded-full text-white font-medium 
                 bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 
                 hover:from-indigo-600 hover:via-indigo-700 hover:to-violet-700 
-                transition-all duration-200 shadow-lg hover:shadow-xl"
+                transition-all duration-200 shadow-lg hover:shadow-xl group"
               >
-                Register Now
-                <svg
-                  className="w-6 h-6 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
+                <span>Register Now</span>
+                <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#schedule"
-                className="text-white font-semibold hover:text-yellow-300 transition-colors duration-200"
+                className="text-white font-semibold hover:text-yellow-300 transition-colors duration-200 inline-flex items-center gap-1 group"
               >
-                View Schedule <span aria-hidden="true">→</span>
+                <span>View Schedule</span>
+                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </div>
 
