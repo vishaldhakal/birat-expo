@@ -112,10 +112,14 @@ const fetcher = async (url: string) => {
 export function useGetLearnAndWorkBookings(filters?: {
   zone?: string;
   date?: string;
+  page?: number;
+  search?: string;
 }) {
   const queryParams = new URLSearchParams();
   if (filters?.zone) queryParams.set("zone", filters.zone);
   if (filters?.date) queryParams.set("date", filters.date);
+  if (filters?.page) queryParams.set("page", String(filters.page));
+  if (filters?.search?.trim()) queryParams.set("search", filters.search.trim());
 
   const queryString = queryParams.toString();
   const url = `${LEARN_AND_WORK_API_BASE_URL}/api/learn-and-work/bookings/${
@@ -134,18 +138,24 @@ export function useGetLearnAndWorkBookings(filters?: {
   const memoizedValue = useMemo(() => {
     let bookingsArray: LearnAndWorkBooking[] = [];
     let count = 0;
+    let nextPage: string | null = null;
+    let previousPage: string | null = null;
 
     if (Array.isArray(data)) {
       bookingsArray = data;
       count = data.length;
     } else if (data && typeof data === "object" && "results" in data) {
       bookingsArray = data.results || [];
-      count = data.count || bookingsArray.length;
+      count = data.count ?? bookingsArray.length;
+      nextPage = data.next ?? null;
+      previousPage = data.previous ?? null;
     }
 
     return {
       bookings: bookingsArray,
       count,
+      nextPage,
+      previousPage,
       isLoading,
       isValidating,
       error,

@@ -25,21 +25,30 @@ type StallBooking = {
   updated_at: string;
 };
 
-export function useGetStallData() {
-  const URL = "https://cim.baliyoventures.com/api/stall/";
+export function useGetStallData(page = 1, search = "") {
+  const params = new URLSearchParams();
+  params.set("page", String(page));
+  if (search.trim()) {
+    params.set("search", search.trim());
+  }
+  const URL = `https://cim.baliyoventures.com/api/stall/?${params.toString()}`;
 
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher);
+  const { data, isLoading, error, isValidating, mutate } = useSWR(URL, fetcher);
 
   const memoizedValue = useMemo(() => {
-    const dataArray = Array.isArray(data) ? data : (data?.results || []);
+    const dataArray = Array.isArray(data) ? data : data?.results || [];
     return {
       stallData: (dataArray as StallBooking[]) || [],
+      totalCount: (data?.count as number) ?? dataArray.length,
+      nextPage: (data?.next as string | null) ?? null,
+      previousPage: (data?.previous as string | null) ?? null,
       stallDataLoading: isLoading,
       stallDataError: error,
       stallDataValidating: isValidating,
       stallDataEmpty: !isLoading && !dataArray.length,
+      mutateStallData: mutate,
     };
-  }, [data, error, isLoading, isValidating]);
+  }, [data, error, isLoading, isValidating, mutate]);
 
   return memoizedValue;
 }

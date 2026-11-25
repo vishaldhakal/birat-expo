@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useGetStallData } from "@/api/admin-data";
 import axios from "axios";
-import { mutate } from "swr";
 import { ArrowDownFromLine, DownloadCloud, Loader } from "lucide-react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyDocument from "./form-pdf";
@@ -55,8 +54,35 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 };
 
 const AdminTable: React.FC = () => {
-  const { stallData, stallDataEmpty, stallDataError, stallDataLoading } =
-    useGetStallData();
+  const [page, setPage] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [pageSize, setPageSize] = useState(50);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchInput);
+      setPage(1);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  const {
+    stallData,
+    totalCount,
+    nextPage,
+    previousPage,
+    stallDataError,
+    stallDataLoading,
+    mutateStallData,
+  } = useGetStallData(page, debouncedSearch);
+
+  useEffect(() => {
+    if (page === 1 && nextPage && stallData.length > 0) {
+      setPageSize(stallData.length);
+    }
+  }, [page, nextPage, stallData.length]);
+
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [sortConfig, setSortConfig] = useState<{
     key: keyof Stall;
@@ -110,7 +136,7 @@ const AdminTable: React.FC = () => {
       if (newStatus === "Approved" && isModalOpen) {
         setIsModalOpen(false);
       }
-      mutate("https://cim.baliyoventures.com/api/stall/");
+      mutateStallData();
     } catch (error) {
       console.error("Error updating status:", error);
     } finally {
@@ -181,25 +207,22 @@ const AdminTable: React.FC = () => {
     return filteredData;
   }, [stallData, filters, sortConfig]);
 
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+  const startItem = totalCount === 0 ? 0 : (page - 1) * pageSize + 1;
+  const endItem = Math.min(page * pageSize, totalCount);
+
   if (stallDataError)
     return <div className="text-red-500">Failed to load data</div>;
-  if (stallDataLoading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  if (stallDataEmpty)
-    return <div className="text-gray-500">No data available</div>;
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <input
           type="text"
+          value={searchInput}
           placeholder="Search all fields"
           className="w-full p-2 border rounded"
-          onChange={(e) => setFilters({ ...filters, global: e.target.value })}
+          onChange={(e) => setSearchInput(e.target.value)}
         />
         <select
           className="w-full p-2 border rounded"
@@ -277,7 +300,22 @@ const AdminTable: React.FC = () => {
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm">
-            {filteredAndSortedData.map((item) => (
+            {stallDataLoading ? (
+              <tr>
+                <td colSpan={9} className="py-12 text-center">
+                  <div className="flex justify-center items-center">
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+                  </div>
+                </td>
+              </tr>
+            ) : filteredAndSortedData.length === 0 ? (
+              <tr>
+                <td colSpan={9} className="py-10 text-center text-gray-500">
+                  No data available
+                </td>
+              </tr>
+            ) : (
+              filteredAndSortedData.map((item) => (
               <tr
                 key={item.id}
                 className="border-b border-gray-200 hover:bg-gray-100"
@@ -371,9 +409,34 @@ const AdminTable: React.FC = () => {
                   </div>
                 </td>
               </tr>
-            ))}
+            ))
+            )}
           </tbody>
         </table>
+      </div>
+      <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-sm text-gray-600">
+          Showing {startItem} to {endItem} of {totalCount} entries
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={!previousPage || page <= 1 || stallDataLoading}
+            className="px-3 py-1.5 border rounded text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          <span className="text-sm text-gray-700 px-2">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => p + 1)}
+            disabled={!nextPage || stallDataLoading}
+            className="px-3 py-1.5 border rounded text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {selectedStall && (

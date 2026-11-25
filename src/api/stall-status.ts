@@ -51,10 +51,10 @@ export type SponsorStallType = {
   contact_number: string;
 };
 
-export function useGetSponsorStallStatus() {
-  const URL = `https://cim.baliyoventures.com/api/sponsor/`;
+export function useGetSponsorStallStatus(page = 1) {
+  const URL = `https://cim.baliyoventures.com/api/sponsor/?page=${page}`;
 
-  const { data, isLoading, error, isValidating } = useSWR<any>(
+  const { data, isLoading, error, isValidating, mutate } = useSWR<any>(
     URL,
     fetcher
   );
@@ -63,12 +63,16 @@ export function useGetSponsorStallStatus() {
     const dataArray = Array.isArray(data) ? data : (data?.results || []);
     return {
       sponsorStallStatus: dataArray as SponsorStallType[],
+      totalCount: (data?.count as number) ?? dataArray.length,
+      nextPage: (data?.next as string | null) ?? null,
+      previousPage: (data?.previous as string | null) ?? null,
       sponsorStallStatusLoading: isLoading,
       sponsorStallStatusError: error,
       sponsorStallStatusValidating: isValidating,
       sponsorStallStatusEmpty: !isLoading && !dataArray.length,
+      mutateSponsorStalls: mutate,
     };
-  }, [data, error, isLoading, isValidating]);
+  }, [data, error, isLoading, isValidating, mutate]);
 
   return memoizedValue;
 }

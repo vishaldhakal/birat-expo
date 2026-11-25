@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { mutate } from "swr";
 import {
@@ -34,11 +34,24 @@ const getTierBadgeStyle = (tier: string) => {
 };
 
 export default function SponsorAdminTable() {
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
+
   const {
     sponsorStallStatus,
+    totalCount,
+    nextPage,
+    previousPage,
     sponsorStallStatusLoading,
     sponsorStallStatusError,
-  } = useGetSponsorStallStatus();
+    mutateSponsorStalls,
+  } = useGetSponsorStallStatus(page);
+
+  useEffect(() => {
+    if (page === 1 && nextPage && sponsorStallStatus.length > 0) {
+      setPageSize(sponsorStallStatus.length);
+    }
+  }, [page, nextPage, sponsorStallStatus.length]);
 
   // Edit Modal State
   const [editingSponsor, setEditingSponsor] = useState<SponsorStallType | null>(null);
@@ -328,6 +341,35 @@ export default function SponsorAdminTable() {
             </table>
           </div>
         )}
+        <div className="px-5 py-3 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+          <span>
+            Showing{" "}
+            <strong>{totalCount === 0 ? 0 : (page - 1) * pageSize + 1}</strong>{" "}
+            to <strong>{Math.min(page * pageSize, totalCount)}</strong> of{" "}
+            <strong>{totalCount}</strong> sponsors
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={!previousPage || page <= 1 || sponsorStallStatusLoading}
+              className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs font-medium bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            >
+              Previous
+            </button>
+            <span className="text-xs text-gray-700 px-1">
+              Page {page} of {Math.max(1, Math.ceil(totalCount / pageSize))}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPage((p) => p + 1)}
+              disabled={!nextPage || sponsorStallStatusLoading}
+              className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs font-medium bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* ─── EDIT DIALOG ───────────────────────────────────────────────────────── */}

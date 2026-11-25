@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   Search,
@@ -30,12 +30,36 @@ export default function LearnAndWorkAdminTable() {
   const [selectedZone, setSelectedZone] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(50);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+      setPage(1);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [selectedZone, selectedDate]);
 
   // SWR data
-  const { bookings, isLoading, error, mutate } = useGetLearnAndWorkBookings({
-    zone: selectedZone || undefined,
-    date: selectedDate || undefined,
-  });
+  const { bookings, count, nextPage, previousPage, isLoading, error, mutate } =
+    useGetLearnAndWorkBookings({
+      zone: selectedZone || undefined,
+      date: selectedDate || undefined,
+      page,
+      search: debouncedSearch || undefined,
+    });
+
+  useEffect(() => {
+    if (page === 1 && nextPage && bookings.length > 0) {
+      setPageSize(bookings.length);
+    }
+  }, [page, nextPage, bookings.length]);
 
   // Modal state
   const [selectedBooking, setSelectedBooking] = useState<LearnAndWorkBooking | null>(null);
@@ -451,13 +475,33 @@ export default function LearnAndWorkAdminTable() {
           </table>
         </div>
 
-        {/* Footer info */}
-        <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+        {/* Footer info & Pagination */}
+        <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
           <span>
-            Showing <strong>{filteredBookings.length}</strong> of{" "}
-            <strong>{bookings?.length || 0}</strong> total bookings
+            Showing{" "}
+            <strong>{count === 0 ? 0 : (page - 1) * pageSize + 1}</strong> to{" "}
+            <strong>{Math.min(page * pageSize, count)}</strong> of{" "}
+            <strong>{count}</strong> total bookings
           </span>
-          <span>Birat Expo 2026 · Learn & Work Hub</span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={!previousPage || page <= 1 || isLoading}
+              className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs font-medium bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            >
+              Previous
+            </button>
+            <span className="text-xs text-gray-700 px-1">
+              Page {page} of {Math.max(1, Math.ceil(count / pageSize))}
+            </span>
+            <button
+              onClick={() => setPage((p) => p + 1)}
+              disabled={!nextPage || isLoading}
+              className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs font-medium bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
 
